@@ -10,6 +10,9 @@
 .svn/
 migrate_working_dir/
 /backend/node_modules
+/backend/db
+/backend/mysql
+
 # IntelliJ related
 *.iml
 *.ipr

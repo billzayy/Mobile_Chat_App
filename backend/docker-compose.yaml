@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  nodejs:
+    container_name: nodejs
+    image: coderbillzay/project-3
+    ports: 
+      - '3000:3000'
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    restart: always
+    links:
+      - db
+
+  db:
+    container_name: db
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=project_3
+      - MYSQL_ROOT_PASSWORD=mysql
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
