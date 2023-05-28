@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:software_project_3/src/pesentation/login/login_ctrl.dart';
 import 'package:software_project_3/src/pesentation/login/login_view.dart';
+import 'package:software_project_3/src/pesentation/sign/sign_ctrl.dart';
+import 'package:software_project_3/src/pesentation/sign/sign_view.dart';
 
 class RouterConfigs {
   static final List<GetPage> routes = [
@@ -9,20 +11,20 @@ class RouterConfigs {
       page: () => const LoginView(),
       binding: BindingsBuilder(
         () {
-          Get.put(LoginController());
+          Get.lazyPut(() => LoginController());
         },
       ),
     ),
-    // GetPage(
-    //   name: DashBoardView.routeName,
-    //   page: () => const DashBoardView(),
-    //   binding: BindingsBuilder(
-    //         () {
-    //       Get.put(HomeController());
-    //       Get.put(DashBoardController());
-    //     },
-    //   ),
-    // ),
+    GetPage(
+      name: SignView.routeName,
+      page: () => const SignView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => SignController());
+          // Get.put(DashBoardController());
+        },
+      ),
+    ),
     // ...TinTucRouterConfigs.router
   ];
 }
