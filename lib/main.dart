@@ -3,7 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/core/global_binding.dart';
 import 'package:software_project_3/core/router_config.dart';
-import 'package:software_project_3/src/pesentation/login/login_view.dart';
+
+import 'src/pesentation/app_start.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       // theme: CoreTheme.theme,
-      initialRoute: LoginView.routeName,
+      initialRoute: AppStartView.routeName,
     );
   }
 }
