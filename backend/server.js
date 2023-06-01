@@ -27,7 +27,7 @@ app.get('/api/get-user', (req, res) => {
     })
 })
 
-app.get('/api/auth-user/', (req, res) => {
+app.get('/api/login/', (req, res) => {
     var phone = req.query.phone;
     var email = req.query.email;
     var username = req.query.username;
