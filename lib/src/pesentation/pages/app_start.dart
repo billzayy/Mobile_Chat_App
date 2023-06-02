@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:software_project_3/src/pesentation/login/login_view.dart';
+import 'package:software_project_3/src/pesentation/pages/root_app.dart';
 
 class AppStartView extends StatefulWidget {
   static const String routeName = '/';
@@ -21,7 +21,7 @@ class _AppStartViewState extends State<AppStartView> {
         //   await AppInit.initModule();
         // }
 
-        Get.offAllNamed(LoginView.routeName);
+        Get.offAllNamed(RootApp.routerName);
       },
     );
 
