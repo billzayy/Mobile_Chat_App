@@ -1,9 +1,15 @@
 import 'package:get/get.dart';
-import 'package:software_project_3/src/pesentation/app_start.dart';
-import 'package:software_project_3/src/pesentation/login/login_ctrl.dart';
-import 'package:software_project_3/src/pesentation/login/login_view.dart';
-import 'package:software_project_3/src/pesentation/sign/sign_ctrl.dart';
-import 'package:software_project_3/src/pesentation/sign/sign_view.dart';
+import 'package:software_project_3/src/pesentation/pages/app_start.dart';
+import 'package:software_project_3/src/pesentation/pages/login/login_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
+
+import 'package:software_project_3/src/pesentation/pages/root_app.dart';
+
+import '../src/pesentation/pages/room_chat/room_chat_ctrl.dart';
+import '../src/pesentation/pages/room_chat/room_chat_view.dart';
+import '../src/pesentation/pages/sign/sign_ctrl.dart';
+import '../src/pesentation/pages/sign/sign_view.dart';
+
 
 class RouterConfigs {
   static final List<GetPage> routes = [
@@ -30,6 +36,19 @@ class RouterConfigs {
         },
       ),
     ),
-    // ...TinTucRouterConfigs.router
+    GetPage(
+      name: RootApp.routerName,
+      page: () => const RootApp(),
+    ),
+    GetPage(
+      name: RoomChatView.routerName,
+      page: () => const RoomChatView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => RoomChatController());
+          // Get.put(DashBoardController());
+        },
+      ),
+    ),
   ];
 }

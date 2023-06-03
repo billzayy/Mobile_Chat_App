@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:software_project_3/src/pesentation/login/login_ctrl.dart';
-import 'package:software_project_3/src/pesentation/sign/sign_view.dart';
+import 'package:software_project_3/src/pesentation/pages/login/login_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/root_app.dart';
+import 'package:software_project_3/src/pesentation/pages/sign/sign_view.dart';
 
 class LoginView extends GetView<LoginController> {
   static const String routeName = '/LoginView';
@@ -123,7 +124,7 @@ class LoginView extends GetView<LoginController> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.teal[800],
                         ),
-                        onPressed: () {},
+                        onPressed: () => Get.toNamed(RootApp.routerName),
                         child: Text(
                           'Login',
                           style: Get.theme.textTheme.bodyMedium
