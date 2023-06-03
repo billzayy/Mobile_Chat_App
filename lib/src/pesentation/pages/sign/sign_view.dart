@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:software_project_3/src/pesentation/login/login_view.dart';
-import 'package:software_project_3/src/pesentation/sign/sign_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
+import 'package:software_project_3/src/pesentation/pages/sign/sign_ctrl.dart';
+
 
 class SignView extends GetView<SignController> {
   static const String routeName = '/SignView';
