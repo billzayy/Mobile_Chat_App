@@ -12,7 +12,7 @@ migrate_working_dir/
 /backend/node_modules
 /backend/db
 /backend/mysql
-
+/backend/SP3_DB.session.sql
 # IntelliJ related
 *.iml
 *.ipr
