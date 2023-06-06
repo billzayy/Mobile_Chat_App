@@ -1,8 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:software_project_3/config/theme_material.dart';
 import 'package:software_project_3/core/global_binding.dart';
 import 'package:software_project_3/core/router_config.dart';

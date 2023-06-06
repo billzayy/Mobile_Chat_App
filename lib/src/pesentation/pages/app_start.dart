@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:software_project_3/config/localVariable.dart';
+import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 import 'package:software_project_3/src/pesentation/pages/root_app.dart';
 
 class AppStartView extends StatefulWidget {
@@ -16,12 +19,14 @@ class _AppStartViewState extends State<AppStartView> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) async {
-        // bool isLogin = Storage.instance.readBool(Constant.isLoginKey);
-        // if (isLogin) {
-        //   await AppInit.initModule();
-        // }
-
-        Get.offAllNamed(RootApp.routerName);
+        final prefs = await SharedPreferences.getInstance();
+        bool isLogin = prefs.getBool(LocalVariable.isLogin) ?? false;
+        if (isLogin) {
+          print(isLogin);
+          Get.offAllNamed(RootApp.routerName);
+          return;
+        }
+        Get.offAllNamed(LoginView.routeName);
       },
     );
 
