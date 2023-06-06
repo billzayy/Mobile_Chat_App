@@ -6,7 +6,6 @@ import 'package:software_project_3/src/pesentation/pages/goup_chat/goup_chat_vie
 import 'package:software_project_3/src/pesentation/pages/list_chat/list_chat_view.dart';
 import 'package:software_project_3/src/pesentation/pages/profile/profile_view.dart';
 
-
 class RootApp extends StatefulWidget {
   static const routerName = '/RootApp';
   const RootApp({Key? key}) : super(key: key);
@@ -62,22 +61,22 @@ class _RootAppState extends State<RootApp> {
 
 const List rootAppJson = [
   {
-    "icon": "assets/icons/chats-svgrepo-com.svg",
+    "icon": "assets/icons/chats.svg",
     "text": "chats",
     "color": Color(0xff734DDE)
   },
   {
-    "icon": "assets/icons/group-svgrepo-com.svg",
+    "icon": "assets/icons/group.svg",
     "text": "Groups chat",
     "color": Color(0xff734DDE)
   },
   {
-    "icon": "assets/icons/contact-svgrepo-com.svg",
+    "icon": "assets/icons/contact.svg",
     "text": "Contacts",
     "color": Color(0xff734DDE)
   },
   {
-    "icon": "assets/icons/avatar-profile-user-account-person-svgrepo-com.svg",
+    "icon": "assets/icons/avatar.svg",
     "text": "Profile",
     "color": Color(0xff734DDE)
   }

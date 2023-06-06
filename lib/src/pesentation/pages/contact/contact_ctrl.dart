@@ -23,7 +23,6 @@ class ContactController extends GetxController {
     }
     isLoading.call(false);
   }
-
   @override
   void onClose() {
     // TODO: implement onClose
