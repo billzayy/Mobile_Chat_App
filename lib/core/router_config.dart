@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:software_project_3/src/pesentation/pages/app_start.dart';
+import 'package:software_project_3/src/pesentation/pages/contact/contact_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/contact/contact_view.dart';
 import 'package:software_project_3/src/pesentation/pages/login/login_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 
@@ -9,7 +11,6 @@ import '../src/pesentation/pages/room_chat/room_chat_ctrl.dart';
 import '../src/pesentation/pages/room_chat/room_chat_view.dart';
 import '../src/pesentation/pages/sign/sign_ctrl.dart';
 import '../src/pesentation/pages/sign/sign_view.dart';
-
 
 class RouterConfigs {
   static final List<GetPage> routes = [
@@ -37,9 +38,12 @@ class RouterConfigs {
       ),
     ),
     GetPage(
-      name: RootApp.routerName,
-      page: () => const RootApp(),
-    ),
+        name: RootApp.routerName,
+        page: () => const RootApp(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => ContactController());
+          Get.lazyPut(() => RoomChatController());
+        })),
     GetPage(
       name: RoomChatView.routerName,
       page: () => const RoomChatView(),
@@ -50,5 +54,15 @@ class RouterConfigs {
         },
       ),
     ),
+    GetPage(
+      name: ContactView.routerName,
+      page: () => const ContactView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => ContactController());
+        },
+      ),
+    ),
+
   ];
 }

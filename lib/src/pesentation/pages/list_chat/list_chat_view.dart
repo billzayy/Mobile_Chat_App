@@ -48,64 +48,64 @@ class ListChatView extends GetView<ListChatController> {
               ),
             ),
             Expanded(
-                child: ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => Get.toNamed(RoomChatView.routerName),
-                        child: Card(
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: Get.width * 0.2,
-                                height: Get.width * 0.2,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: ClipOval(
-                                    child: ExtendedImage.network(
-                                      '',
-                                      fit: BoxFit.cover,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5)),
-                                      shape: BoxShape.rectangle,
-                                      loadStateChanged:
-                                          (ExtendedImageState state) {
-                                        switch (state.extendedImageLoadState) {
-                                          case LoadState.loading:
-                                            return const Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            );
-                                          case LoadState.completed:
-                                            return null;
-                                          case LoadState.failed:
-                                            return Image.asset(
-                                              ImageAssets.defaultUser,
-                                            );
-                                        }
-                                      },
-                                    ),
-                                  ),
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => Get.toNamed(RoomChatView.routerName),
+                    child: Card(
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width * 0.2,
+                            height: Get.width * 0.2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: ClipOval(
+                                child: ExtendedImage.network(
+                                  '',
+                                  fit: BoxFit.cover,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
+                                  shape: BoxShape.rectangle,
+                                  loadStateChanged: (ExtendedImageState state) {
+                                    switch (state.extendedImageLoadState) {
+                                      case LoadState.loading:
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      case LoadState.completed:
+                                        return null;
+                                      case LoadState.failed:
+                                        return Image.asset(
+                                          ImageAssets.defaultUser,
+                                        );
+                                    }
+                                  },
                                 ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'user name',
-                                    style: Get.theme.textTheme.titleMedium,
-                                  ),
-                                  Text(
-                                    'New Messages',
-                                    style: Get.theme.textTheme.titleSmall,
-                                  )
-                                ],
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'user name',
+                                style: Get.theme.textTheme.titleMedium,
+                              ),
+                              Text(
+                                'New Messages',
+                                style: Get.theme.textTheme.titleSmall,
                               )
                             ],
-                          ),
-                        ),
-                      );
-                    }))
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

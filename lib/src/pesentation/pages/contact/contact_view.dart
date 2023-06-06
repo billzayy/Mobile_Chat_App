@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/src/pesentation/common_widgets/common_appbar.dart';
@@ -16,26 +14,24 @@ class ContactView extends GetView<ContactController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CommonAppbar(
-          title: 'Contacts',
-        ),
-        body: Container(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: const Text(
-                    "My Contact",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  )),
-              Expanded(
-                  child: ListView.builder(
-                      itemCount: 1,
+      appBar: const CommonAppbar(
+        title: 'Contacts',
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Danh sach ban be'),
+          Expanded(
+            child: Obx(
+              () {
+                if (controller.isLoading.isTrue) {
+                  return const CircularProgressIndicator();
+                } else {
+                  return ListView.builder(
+                      itemCount: controller.userContact.length,
                       itemBuilder: (context, index) {
-                        return const Column(
+                        final item = controller.userContact[index];
+                        return Column(
                           children: <Widget>[
                             ContactList(
                               charInput: "A",
@@ -49,12 +45,16 @@ class ContactView extends GetView<ContactController> {
                               charInput: "C",
                               numInput: 4,
                             ),
-                          ],
+                          ],,
                         );
-                      }))
-            ],
-          ),
-        ));
+                      });
+                }
+              },
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -138,7 +138,7 @@ class CardList extends StatelessWidget {
             })
       ],
     );
-  }
+   }
 }
 
 class ContactList extends StatelessWidget {
@@ -156,6 +156,3 @@ class ContactList extends StatelessWidget {
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         CardList(numInput: numInput),
       ],
-    );
-  }
-}
