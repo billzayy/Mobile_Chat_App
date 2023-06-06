@@ -35,7 +35,7 @@ app.get('/api/login/', (req, res) => {
             if (recordset[0].Email == email || recordset[0].Password == password) {
                 res.status(200).send({
                     "message": "Success",
-                    "data": recordset
+                    "data": recordset[0]
                 });
             }
         }
