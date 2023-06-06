@@ -1,10 +1,12 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:software_project_3/config/assets.dart';
+import 'package:software_project_3/config/localVariable.dart';
 import 'package:software_project_3/src/pesentation/common_widgets/common_appbar.dart';
+import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 import 'package:software_project_3/src/pesentation/pages/profile/profile_ctrl.dart';
-
 
 class ProFileView extends GetView<ProFileController> {
   static const String routerName = '/ProFileView';
@@ -52,11 +54,18 @@ class ProFileView extends GetView<ProFileController> {
                     ),
                   ),
                 ),
-                const Column(
+                Column(
                   children: [
-                    Text('user name'),
+                    Text(LocalVariable.userName),
                   ],
-                )
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setBool(LocalVariable.isLogin, false);
+                      Get.offAllNamed(LoginView.routeName);
+                    },
+                    child: Text('thoát'))
               ],
             ),
           ],
