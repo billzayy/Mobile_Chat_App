@@ -1,3 +1,5 @@
+
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/src/domain/model/user_model.dart';
@@ -29,7 +31,6 @@ class UserRepository implements UserService {
       return ApiResponse<List<UserModel>>.error(ex.toString());
     }
   }
-
   @override
   Future<ApiResponse<UserModel>> loginUser(
       String email, String password) async {
