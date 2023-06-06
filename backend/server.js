@@ -59,20 +59,28 @@ app.post('/api/create-user', (req, res) => {
     var fullName = req.body.fullName;
     var phone = req.body.phone;
     var status = "online";
-    sql.conSQL(`INSERT INTO Login (Username, Password, Email, Fullname, Phones, Status) Values ('${userName}','${password}','${email}', '${phone}','${fullName}','${status}')`, (recordset) => {
-        try {
-            res.status(201).send({
-                "message": "Success",
+    sql.conSQL(`select Login.Email from Login Where Login.Email = '${email}'`, (recordset) => {
+        if (recordset[0] != undefined) {
+            res.status(404).send({
+                "message": "Your email has already existed. Please try again !"
             })
         }
-        catch (err) {
-            res.status(400).send({
-                "message": "Failure"
+        else {
+            sql.conSQL(`INSERT INTO Login (Username, Password, Email, Fullname, Phones, Status) Values ('${userName}','${password}','${email}', '${phone}','${fullName}','${status}')`, (recordset) => {
+                try {
+                    res.status(201).send({
+                        "message": "Success",
+                    })
+                }
+                catch (err) {
+                    res.status(400).send({
+                        "message": "Failure"
+                    })
+                }
             })
-         }
+        }
     })
 })
-
 
 app.delete('/api/delete-user', (req, res) => {
     var name = req.body.name;
