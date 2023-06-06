@@ -53,7 +53,6 @@ app.get('/api/login/', (req, res) => {
 })
 
 app.post('/api/create-user', (req, res) => {
-    var userName = req.body.userName;
     var password = req.body.password;
     var email = req.body.email;
     var fullName = req.body.fullName;
@@ -66,7 +65,7 @@ app.post('/api/create-user', (req, res) => {
             })
         }
         else {
-            sql.conSQL(`INSERT INTO Login (Username, Password, Email, Fullname, Phones, Status) Values ('${userName}','${password}','${email}', '${phone}','${fullName}','${status}')`, (recordset) => {
+            sql.conSQL(`INSERT INTO Login (Password, Email, Fullname, Phones, Status) Values ('${password}','${email}', '${fullName}','${phone}','${status}')`, (recordset) => {
                 try {
                     res.status(201).send({
                         "message": "Success",
