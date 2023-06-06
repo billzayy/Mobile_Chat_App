@@ -28,10 +28,11 @@ class ContactView extends GetView<ContactController> {
                   return const CircularProgressIndicator();
                 } else {
                   return ListView.builder(
+                      padding: EdgeInsets.only(left: 10, right: 10),
                       itemCount: controller.userContact.length,
                       itemBuilder: (context, index) {
                         final item = controller.userContact[index];
-                        return Column(
+                        return const Column(
                           children: <Widget>[
                             ContactList(
                               charInput: "A",
@@ -45,7 +46,7 @@ class ContactView extends GetView<ContactController> {
                               charInput: "C",
                               numInput: 4,
                             ),
-                          ],,
+                          ],
                         );
                       });
                 }
@@ -138,7 +139,7 @@ class CardList extends StatelessWidget {
             })
       ],
     );
-   }
+  }
 }
 
 class ContactList extends StatelessWidget {
@@ -156,3 +157,6 @@ class ContactList extends StatelessWidget {
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         CardList(numInput: numInput),
       ],
+    );
+  }
+}
