@@ -60,7 +60,7 @@ class ProFileView extends GetView<ProFileController> {
                       () => Text(
                         controller.fullName.value,
                       ),
-                    ),
+                    )
                   ],
                 ),
                 ElevatedButton(
