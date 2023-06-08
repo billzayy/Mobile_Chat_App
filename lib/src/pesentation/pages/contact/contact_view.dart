@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/src/pesentation/common_widgets/common_appbar.dart';
 import 'package:software_project_3/src/pesentation/pages/contact/contact_ctrl.dart';
-import 'package:software_project_3/config/theme_material.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:software_project_3/config/assets.dart';
 import 'package:software_project_3/src/pesentation/pages/room_chat/room_chat_view.dart';
@@ -10,6 +9,45 @@ import 'package:software_project_3/src/pesentation/pages/room_chat/room_chat_vie
 class ContactView extends GetView<ContactController> {
   static const String routerName = '/ContactView';
   const ContactView({Key? key}) : super(key: key);
+
+  static const List<Map<String, dynamic>> alphabet = [
+    {'letter': 'A', 'count': 0},
+    {'letter': 'B', 'count': 0},
+    {'letter': 'C', 'count': 0},
+    {'letter': 'D', 'count': 0},
+    {'letter': 'E', 'count': 0},
+    {'letter': 'F', 'count': 0},
+    {'letter': 'G', 'count': 0},
+    {'letter': 'H', 'count': 0},
+    {'letter': 'I', 'count': 0},
+    {'letter': 'J', 'count': 0},
+    {'letter': 'K', 'count': 0},
+    {'letter': 'L', 'count': 0},
+    {'letter': 'M', 'count': 0},
+    {'letter': 'N', 'count': 0},
+    {'letter': 'O', 'count': 0},
+    {'letter': 'P', 'count': 0},
+    {'letter': 'Q', 'count': 0},
+    {'letter': 'R', 'count': 0},
+    {'letter': 'S', 'count': 0},
+    {'letter': 'T', 'count': 0},
+    {'letter': 'U', 'count': 0},
+    {'letter': 'V', 'count': 0},
+    {'letter': 'W', 'count': 0},
+    {'letter': 'X', 'count': 0},
+    {'letter': 'Y', 'count': 0},
+    {'letter': 'Z', 'count': 0},
+  ];
+
+  int checkLetter(String letter) {
+    int number = 0;
+    for (int i = 0; i < controller.userContact.length; i++) {
+      if (controller.userContact[i].fullname![0] == letter) {
+        number = number + 1;
+      }
+    }
+    return number;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +58,13 @@ class ContactView extends GetView<ContactController> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Danh sach ban be'),
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: const Text(
+              'My Contact',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+          ),
           Expanded(
             child: Obx(
               () {
@@ -28,24 +72,17 @@ class ContactView extends GetView<ContactController> {
                   return const CircularProgressIndicator();
                 } else {
                   return ListView.builder(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      itemCount: controller.userContact.length,
+                      padding: const EdgeInsets.only(left: 12, right: 12),
+                      itemCount: 1,
                       itemBuilder: (context, index) {
-                        final item = controller.userContact[index];
-                        return const Column(
+                        // final item = controller.userContact[index];
+                        return Column(
                           children: <Widget>[
-                            ContactList(
-                              charInput: "A",
-                              numInput: 1,
-                            ),
-                            ContactList(
-                              charInput: "B",
-                              numInput: 2,
-                            ),
-                            ContactList(
-                              charInput: "C",
-                              numInput: 4,
-                            ),
+                            for (int i = 0; i < alphabet.length; i++)
+                              if (checkLetter(alphabet[i]['letter']) != 0)
+                                ContactList(
+                                  charInput: alphabet[i]["letter"],
+                                ),
                           ],
                         );
                       });
@@ -60,7 +97,9 @@ class ContactView extends GetView<ContactController> {
 }
 
 class CardContact extends StatelessWidget {
-  const CardContact({super.key});
+  final String person;
+  final String status;
+  const CardContact({super.key, required this.person, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -104,11 +143,11 @@ class CardContact extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'user name',
+                    person,
                     style: Get.theme.textTheme.titleMedium,
                   ),
                   Text(
-                    'Status',
+                    status,
                     style: Get.theme.textTheme.titleSmall,
                   )
                 ],
@@ -120,8 +159,9 @@ class CardContact extends StatelessWidget {
 }
 
 class CardList extends StatelessWidget {
-  final int numInput;
-  const CardList({super.key, required this.numInput});
+  final String person;
+  final String status;
+  const CardList({super.key, required this.person, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -133,30 +173,32 @@ class CardList extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 5, top: 5),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: numInput,
+            itemCount: 1,
             itemBuilder: (context, index) {
-              return const CardContact();
+              return CardContact(person: person, status: status);
             })
       ],
     );
   }
 }
 
-class ContactList extends StatelessWidget {
-  final String charInput;
-  final int numInput;
-  const ContactList(
-      {super.key, required this.charInput, required this.numInput});
+class ContactList extends GetView<ContactController> {
+  final String? charInput;
+  const ContactList({
+    super.key,
+    required this.charInput,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(charInput,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        CardList(numInput: numInput),
-      ],
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text('$charInput'.toUpperCase(),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      for (int i = 0; i < controller.userContact.length; i++)
+        if (controller.userContact[i].fullname![0].toUpperCase() == charInput)
+          CardList(
+              person: "${controller.userContact[i].fullname}",
+              status: "${controller.userContact[i].status}")
+    ]);
   }
 }
