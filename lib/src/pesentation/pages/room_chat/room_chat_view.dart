@@ -2,7 +2,10 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/config/assets.dart';
+import 'package:software_project_3/src/domain/model/mesage.dart';
 import 'package:software_project_3/src/pesentation/pages/room_chat/room_chat_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/room_chat/widgets/left_content.dart';
+import 'package:software_project_3/src/pesentation/pages/room_chat/widgets/right_content.dart';
 
 class RoomChatView extends GetView<RoomChatController> {
   static const String routerName = '/RoomChatView';
@@ -90,7 +93,35 @@ class RoomChatView extends GetView<RoomChatController> {
         child: Column(
           children: [
             Expanded(
-              child: Text('@@@'),
+              child: ListView.builder(
+                reverse: true,
+                itemCount: messageDataList.length,
+                itemBuilder: (context, index) {
+                  final message = messageDataList[index];
+                  MessageData? lastItem;
+                  if (index > 0) lastItem = messageDataList[index - 1];
+                  MessageData? currentItem = message;
+
+                  MessageData? nextItem;
+                  if ((messageDataList.length - 1) > index) {
+                    nextItem = messageDataList[index + 1];
+                  }
+
+                  if (message.sendBy != 'id01') {
+                    return LeftContent(
+                      current: currentItem,
+                      last: lastItem,
+                      next: nextItem,
+                    );
+                  }
+                  return RightContent(
+                    current: currentItem,
+                    last: lastItem,
+                    next: nextItem,
+                    currentIndex: index,
+                  );
+                },
+              ),
             ),
             getBottomBar()
           ],

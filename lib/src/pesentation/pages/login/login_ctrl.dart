@@ -58,9 +58,10 @@ class LoginController extends GetxController {
         emailEditController.text.trim(), passwordEditController.text.trim());
     if (res.status == ApiResponseStatus.completed) {
       userLogin.call(res.data);
-      LocalVariable.userName = userLogin.value!.fullname!;
-      _cleanInput();
+      await prefs.setString(LocalVariable.userName, userLogin.value!.fullname!);
+      await prefs.setString(LocalVariable.password, userLogin.value!.password!);
       await prefs.setBool(LocalVariable.isLogin, true);
+      _cleanInput();
       Get.offAllNamed(RootApp.routerName);
     } else {
       tinTucConfig.showSnackBar(

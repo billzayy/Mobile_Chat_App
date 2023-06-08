@@ -56,7 +56,11 @@ class ProFileView extends GetView<ProFileController> {
                 ),
                 Column(
                   children: [
-                    Text(LocalVariable.userName),
+                    Obx(
+                      () => Text(
+                        controller.fullName.value,
+                      ),
+                    ),
                   ],
                 ),
                 ElevatedButton(
