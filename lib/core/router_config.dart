@@ -2,8 +2,11 @@ import 'package:get/get.dart';
 import 'package:software_project_3/src/pesentation/pages/app_start.dart';
 import 'package:software_project_3/src/pesentation/pages/contact/contact_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/contact/contact_view.dart';
+import 'package:software_project_3/src/pesentation/pages/goup_chat/group_chat_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/login/login_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
+import 'package:software_project_3/src/pesentation/pages/profile/profile_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/profile/profile_view.dart';
 
 import 'package:software_project_3/src/pesentation/pages/root_app.dart';
 
@@ -43,6 +46,9 @@ class RouterConfigs {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ContactController());
           Get.lazyPut(() => RoomChatController());
+          Get.lazyPut(() => ProFileController());
+          Get.lazyPut(() => GroupChatController());
+          // Get.lazyPut(() => LoginController());
         })),
     GetPage(
       name: RoomChatView.routerName,
@@ -60,6 +66,16 @@ class RouterConfigs {
       binding: BindingsBuilder(
         () {
           Get.lazyPut(() => ContactController());
+        },
+      ),
+    ),
+    GetPage(
+      name: ProFileView.routerName,
+      page: () => const ProFileView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => LoginController());
+          Get.lazyPut(() => ProFileController());
         },
       ),
     ),
