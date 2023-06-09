@@ -1,6 +1,6 @@
 const express = require('express');
 const sql = require('./sql')
-
+const md5 = require('md5');
 // App
 const app = express();
 app.use(express.json()) // for parsing application/json
@@ -29,7 +29,7 @@ app.get('/api/get-user', (req, res) => {
 
 app.get('/api/login/', (req, res) => {
     var email = req.query.email;
-    var password = req.query.password;
+    var password = md5(req.query.password);
     sql.conSQL(`Select * from Login Where Email= '${email}' AND Password = '${password}'`, (recordset) => {
         try {
             if (recordset[0].Email == email || recordset[0].Password == password) {
@@ -53,8 +53,7 @@ app.get('/api/login/', (req, res) => {
 })
 
 app.post('/api/create-user', (req, res) => {
-    var userName = req.body.userName;
-    var password = req.body.password;
+    var password = md5(req.body.password);
     var email = req.body.email;
     var fullName = req.body.fullName;
     var phone = req.body.phone;
@@ -66,7 +65,7 @@ app.post('/api/create-user', (req, res) => {
             })
         }
         else {
-            sql.conSQL(`INSERT INTO Login (Username, Password, Email, Fullname, Phones, Status) Values ('${userName}','${password}','${email}', '${phone}','${fullName}','${status}')`, (recordset) => {
+            sql.conSQL(`INSERT INTO Login (Password, Email, Fullname, Phones, Status) Values ('${password}','${email}', '${fullName}','${phone}','${status}')`, (recordset) => {
                 try {
                     res.status(201).send({
                         "message": "Success",
@@ -89,6 +88,6 @@ app.delete('/api/delete-user', (req, res) => {
     })
 })
 
-app.listen(8080, () => {
+app.listen(27680, () => {
     // console.log(`Running in port ${process.env.PORT}`);
 });

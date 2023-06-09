@@ -4,7 +4,7 @@ services:
     container_name: nodejs
     image: coderbillzay/project-3
     ports: 
-      - '8080:8080'
+      - '27680:27680'
     volumes:
       - ./:/app
       - /app/node_modules
@@ -20,7 +20,7 @@ services:
       - MYSQL_DATABASE=project_3
       - MYSQL_ROOT_PASSWORD=mysql
     ports:
-      - '3306:3306'
+      - '22989:3306'
     volumes:
       - ./mysql:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
