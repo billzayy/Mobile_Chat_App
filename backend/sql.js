@@ -2,8 +2,8 @@ const mysql = require('mysql');
 
 function conSQL(strSQL, cb) {
     const connectDB = mysql.createConnection({
-        host: '34.142.131.182',
-        port: "22989",
+        host: 'db',
+        port: "3306",
         user: 'root',
         password: 'mysql',
         database: 'project_3'
