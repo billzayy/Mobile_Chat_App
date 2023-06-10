@@ -59,7 +59,7 @@ class LoginController extends GetxController {
     if (res.status == ApiResponseStatus.completed) {
       userLogin.call(res.data);
       await prefs.setString(LocalVariable.userName, userLogin.value!.fullname!);
-      await prefs.setString(LocalVariable.password, userLogin.value!.password!);
+      // await prefs.setString(LocalVariable.password, userLogin.value!.password!);
       await prefs.setBool(LocalVariable.isLogin, true);
       _cleanInput();
       Get.offAllNamed(RootApp.routerName);
