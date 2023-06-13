@@ -72,6 +72,35 @@ function loginAPI(app, sql) {
         })
     })
 
+    app.put('/api/update-user', (req, res) => {
+        var idUser = req.body.id_user;
+        var password = md5(req.body.password);
+        var email = req.body.email;
+        var fullName = req.body.fullName;
+        var phone = req.body.phone;
+        var picture = req.body.picture;
+        var city = req.body.city;
+        var status = "online";
+        sql.conSQL(`UPDATE Login Set 
+                        Password = '${password}', Email = '${email}', 
+                        Fullname = '${fullName}', Phones = '${phone}',
+                        Pictures = '${picture}', City = '${city}', Status = '${status}'
+                        Where Id_User = ${idUser}`, recordset => {
+            try { 
+                res.status(201).send({
+                    "message": "Success",
+                    "data": recordset.message
+                });
+            }
+            catch (err){
+                res.status(400).send({
+                    "message": "Failure",
+                    "data": "Cannot update User's Information"
+                })
+            }
+        })
+    })
+    
     app.delete('/api/delete-user', (req, res) => {
         var name = req.body.name;
         sql.conSQL(`DELETE FROM Login Where Name = ${name}`, (recordset) => {

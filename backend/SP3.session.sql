@@ -1,0 +1,10 @@
+-- CREATE TABLE Login(
+--     Id_User     INT             NOT NULL    PRIMARY KEY     AUTO_INCREMENT,
+--     Password    NVARCHAR(255)   NOT NULL,
+--     Email       NVARCHAR(255)   NOT NULL,
+--     Fullname    NVARCHAR(255)   NOT NULL,
+--     Pictures    NVARCHAR(255)   NULL,
+--     City        NVARCHAR(255)   NULL,
+--     Phones      NVARCHAR(255)   NOT NULL,
+--     Status      NVARCHAR(255)   NOT NULL
+-- )

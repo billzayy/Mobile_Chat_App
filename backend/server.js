@@ -1,9 +1,11 @@
 // Import file
 const loginAPI = require('./api/login-api');
+const chatAPI = require('./api/chat-api');
 
 // Library
 const express = require('express');
 const sql = require('./sql')
+const io = require('socket.io')(46762);
 
 // App
 const app = express();
@@ -15,6 +17,8 @@ app.get('/', (req, res) => {
 })
 
 loginAPI(app, sql);
+
+chatAPI(io);
 
 app.listen(27680, () => {
     // console.log(`Running in port ${process.env.PORT}`);
