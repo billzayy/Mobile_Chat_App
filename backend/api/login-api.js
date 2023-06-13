@@ -89,7 +89,7 @@ function loginAPI(app, sql) {
             try { 
                 res.status(201).send({
                     "message": "Success",
-                    "data": recordset.message
+                    "data": "Update Successful"
                 });
             }
             catch (err){
