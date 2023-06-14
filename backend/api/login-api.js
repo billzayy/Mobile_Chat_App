@@ -104,14 +104,38 @@ function loginAPI(app, sql) {
     app.delete('/api/delete-user', (req, res) => {
         var name = req.body.name;
         sql.conSQL(`DELETE FROM Login Where Fullname = ${name}`, (recordset) => {
-            res.send(recordset)
+            try {
+                res.status(200).send({
+                    "message": "Success",
+                    "data":"Delete Successful !!!"
+                })
+            } catch (error) {
+                res.status(400).send({
+                    "message": "Failure",
+                    "data":"Fail to Delete Account ! Try again later !"
+                })
+            }
         })
     })
     
     app.get('/api/search', (req, res) => {
         var name = req.query.name;
         sql.conSQL(`SELECT * FROM Login Where Fullname Like '%${name}%'`, recordset => {
-            res.send(recordset)
+            try {
+                res.status(200).send({
+                    "message": "Success",
+                    "data": recordset
+                })
+            } catch (error) {
+                res.status(404).send({
+                    "message": "Failure",
+                    "data":"Not Found"
+                })
+                res.status(400).send({
+                    "message": "Failure",
+                    "data":"Bad request!"
+                })
+            }
         })
     })
 }
