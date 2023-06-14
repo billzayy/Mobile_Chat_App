@@ -103,7 +103,14 @@ function loginAPI(app, sql) {
     
     app.delete('/api/delete-user', (req, res) => {
         var name = req.body.name;
-        sql.conSQL(`DELETE FROM Login Where Name = ${name}`, (recordset) => {
+        sql.conSQL(`DELETE FROM Login Where Fullname = ${name}`, (recordset) => {
+            res.send(recordset)
+        })
+    })
+    
+    app.get('/api/search', (req, res) => {
+        var name = req.query.name;
+        sql.conSQL(`SELECT * FROM Login Where Fullname Like '%${name}%'`, recordset => {
             res.send(recordset)
         })
     })

@@ -9,11 +9,15 @@
 .history
 .svn/
 migrate_working_dir/
+
+# Backend File
 /backend/node_modules
 /backend/db
 /backend/mysql
-/backend/SP3_DB.session.sql
+/backend/Dockerfile
+/backend/.dockerignore
 .vscode
+
 # IntelliJ related
 *.iml
 *.ipr

@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 loginAPI(app, sql);
 
-chatAPI(io);
+chatAPI(app, io, sql);
 
 app.listen(27680, () => {
     // console.log(`Running in port ${process.env.PORT}`);
