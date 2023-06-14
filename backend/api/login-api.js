@@ -124,7 +124,7 @@ function loginAPI(app, sql) {
             try {
                 res.status(200).send({
                     "message": "Success",
-                    "data": recordset
+                    "data": recordset[0]
                 })
             } catch (error) {
                 res.status(404).send({
