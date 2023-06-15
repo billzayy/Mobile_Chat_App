@@ -28,6 +28,7 @@ class ProFileView extends GetView<ProFileController> {
               Row(
                 children: [
                   Padding(
+                    
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: SizedBox(
                       width: Get.width * 0.25,
@@ -66,10 +67,10 @@ class ProFileView extends GetView<ProFileController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   width: Get.width,
-                  height: 500,
+                  height: 350,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: Colors.grey),
+                      color: Colors.white54),
                   child: Column(
                     children: [
                       CustomButton(
@@ -77,12 +78,28 @@ class ProFileView extends GetView<ProFileController> {
                         text: 'Account', onTap: () => Get.toNamed(UpdateUserView.routerName),
                       ),
                       CustomButton(
-                        icon: Icon(Icons.account_circle),
-                        text: 'Noti', onTap: () {  },
+                        icon: Icon(Icons.notifications),
+                        text: 'Notifications', onTap: () {  },
                       ),
                       CustomButton(
-                        icon: Icon(Icons.account_circle),
-                        text: 'Account', onTap: () {  },
+                        icon: Icon(Icons.lock),
+                        text: 'Security and Privacy', onTap: () {  },
+                      ),
+                      CustomButton(
+                        icon: Icon(Icons.storage),
+                        text: 'Storage', onTap: () {  },
+                      ),
+                      CustomButton(
+                        icon: Icon(Icons.chat),
+                        text: 'Chats', onTap: () {  },
+                      ),
+                      CustomButton(
+                        icon: Icon(Icons.monitor),
+                        text: 'Devices', onTap: () {  },
+                      ),
+                      CustomButton(
+                        icon: Icon(Icons.help),
+                        text: 'Help', onTap: () {  },
                       ),
                     ],
                   ),
