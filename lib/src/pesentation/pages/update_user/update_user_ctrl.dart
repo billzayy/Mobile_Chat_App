@@ -3,41 +3,36 @@ import 'package:get/get.dart';
 import 'package:software_project_3/config/noti_config.dart';
 import 'package:software_project_3/src/domain/service/user_service.dart';
 import 'package:software_project_3/src/infrastructure/repositories/dio.dart';
-import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 
-class SignController extends GetxController {
-  final UserService _userService = Get.find();
-  final TextEditingController emailEditController =
-      TextEditingController(text: 'nguyenxuananh@gmail.com');
-  final RxnString emailChiError = RxnString(null);
+class UpdateUserController extends GetxController {
+  final TextEditingController cityEditController =
+      TextEditingController(text: 'hcm');
+  final RxnString cityChiError = RxnString(null);
   final TextEditingController fullNameEditController =
       TextEditingController(text: 'Xuan Anh Đẹp Trai');
   final RxnString fullNameError = RxnString(null);
   final TextEditingController phoneEditController =
       TextEditingController(text: '248234903');
   final RxnString phoneError = RxnString(null);
-  final TextEditingController passwordEditController =
-      TextEditingController(text: 'abc');
-  final RxnString passwordError = RxnString(null);
   final NoTiConfig tinTucConfig = Get.find();
-  bool isChecked = false;
+  final UserService _userService = Get.find();
   final RxBool isLoading = true.obs;
-  RxBool showPassword = false.obs;
-
-  void togglePasswordVisibility() {
-    showPassword.toggle();
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
   }
 
   Future onSend() async {
     /// reset all error
-    emailChiError.value = null;
-    passwordError.value = null;
+    cityChiError.value = null;
+
     phoneError.value = null;
     fullNameError.value = null;
 
     /// check valid
-    if (emailEditController.text.trim().isEmpty) {
-      emailChiError.call('email hoặc password không hợp lệ!');
+    if (cityEditController.text.trim().isEmpty) {
+      cityChiError.call('email hoặc password không hợp lệ!');
       tinTucConfig.showSnackBar('Bạn Chưa Nhập email ',
           backgroundColor: Colors.amber);
       return;
@@ -54,47 +49,47 @@ class SignController extends GetxController {
           backgroundColor: Colors.amber);
       return;
     }
-    if (passwordEditController.text.trim().isEmpty) {
-      passwordError.call('email hoặc password không hợp lệ !');
-      tinTucConfig.showSnackBar('Bạn Chưa Nhập password',
-          backgroundColor: Colors.amber);
-      return;
-    }
 
-    _signUser();
+    _updateUser();
   }
 
-  Future _signUser() async {
+  Future _updateUser() async {
     Map<String, dynamic> param = {
-      "password": passwordEditController.text.trim(),
-      "email": emailEditController.text.trim(),
+      "id_user": 3,
+      "password": "abc",
+      "email": "buixuanphuoc@gmail.com",
       "fullName": fullNameEditController.text.trim(),
-      "phone": phoneEditController.text.trim()
+      "phone": phoneEditController.text.trim(),
+      "picture": null,
+      "city": cityEditController.text.trim(),
+      "status": "online"
     };
-    final ApiResponse<String> res = await _userService.signUser(param);
+    final ApiResponse<String> res = await _userService.updateUser(param);
     if (res.status == ApiResponseStatus.completed) {
       tinTucConfig.showSnackBar(
           title: 'Thông báo',
-          'Đăng Kí Tài Khoản Thành Công <3',
+          'Update Tài Khoản Thành Công <3',
           backgroundColor: Get.theme.colorScheme.primary);
       _cleanInput();
-      Get.offAllNamed(LoginView.routeName);
     } else {
       // Get.log(res.message.toString());
       tinTucConfig.showSnackBar(
           title: 'Thông báo',
-          'Tài Khoản đã tồn tại vui lòng thử email khác !',
+          'update thất bại vui lòng thử lại !',
           backgroundColor: Colors.orangeAccent);
     }
     isLoading.call(false);
   }
 
-
-
   void _cleanInput() {
-    emailEditController.text = '';
+    cityEditController.text = '';
     fullNameEditController.text = '';
     phoneEditController.text = '';
-    passwordEditController.text = '';
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
   }
 }

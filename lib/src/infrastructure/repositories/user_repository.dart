@@ -69,4 +69,22 @@ class UserRepository implements UserService {
       return ApiResponse<String>.error(ex.toString());
     }
   }
+
+  @override
+  Future<ApiResponse<String>> updateUser(Map<String, dynamic> param) async {
+    try {
+      final response = await apiClient.dio.put('/update-user/', data: param);
+      if (response.statusCode == 201) {
+        final data = response.data['data'];
+        return ApiResponse<String>.completed(data);
+        // (response.data[0]),
+      } else {
+        return ApiResponse<String>.error(response.statusCode.toString());
+      }
+    } on DioError catch (d) {
+      return ApiResponse<String>.error(d.message);
+    } catch (ex) {
+      return ApiResponse<String>.error(ex.toString());
+    }
+  }
 }
