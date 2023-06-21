@@ -9,6 +9,8 @@ import 'package:software_project_3/src/pesentation/pages/profile/profile_ctrl.da
 import 'package:software_project_3/src/pesentation/pages/profile/profile_view.dart';
 
 import 'package:software_project_3/src/pesentation/pages/root_app.dart';
+import 'package:software_project_3/src/pesentation/pages/update_user/update_user_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/update_user/update_user_view.dart';
 
 import '../src/pesentation/pages/room_chat/room_chat_ctrl.dart';
 import '../src/pesentation/pages/room_chat/room_chat_view.dart';
@@ -79,5 +81,15 @@ class RouterConfigs {
         },
       ),
     ),
+    GetPage(
+      name: UpdateUserView.routerName,
+      page: () => const UpdateUserView(),
+      binding: BindingsBuilder(
+            () {
+          Get.lazyPut(() => UpdateUserController());
+        },
+      ),
+    ),
+
   ];
 }

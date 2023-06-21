@@ -4,14 +4,16 @@
   "description": "backend for software project 3",
   "main": "server.js",
   "scripts": {
-    "start":"nodemon -x 'node server.js || touch server.js'", 
+    "start": "nodemon -x 'node server.js || touch server.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nhom2",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
+    "md5": "^2.3.0",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "socket.io": "^4.6.2"
   }
 }
