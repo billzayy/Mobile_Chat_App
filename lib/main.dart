@@ -7,7 +7,6 @@ import 'package:software_project_3/config/theme_material.dart';
 import 'package:software_project_3/core/global_binding.dart';
 import 'package:software_project_3/core/router_config.dart';
 import 'package:software_project_3/src/domain/model/user_model.dart';
-
 import 'src/pesentation/pages/app_start.dart';
 
 void main() async {

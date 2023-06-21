@@ -1,5 +1,3 @@
-
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/src/domain/model/user_model.dart';
@@ -9,6 +7,7 @@ import 'package:software_project_3/src/infrastructure/repositories/dio.dart';
 class UserRepository implements UserService {
   /// create dio
   final ApiClient apiClient = Get.find();
+
   @override
   Future<ApiResponse<List<UserModel>>> getUser() async {
     try {
@@ -25,7 +24,7 @@ class UserRepository implements UserService {
         return ApiResponse<List<UserModel>>.error(
             response.statusCode.toString());
       }
-    } on DioError catch (d) {
+    } on DioException catch (d) {
       return ApiResponse<List<UserModel>>.error(d.message);
     } catch (ex) {
       return ApiResponse<List<UserModel>>.error(ex.toString());
@@ -46,7 +45,7 @@ class UserRepository implements UserService {
       } else {
         return ApiResponse<UserModel>.error(response.statusCode.toString());
       }
-    } on DioError catch (d) {
+    } on DioException catch (d) {
       return ApiResponse<UserModel>.error(d.message);
     } catch (ex) {
       return ApiResponse<UserModel>.error(ex.toString());
@@ -64,7 +63,7 @@ class UserRepository implements UserService {
       } else {
         return ApiResponse<String>.error(response.statusCode.toString());
       }
-    } on DioError catch (d) {
+    } on DioException catch (d) {
       return ApiResponse<String>.error(d.message);
     } catch (ex) {
       return ApiResponse<String>.error(ex.toString());
@@ -82,10 +81,10 @@ class UserRepository implements UserService {
       } else {
         return ApiResponse<String>.error(response.statusCode.toString());
       }
-    } on DioError catch (d) {
+    } on DioException catch (d) {
       return ApiResponse<String>.error(d.message);
     } catch (ex) {
       return ApiResponse<String>.error(ex.toString());
     }
   }
-
+}

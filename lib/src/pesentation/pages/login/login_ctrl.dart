@@ -64,10 +64,7 @@ class LoginController extends GetxController {
       await prefs.setBool(LocalVariable.isLogin, true);
       _cleanInput();
       Get.offAllNamed(RootApp.routerName);
-      await isar.userModels.put(res.data!); // insert & update
-      await prefs.setBool(LocalVariable.isLogin, true);
-      _cleanInput();
-      Get.offAllNamed(RootApp.routerName);
+      // await isar.userModels.put(res.data!); // insert & update
     } else {
       tinTucConfig.showSnackBar(
           title: 'Thông báo',
