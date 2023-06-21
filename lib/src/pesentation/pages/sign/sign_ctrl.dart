@@ -89,8 +89,6 @@ class SignController extends GetxController {
     isLoading.call(false);
   }
 
-
-
   void _cleanInput() {
     emailEditController.text = '';
     fullNameEditController.text = '';

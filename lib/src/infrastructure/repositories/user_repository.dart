@@ -31,6 +31,7 @@ class UserRepository implements UserService {
       return ApiResponse<List<UserModel>>.error(ex.toString());
     }
   }
+
   @override
   Future<ApiResponse<UserModel>> loginUser(
       String email, String password) async {
@@ -87,4 +88,4 @@ class UserRepository implements UserService {
       return ApiResponse<String>.error(ex.toString());
     }
   }
-}
+

@@ -1,16 +1,22 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:software_project_3/config/theme_material.dart';
 import 'package:software_project_3/core/global_binding.dart';
 import 'package:software_project_3/core/router_config.dart';
+import 'package:software_project_3/src/domain/model/user_model.dart';
 
 import 'src/pesentation/pages/app_start.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final dir = await getApplicationDocumentsDirectory();
+  final isar = await Isar.open(
+    [UserModelSchema],
+    directory: dir.path,
+  );
   runApp(const MyApp());
 }
 

@@ -1,3 +1,8 @@
+import 'package:isar/isar.dart';
+
+part 'user_model.g.dart';
+
+@collection
 class UserModel {
   UserModel({
     this.idUser,
@@ -22,7 +27,7 @@ class UserModel {
     phones = json['Phones'];
     status = json['Status'];
   }
-  int? idUser;
+  Id? idUser;
   String? username;
   String? password;
   String? email;

@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:software_project_3/config/assets.dart';
 import 'package:software_project_3/config/localVariable.dart';
+
 import 'package:software_project_3/config/theme_material.dart';
 import 'package:software_project_3/src/pesentation/common_widgets/common_appbar.dart';
 import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 import 'package:software_project_3/src/pesentation/pages/profile/profile_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_view.dart';
+
 
 class ProFileView extends GetView<ProFileController> {
   static const String routerName = '/ProFileView';
@@ -145,6 +147,22 @@ class CustomButton extends StatelessWidget {
                   text!,
                   style: Get.theme.textTheme.bodyLarge?.copyWith(),
                 ),
+                Column(
+                  children: [
+                    Obx(
+                      () => Text(
+                        controller.fullName.value,
+                      ),
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setBool(LocalVariable.isLogin, false);
+                      Get.offAllNamed(LoginView.routeName);
+                    },
+                    child: Text('thoát'))
               ],
             ),
             const Icon(Icons.arrow_forward_ios),
