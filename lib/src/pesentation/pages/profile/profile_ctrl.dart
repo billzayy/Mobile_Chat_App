@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+import 'package:isar/isar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:software_project_3/config/localVariable.dart';
 
 class ProFileController extends GetxController {
   RxString fullName = ''.obs;
+
   // final loginController = Get.find<LoginController>();
 
   @override

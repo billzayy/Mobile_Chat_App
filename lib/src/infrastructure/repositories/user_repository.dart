@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -31,6 +30,7 @@ class UserRepository implements UserService {
       return ApiResponse<List<UserModel>>.error(ex.toString());
     }
   }
+
   @override
   Future<ApiResponse<UserModel>> loginUser(
       String email, String password) async {
@@ -56,6 +56,24 @@ class UserRepository implements UserService {
   Future<ApiResponse<String>> signUser(Map<String, dynamic> param) async {
     try {
       final response = await apiClient.dio.post('/create-user/', data: param);
+      if (response.statusCode == 201) {
+        final data = response.data['data'];
+        return ApiResponse<String>.completed(data);
+        // (response.data[0]),
+      } else {
+        return ApiResponse<String>.error(response.statusCode.toString());
+      }
+    } on DioError catch (d) {
+      return ApiResponse<String>.error(d.message);
+    } catch (ex) {
+      return ApiResponse<String>.error(ex.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse<String>> updateUser(Map<String, dynamic> param) async {
+    try {
+      final response = await apiClient.dio.put('/update-user/', data: param);
       if (response.statusCode == 201) {
         final data = response.data['data'];
         return ApiResponse<String>.completed(data);

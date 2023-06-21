@@ -3,5 +3,6 @@ class LocalVariable {
   static String urlAPI = '';
   static String userName = '';
   static String password = '';
+
   static const String isLogin = 'IsLogin';
 }
