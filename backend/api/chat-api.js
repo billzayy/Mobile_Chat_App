@@ -8,7 +8,17 @@ function chatAPI(app, io, sql) {
 
     app.get('/api/chat/get-all', (req, res) => {
         sql.conSQL('SELECT * FROM Message', (recordset) => {
-            res.send(recordset)
+            try {
+                res.status(200).send({
+                    "message": "Success",
+                    "data": recordset
+                })
+            } catch (error) {
+                res.status(400).send({
+                    "message": "Failure",
+                    "data":"Error to get chat"
+                })
+            }
         })
     })
 

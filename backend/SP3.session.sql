@@ -10,18 +10,16 @@
 -- )
 
 CREATE TABLE Message(
-    Id_Message          INT             NOT NULL        PRIMARY KEY         AUTO_INCREMENT,
-    Send_User_Id        INT             NOT NULL,
-    Receive_User_Id     INT             NOT NULL,
-    Messages            NVARCHAR(255)   NOT NULL,
-    Time                DateTime        NOT NULL,
-    Type                NVARCHAR(255)   NOT NULL,
-    FOREIGN KEY(Send_User_Id) REFERENCES Login(Id_User),
-    FOREIGN KEY(Receive_User_Id) REFERENCES Login(Id_User)
+    Id_Message INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Sendby INT NOT NULL,
+    Messages NVARCHAR(255) NOT NULL,
+    Time NVARCHAR(255) NOT NULL,
+    Type INT NOT NULL,
+    FOREIGN KEY(Sendby) REFERENCES Login(Id_User)
 )
 
 CREATE TABLE GroupChat(
-    Id_Group            INT             NOT NULL,
+    Id_Group            INT             NOT NULL        DEFAULT  0,
     Last_Message        INT             NOT NULL,
     Id_Member           INT             NOT NULL,
     GroupType           NVARCHAR(255)   NOT NULL,
