@@ -19,3 +19,13 @@ CREATE TABLE Message(
     FOREIGN KEY(Send_User_Id) REFERENCES Login(Id_User),
     FOREIGN KEY(Receive_User_Id) REFERENCES Login(Id_User)
 )
+
+CREATE TABLE GroupChat(
+    Id_Group            INT             NOT NULL,
+    Last_Message        INT             NOT NULL,
+    Id_Member           INT             NOT NULL,
+    GroupType           NVARCHAR(255)   NOT NULL,
+    GroupName           NVARCHAR(255)   NULL,
+    Pictures            NVARCHAR(255)   NULL,
+    FOREIGN KEY(Last_Message) REFERENCES Message(Id_Message)
+)
