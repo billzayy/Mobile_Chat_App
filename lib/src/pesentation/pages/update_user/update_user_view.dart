@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:software_project_3/src/pesentation/common_widgets/common_appbar.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_ctrl.dart';
 
 class UpdateUserView extends GetView<UpdateUserController> {
@@ -11,11 +10,11 @@ class UpdateUserView extends GetView<UpdateUserController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('update name'),
+        title: const Text('update name'),
       ),
       body: Column(
         children: [
-          Center(child: Text('update')),
+          const Center(child: Text('update')),
           Text(
             'Full Name',
             style: Get.theme.textTheme.bodyMedium

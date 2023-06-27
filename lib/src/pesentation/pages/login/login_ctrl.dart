@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:isar/isar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:software_project_3/config/localVariable.dart';
 import 'package:software_project_3/config/noti_config.dart';
@@ -10,7 +9,7 @@ import 'package:software_project_3/src/infrastructure/repositories/dio.dart';
 import 'package:software_project_3/src/pesentation/pages/root_app.dart';
 
 class LoginController extends GetxController {
-  late Isar isar;
+  // final _isarDatabase = Get.find<IsarDatabase>();
   final Rxn<UserModel> userLogin = Rxn<UserModel>();
   final UserService _userService = Get.find();
   final TextEditingController emailEditController =
@@ -61,10 +60,12 @@ class LoginController extends GetxController {
     if (res.status == ApiResponseStatus.completed) {
       userLogin.call(res.data);
       await prefs.setString(LocalVariable.userName, userLogin.value!.fullname!);
+      await prefs.setString(LocalVariable.password, userLogin.value!.email!);
+      await prefs.setInt(LocalVariable.userId, userLogin.value!.idUser!);
       await prefs.setBool(LocalVariable.isLogin, true);
       _cleanInput();
       Get.offAllNamed(RootApp.routerName);
-      // await isar.userModels.put(res.data!); // insert & update
+      // await _isarDatabase.unSert<UserModel>(res.data!);
     } else {
       tinTucConfig.showSnackBar(
           title: 'Thông báo',

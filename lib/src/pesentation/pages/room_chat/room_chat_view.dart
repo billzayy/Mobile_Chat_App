@@ -2,7 +2,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/config/assets.dart';
-import 'package:software_project_3/src/domain/model/mesage.dart';
+import 'package:software_project_3/src/domain/model/message_model.dart';
 import 'package:software_project_3/src/pesentation/pages/room_chat/room_chat_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/room_chat/widgets/left_content.dart';
 import 'package:software_project_3/src/pesentation/pages/room_chat/widgets/right_content.dart';
@@ -75,13 +75,16 @@ class RoomChatView extends GetView<RoomChatController> {
                         'Chức năng đang phát triển',
                         backgroundColor: Colors.orangeAccent);
                   },
-                  child: Image.asset(IconAssets.iconPhone)),
+                  child: Image.asset(
+                    IconAssets.iconPhone,
+                    color: Colors.deepPurple[500],
+                  )),
               IconButton(
                 onPressed: () {},
-                icon: const Icon(
+                icon: Icon(
                   Icons.more_vert,
                   size: 26,
-                  color: Colors.black,
+                  color: Colors.deepPurple[500],
                 ),
               ),
             ],
@@ -93,37 +96,45 @@ class RoomChatView extends GetView<RoomChatController> {
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(
-                reverse: true,
-                itemCount: messageDataList.length,
-                itemBuilder: (context, index) {
-                  final message = messageDataList[index];
-                  MessageData? lastItem;
-                  if (index > 0) lastItem = messageDataList[index - 1];
-                  MessageData? currentItem = message;
+              child: Obx(
+                () {
+                  return ListView.builder(
+                    reverse: true,
+                    itemCount: controller.messages.length,
+                    itemBuilder: (context, index) {
+                      final reversedList =
+                          List.from(controller.messages.reversed);
+                      final message = reversedList[index];
+                      MessageModel? lastItem;
+                      if (index > 0) {
+                        lastItem = controller.messages[index - 1];
+                      }
+                      MessageModel? currentItem = message;
 
-                  MessageData? nextItem;
-                  if ((messageDataList.length - 1) > index) {
-                    nextItem = messageDataList[index + 1];
-                  }
+                      MessageModel? nextItem;
+                      if ((controller.messages.length - 1) > index) {
+                        nextItem = controller.messages[index + 1];
+                      }
 
-                  if (message.sendBy != 'id01') {
-                    return LeftContent(
-                      current: currentItem,
-                      last: lastItem,
-                      next: nextItem,
-                    );
-                  }
-                  return RightContent(
-                    current: currentItem,
-                    last: lastItem,
-                    next: nextItem,
-                    currentIndex: index,
+                      if (currentItem?.sendby != controller.userId) {
+                        return LeftContent(
+                          current: currentItem!,
+                          last: lastItem,
+                          next: nextItem,
+                        );
+                      }
+                      return RightContent(
+                        current: currentItem!,
+                        last: lastItem,
+                        next: nextItem,
+                        currentIndex: index,
+                      );
+                    },
                   );
                 },
               ),
             ),
-            getBottomBar()
+            const GetBottomBar()
           ],
         ),
       ),
@@ -131,37 +142,49 @@ class RoomChatView extends GetView<RoomChatController> {
   }
 }
 
-Widget getBottomBar() {
-  return Row(
-    children: [
-      Expanded(
-          child: Card(
-        color: Get.theme.colorScheme.surfaceVariant,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(IconAssets.iconCamera),
-              const SizedBox(
-                width: 8,
-              ),
-              const Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                      hintText: 'Message', border: InputBorder.none),
+class GetBottomBar extends GetView<RoomChatController> {
+  const GetBottomBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+            child: Card(
+          color: Get.theme.colorScheme.surfaceVariant,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                    onTap: () => controller.getCameraImages(),
+                    child: Image.asset(IconAssets.iconCamera)),
+                const SizedBox(
+                  width: 8,
                 ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.send),
-              ),
-              Image.asset(IconAssets.iconGallery),
-            ],
+                Expanded(
+                  child: TextField(
+                    textInputAction: TextInputAction.done,
+                    controller: controller.messageEditController,
+                    decoration: const InputDecoration(
+                        hintText: 'Message', border: InputBorder.none),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () => controller.sendMessage(),
+                  icon: const Icon(Icons.send),
+                ),
+                GestureDetector(
+                    onTap: () => controller.getGallery(),
+                    child: Image.asset(IconAssets.iconGallery)),
+              ],
+            ),
           ),
-        ),
-      ))
-    ],
-  );
+        ))
+      ],
+    );
+  }
 }
