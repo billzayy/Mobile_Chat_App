@@ -1,7 +1,7 @@
 function chatAPI(app, io, sql) { 
     io.on('connection', (socket) => {
         socket.on('send-chat-message', (message) => {
-            sql.conSQL(`INSERT INTO Message(Sendby, Messages, Time, Type) VALUES(${message.id}, '${message.message}', '${Date.now()}',${message.type})`, recordset => {})
+            sql.conSQL(`INSERT INTO Message(Sendby, Messages, Time, Type) VALUES(${message.Sendby}, '${message.Messages}', '${message.Time}',${message.Type})`, recordset => {})
             socket.broadcast.emit('chat-message', message)
         })
     })
