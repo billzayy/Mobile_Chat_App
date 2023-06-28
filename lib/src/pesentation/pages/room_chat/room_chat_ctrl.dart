@@ -16,7 +16,7 @@ class RoomChatController extends GetxController {
   final RxList<MessageModel> messages = <MessageModel>[].obs;
   final NoTiConfig tinTucConfig = Get.find();
   final TextEditingController messageEditController = TextEditingController();
-  late IO.Socket socket;
+  final IO.Socket socket = IO.io('http://34.142.131.182:46762', IO.OptionBuilder().setTransports(['websocket']).build());
   int userId = 0;
   File? imageFile;
   File? file;
@@ -37,8 +37,7 @@ class RoomChatController extends GetxController {
   }
 
   Future fetch() async {
-    final ApiResponse<List<MessageModel>> res =
-        await _messageService.getMessages();
+    final ApiResponse<List<MessageModel>> res = await _messageService.getMessages();
     if (res.status == ApiResponseStatus.completed) {
       messages.call(res.data);
     } else {
@@ -48,31 +47,33 @@ class RoomChatController extends GetxController {
   }
 
   void connectSocket() {
-    socket = IO.io('http://34.142.131.182:46762',
-        IO.OptionBuilder().setTransports(['websocket']).build());
-    socket.onConnect((data) => print("Connected with Socket"));
-    socket.onConnectError((data) => print("Fail to Connect $data"));
-    socket.onDisconnect((data) => null);
-    socket.on('chat-message', (data) {
-      print(data);
-      // final result = data.map((e) => MessageModel.fromJson(e)).toList();
-      // messages.add(result);
-    });
+    socket
+      ..open()
+      ..onConnect((data) => print("Connected with Socket"))
+      ..onConnectError((data) => print("Fail to Connect $data"))
+      ..onDisconnect((data) => null)
+      ..on('chat-message', (data) {
+        print(data);
+
+        final newMessage = MessageModel.fromJson(data);
+        messages.add(newMessage);
+      });
   }
 
   void sendMessage() {
     Map<String, dynamic> messages = {
       // "chatId": idGroupChat,
       "Sendby": userId,
-      "message": messageEditController.text.trim(),
-      "type": 1,
-      "time": DateTime.now().millisecondsSinceEpoch.toString(),
+      "Messages": messageEditController.text.trim(),
+      "Type": 1,
+      "Time": DateTime.now().millisecondsSinceEpoch.toString(),
     };
     if (messageEditController.text != '') {
       socket.emit('send-chat-message', messages);
+      this.messages.add(MessageModel.fromJson(messages));
     }
-
     messageEditController.text = '';
+    // fetch();
   }
 
   Future getCameraImages() async {
@@ -98,7 +99,7 @@ class RoomChatController extends GetxController {
   @override
   void onClose() {
     // TODO: implement onClose
-    socket.dispose();
+    // socket.dispose();
     super.onClose();
   }
 }

@@ -13,8 +13,8 @@ class GlobalBinding extends Bindings {
     Get.lazyPut<NoTiConfig>(() => NoTiConfigImplement(), fenix: true);
     Get.lazyPut<UserService>(() => UserRepository(), fenix: true);
     Get.lazyPut<MessageService>(() => MessageRepository(), fenix: true);
-    final client = ApiClient()
-      ..init(baseUrl: 'http://34.142.131.182:27680/api');
+    final client = ApiClient()..init(baseUrl: 'http://34.142.131.182:27680/api');
     Get.put<ApiClient>(client);
+    // Get.put(SocketService()).connect();
   }
 }
