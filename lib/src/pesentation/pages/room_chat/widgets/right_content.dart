@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:software_project_3/src/domain/model/mesage.dart';
+import 'package:software_project_3/src/domain/model/message_model.dart';
 
 class RightContent extends StatelessWidget {
-  final MessageData? last;
-  final MessageData current;
-  final MessageData? next;
+  final MessageModel? last;
+  final MessageModel current;
+  final MessageModel? next;
   final int currentIndex;
 
   const RightContent(
@@ -29,16 +29,16 @@ class RightContent extends StatelessWidget {
               child: Container(
                 constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.65),
-                decoration: const BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                    color: Colors.deepPurple[500],
+                    borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10),
                         bottomLeft: Radius.circular(10))),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    current.message ?? '',
+                    current.messages ?? '',
                     style: const TextStyle(fontSize: 17, color: Colors.white),
                   ),
                 ),

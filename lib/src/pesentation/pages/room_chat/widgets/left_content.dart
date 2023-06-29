@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:software_project_3/src/domain/model/mesage.dart';
+import 'package:software_project_3/src/domain/model/message_model.dart';
 
 class LeftContent extends StatelessWidget {
-  final MessageData? last;
-  final MessageData current;
-  final MessageData? next;
+  final MessageModel? last;
+  final MessageModel current;
+  final MessageModel? next;
   final bool isHienThiGio;
 
   const LeftContent({
@@ -29,7 +29,7 @@ class LeftContent extends StatelessWidget {
                 constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.65),
                 decoration: BoxDecoration(
-                    color: Colors.grey[400],
+                    color: Colors.grey[200],
                     borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(10),
                       topLeft: Radius.circular(10),
@@ -38,7 +38,7 @@ class LeftContent extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    current.message ?? '',
+                    current.messages ?? '',
                     style: const TextStyle(fontSize: 17, color: Colors.black),
                   ),
                 ),

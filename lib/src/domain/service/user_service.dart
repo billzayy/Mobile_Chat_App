@@ -6,4 +6,5 @@ abstract class UserService {
   Future<ApiResponse<UserModel>> loginUser(String email, String password);
   Future<ApiResponse<String>> signUser(Map<String, dynamic> param);
   Future<ApiResponse<String>> updateUser(Map<String, dynamic> param);
+  Future<ApiResponse<UserModel>> search(String name);
 }

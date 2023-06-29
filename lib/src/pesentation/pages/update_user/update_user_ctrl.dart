@@ -55,9 +55,9 @@ class UpdateUserController extends GetxController {
 
   Future _updateUser() async {
     Map<String, dynamic> param = {
-      "id_user": 3,
+      "id_user": 2,
       "password": "abc",
-      "email": "buixuanphuoc@gmail.com",
+      "email": "nguyenxuananh@gmail.com",
       "fullName": fullNameEditController.text.trim(),
       "phone": phoneEditController.text.trim(),
       "picture": null,
@@ -71,6 +71,7 @@ class UpdateUserController extends GetxController {
           'Update Tài Khoản Thành Công <3',
           backgroundColor: Get.theme.colorScheme.primary);
       _cleanInput();
+      Get.back();
     } else {
       // Get.log(res.message.toString());
       tinTucConfig.showSnackBar(
