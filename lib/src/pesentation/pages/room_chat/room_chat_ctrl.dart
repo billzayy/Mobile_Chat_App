@@ -16,7 +16,8 @@ class RoomChatController extends GetxController {
   final RxList<MessageModel> messages = <MessageModel>[].obs;
   final NoTiConfig tinTucConfig = Get.find();
   final TextEditingController messageEditController = TextEditingController();
-  final IO.Socket socket = IO.io('http://34.142.131.182:46762', IO.OptionBuilder().setTransports(['websocket']).build());
+  final IO.Socket socket = IO.io('http://34.142.131.182:46762',
+      IO.OptionBuilder().setTransports(['websocket']).build());
   int userId = 0;
   File? imageFile;
   File? file;
@@ -37,7 +38,8 @@ class RoomChatController extends GetxController {
   }
 
   Future fetch() async {
-    final ApiResponse<List<MessageModel>> res = await _messageService.getMessages();
+    final ApiResponse<List<MessageModel>> res =
+        await _messageService.getMessages();
     if (res.status == ApiResponseStatus.completed) {
       messages.call(res.data);
     } else {
@@ -64,6 +66,7 @@ class RoomChatController extends GetxController {
     Map<String, dynamic> messages = {
       // "chatId": idGroupChat,
       "Sendby": userId,
+      "IdGroup": 1,
       "Messages": messageEditController.text.trim(),
       "Type": 1,
       "Time": DateTime.now().millisecondsSinceEpoch.toString(),
