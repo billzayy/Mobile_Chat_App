@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:software_project_3/src/pesentation/common_widgets/common_appbar.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_ctrl.dart';
 
 class UpdateUserView extends GetView<UpdateUserController> {

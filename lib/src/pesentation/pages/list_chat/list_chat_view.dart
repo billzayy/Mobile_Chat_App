@@ -20,30 +20,21 @@ class ListChatView extends GetView<ListChatController> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            SizedBox(
+            Container(
               height: Get.height * 0.06,
-              child: TextField(
-                // controller: controller.tenDoanhNghiepEditController,
-                style: context.theme.textTheme.bodyMedium?.copyWith(
-                    // color: context.theme.colorScheme.onPrimary,
-                    ),
-                decoration: InputDecoration(
-                  fillColor: const Color(0xfff3f3f4),
-                  filled: true,
-                  hintText: "Search",
-                  hintStyle: context.theme.textTheme.bodyMedium,
-                  prefixIcon: const Icon(Icons.search_outlined),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Color(0xfff3f3f4),
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xfff3f3f4),
-                    ),
-                  ),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: const Color(0xfff3f3f4)),
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: TextFormField(
+                  // controller: controller.tenDoanhNghiepEditController,
+                  style: context.theme.textTheme.bodyMedium?.copyWith(),
+                  decoration: InputDecoration(
+                      hintText: "Search",
+                      hintStyle: context.theme.textTheme.bodyMedium,
+                      prefixIcon: const Icon(Icons.search_outlined),
+                      border: InputBorder.none),
                 ),
               ),
             ),

@@ -87,4 +87,24 @@ class UserRepository implements UserService {
       return ApiResponse<String>.error(ex.toString());
     }
   }
+
+  @override
+  Future<ApiResponse<UserModel>> search(String name) async {
+    try {
+      final response = await apiClient.dio.get(
+        '/search?name=$name',
+      );
+      if (response.statusCode == 200) {
+        final data = response.data['data'];
+        return ApiResponse<UserModel>.completed(UserModel.fromJson(data));
+        // (response.data[0]),
+      } else {
+        return ApiResponse<UserModel>.error(response.statusCode.toString());
+      }
+    } on DioException catch (d) {
+      return ApiResponse<UserModel>.error(d.message);
+    } catch (ex) {
+      return ApiResponse<UserModel>.error(ex.toString());
+    }
+  }
 }

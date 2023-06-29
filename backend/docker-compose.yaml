@@ -5,6 +5,7 @@ services:
     image: coderbillzay/project-3
     ports: 
       - '27680:27680'
+      - '46762:46762'
     volumes:
       - ./:/app
       - /app/node_modules
