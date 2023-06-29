@@ -1,7 +1,11 @@
 function chatAPI(app, io, sql) { 
     io.on('connection', (socket) => {
         socket.on('send-chat-message', (message) => {
-            sql.conSQL(`INSERT INTO Message(Sendby, Messages, Time, Type) VALUES(${message.Sendby}, '${message.Messages}', '${message.Time}',${message.Type})`, recordset => {})
+            sql.conSQL(`INSERT INTO Message(Sendby, Messages, Time, Type) VALUES(${message.Sendby}, '${message.Messages}', '${message.Time}',${message.Type})`, recordset => {
+                sql.conSQL(`UPDATE GroupChat SET Last_Message=${message.Messages} where (Select LOCATE('${message.Sendby}',GroupChat.Id_Member) AS Sendby)`, (recordset) => {
+                    console.log(recordset);
+                })
+            })
             socket.broadcast.emit('chat-message', message)
         })
     })

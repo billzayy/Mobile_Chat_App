@@ -12,16 +12,17 @@
 CREATE TABLE Message(
     Id_Message INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Sendby INT NOT NULL,
+    Id_Group    INT NOT NULL,
     Messages NVARCHAR(255) NOT NULL,
     Time NVARCHAR(255) NOT NULL,
     Type INT NOT NULL,
-    FOREIGN KEY(Sendby) REFERENCES Login(Id_User)
+    FOREIGN KEY(Sendby) REFERENCES Login(Id_User),
+    FOREIGN KEY(Id_Group) REFERENCES GroupChat(Id_Group)
 )
-
 CREATE TABLE GroupChat(
-    Id_Group            INT             NOT NULL        DEFAULT  0,
+    Id_Group            INT             NOT NULL PRIMARY KEY    AUTO_INCREMENT,
     Last_Message        INT             NOT NULL,
-    Id_Member           INT             NOT NULL,
+    Id_Member           NVARCHAR(255)   NOT NULL,
     GroupType           NVARCHAR(255)   NOT NULL,
     GroupName           NVARCHAR(255)   NULL,
     Pictures            NVARCHAR(255)   NULL,
