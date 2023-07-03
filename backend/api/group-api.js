@@ -16,7 +16,7 @@ function groupAPI(app, io, sql) {
         })
     })
 
-    app.post('/api/group/create-group', (req, res) => { 
+    app.post('/api/group/create', (req, res) => { 
         var memberList = req.body.memberList;
         var groupType = req.body.groupType;
         var groupName = req.body.groupName;
@@ -36,7 +36,7 @@ function groupAPI(app, io, sql) {
         })
     })
 
-    app.delete('/api/group/delete-group', (req, res) => {
+    app.delete('/api/group/delete', (req, res) => {
         var idGroup = req.body.id;
         sql.conSQL(`DELETE FROM GroupChat WHERE Id_Group = ${idGroup}`, (recordset) => {
             try {
