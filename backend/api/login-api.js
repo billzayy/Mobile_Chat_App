@@ -72,7 +72,7 @@ function loginAPI(app, sql) {
         })
     })
 
-    app.put('/api/update-user', (req, res) => {
+    app.put('/api/modify-user', (req, res) => {
         var idUser = req.body.id_user;
         var password = md5(req.body.password);
         var email = req.body.email;

@@ -7,7 +7,7 @@ function chatAPI(app, io, sql) {
     })
 
     app.get('/api/chat/get-all', (req, res) => {
-        var idGroup = req.query.id;
+        var idGroup = req.query.idGroup;
         sql.conSQL(`SELECT * FROM Message Where Id_Group = ${idGroup}`, (recordset) => {
             try {
                 res.status(200).send({
@@ -24,7 +24,7 @@ function chatAPI(app, io, sql) {
     })
 
     app.delete('/api/chat/delete-chat', (req, res) => {
-        const idMessage = req.body.id;
+        var idMessage = req.body.idMessage;
         sql.conSQL(`DELETE FROM Message where Id_Message = ${idMessage}`, recordset => {
             try {
                 res.status(200).send({
