@@ -65,12 +65,22 @@ function groupAPI(app, io, sql) {
 
     app.put('/api/group/update', (req, res) => {
         var idGroup = req.body.idGroup;
-        var idMember = req.body.idMember;
+        var memberList = req.body.memberList;
         var groupType = req.body.groupType;
         var groupName = req.body.groupName;
         var picture = req.body.picture;
-        sql.conSQL(`UPDATE GroupChat SET Id_Member = ${idMember}, GroupType = '${groupType}', GroupName = '${groupName}', Pictures = '${picture} WHERE Id_Group = ${idGroup}`, (req, res) => {
-            
+        sql.conSQL(`UPDATE GroupChat SET Id_Member = '${memberList}', GroupType = '${groupType}', GroupName = '${groupName}', Pictures = '${picture}' WHERE Id_Group = ${idGroup}`, (recordset) => {
+            try {
+                res.status(200).send({
+                    "message": "Success",
+                    "data": "Update successful !"
+                })
+            } catch (error) {
+                res.send({
+                    "message": "Failure",
+                    "data": "Fail to update"
+                })
+            }
         })
     })
 }
