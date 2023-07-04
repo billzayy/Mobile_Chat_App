@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:software_project_3/config/localVariable.dart';
+import 'package:software_project_3/config/localvariable.dart';
 import 'package:software_project_3/config/noti_config.dart';
 import 'package:software_project_3/src/domain/model/user_model.dart';
 import 'package:software_project_3/src/domain/service/user_service.dart';
@@ -12,11 +12,9 @@ class LoginController extends GetxController {
   // final _isarDatabase = Get.find<IsarDatabase>();
   final Rxn<UserModel> userLogin = Rxn<UserModel>();
   final UserService _userService = Get.find();
-  final TextEditingController emailEditController =
-      TextEditingController(text: 'nguyenxuananh@gmail.com');
+  final TextEditingController emailEditController = TextEditingController(text: 'nguyenxuananh@gmail.com');
   final RxnString emailChiError = RxnString(null);
-  final TextEditingController passwordEditController =
-      TextEditingController(text: 'abc');
+  final TextEditingController passwordEditController = TextEditingController(text: 'abc');
   final RxnString passwordError = RxnString(null);
   final NoTiConfig tinTucConfig = Get.find();
   bool isChecked = false;
@@ -39,14 +37,12 @@ class LoginController extends GetxController {
     /// check valid
     if (emailEditController.text.trim().isEmpty) {
       emailChiError.call('email hoặc password không đúng !');
-      tinTucConfig.showSnackBar('Bạn Chưa Nhập email ',
-          backgroundColor: Colors.amber);
+      tinTucConfig.showSnackBar('Bạn Chưa Nhập email ', backgroundColor: Colors.amber);
       return;
     }
     if (passwordEditController.text.trim().isEmpty) {
       passwordError.call('email hoặc password không đúng !');
-      tinTucConfig.showSnackBar('Bạn Chưa Nhập password',
-          backgroundColor: Colors.amber);
+      tinTucConfig.showSnackBar('Bạn Chưa Nhập password', backgroundColor: Colors.amber);
       return;
     }
 
@@ -55,8 +51,7 @@ class LoginController extends GetxController {
 
   Future _loginApp() async {
     final prefs = await SharedPreferences.getInstance();
-    final ApiResponse<UserModel> res = await _userService.loginUser(
-        emailEditController.text.trim(), passwordEditController.text.trim());
+    final ApiResponse<UserModel> res = await _userService.loginUser(emailEditController.text.trim(), passwordEditController.text.trim());
     if (res.status == ApiResponseStatus.completed) {
       userLogin.call(res.data);
       await prefs.setString(LocalVariable.userName, userLogin.value!.fullname!);
@@ -67,10 +62,7 @@ class LoginController extends GetxController {
       Get.offAllNamed(RootApp.routerName);
       // await _isarDatabase.unSert<UserModel>(res.data!);
     } else {
-      tinTucConfig.showSnackBar(
-          title: 'Thông báo',
-          'Đăng Nhập Thất Bại.Vui Lòng thử Lại !',
-          backgroundColor: Colors.orangeAccent);
+      tinTucConfig.showSnackBar(title: 'Thông báo', 'Đăng Nhập Thất Bại.Vui Lòng thử Lại !', backgroundColor: Colors.orangeAccent);
     }
     isLoading.call(false);
   }

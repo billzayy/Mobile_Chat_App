@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:software_project_3/config/localVariable.dart';
+import 'package:software_project_3/config/localvariable.dart';
 import 'package:software_project_3/config/noti_config.dart';
 
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -18,15 +18,18 @@ class RoomChatController extends GetxController {
   final TextEditingController messageEditController = TextEditingController();
   final IO.Socket socket = IO.io('http://34.142.131.182:46762', IO.OptionBuilder().setTransports(['websocket']).build());
   int userId = 0;
+  late int idGroup;
   File? imageFile;
   File? file;
   final RxBool isLoading = true.obs;
   final MessageService _messageService = Get.find();
   @override
   void onInit() {
+    idGroup = Get.arguments['idGroup'];
     loadData();
     connectSocket();
     fetch();
+
     // TODO: implement onInit
     super.onInit();
   }
@@ -37,7 +40,8 @@ class RoomChatController extends GetxController {
   }
 
   Future fetch() async {
-    final ApiResponse<List<MessageModel>> res = await _messageService.getMessages();
+    final ApiResponse<List<MessageModel>> res = await _messageService.getMessages(idGroup);
+
     if (res.status == ApiResponseStatus.completed) {
       messages.call(res.data);
     } else {
@@ -64,6 +68,7 @@ class RoomChatController extends GetxController {
     Map<String, dynamic> messages = {
       // "chatId": idGroupChat,
       "Sendby": userId,
+      "IdGroup": idGroup,
       "Messages": messageEditController.text.trim(),
       "Type": 1,
       "Time": DateTime.now().millisecondsSinceEpoch.toString(),
