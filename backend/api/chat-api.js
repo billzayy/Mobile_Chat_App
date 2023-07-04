@@ -23,7 +23,7 @@ function chatAPI(app, io, sql) {
         })
     })
 
-    app.delete('/api/chat/delete-chat', (req, res) => {
+    app.delete('/api/chat/delete', (req, res) => {
         var idMessage = req.body.idMessage;
         sql.conSQL(`DELETE FROM Message where Id_Message = ${idMessage}`, recordset => {
             try {
