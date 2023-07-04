@@ -18,14 +18,24 @@ function groupAPI(app, io, sql) {
 
     app.post('/api/group/create', (req, res) => { 
         var memberList = req.body.memberList;
+        var idMember = req.body.idMember;
         var groupType = req.body.groupType;
         var groupName = req.body.groupName;
         var pictures = req.body.pictures;
         sql.conSQL(`Insert into GroupChat(Id_Member, GroupType, GroupName, Pictures) Values ('${memberList}','${groupType}','${groupName}','${pictures}')`, recordset => {
             try {
-                res.status(200).send({
-                    "message": "Success",
-                    "data": "Create Group Successful"
+                sql.conSQL(`Select * from GroupChat Where (Select LOCATE('${idMember}',GroupChat.Id_Member) AS LOCATED)`, recordset => {
+                    try {
+                        res.status(200).send({
+                            "message": "Success",
+                            "data": recordset[recordset.length - 1]
+                        })
+                    } catch (error) {
+                        res.send({
+                            "message": "Fail",
+                            "data": "Fail to create group"
+                        })
+                    }
                 })
             } catch (error) {
                 res.send({
@@ -50,6 +60,17 @@ function groupAPI(app, io, sql) {
                     "data":"Fail to delete group"
                 })
             }
+        })
+    })
+
+    app.put('/api/group/update', (req, res) => {
+        var idGroup = req.body.idGroup;
+        var idMember = req.body.idMember;
+        var groupType = req.body.groupType;
+        var groupName = req.body.groupName;
+        var picture = req.body.picture;
+        sql.conSQL(`UPDATE GroupChat SET Id_Member = ${idMember}, GroupType = '${groupType}', GroupName = '${groupName}', Pictures = '${picture} WHERE Id_Group = ${idGroup}`, (req, res) => {
+            
         })
     })
 }
