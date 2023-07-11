@@ -7,20 +7,21 @@ import 'package:software_project_3/src/infrastructure/repositories/dio.dart';
 class GroupRepository implements GroupService {
   final ApiClient apiClient = Get.find();
   @override
-  Future<ApiResponse<String>> createGroup(Map<String, dynamic> param) async {
+  Future<ApiResponse<GroupModel>> createGroup(Map<String, dynamic> param) async {
     try {
-      final response = await apiClient.dio.post('/group/create-group', data: param);
-      if (response.statusCode == 201) {
+      final response = await apiClient.dio.post('/group/create', data: param);
+      if (response.statusCode == 200) {
         final data = response.data['data'];
-        return ApiResponse<String>.completed(data);
+        final group = GroupModel.fromJson(data);
+        return ApiResponse<GroupModel>.completed(group);
         // (response.data[0]),
       } else {
-        return ApiResponse<String>.error(response.statusCode.toString());
+        return ApiResponse<GroupModel>.error(response.statusCode.toString());
       }
     } on DioException catch (d) {
-      return ApiResponse<String>.error(d.message);
+      return ApiResponse<GroupModel>.error(d.message);
     } catch (ex) {
-      return ApiResponse<String>.error(ex.toString());
+      return ApiResponse<GroupModel>.error(ex.toString());
     }
   }
 
@@ -28,7 +29,7 @@ class GroupRepository implements GroupService {
   Future<ApiResponse<List<GroupModel>>> getGroup(int userID) async {
     try {
       final response = await apiClient.dio.get(
-        '/group/get-all?id=$userID',
+        '/group/get-all?idMember=$userID',
       );
       if (response.statusCode == 200) {
         /// as List<dynamic> easy to understand

@@ -24,22 +24,25 @@ class CreateGroupView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(onTap: () => Get.back(), child: Icon(Icons.close)),
+                GestureDetector(onTap: () => Get.back(), child: const Icon(Icons.close)),
                 Text(
                   'Nhóm Mới',
                   style: Get.theme.textTheme.bodyLarge,
                 ),
-                Text(
-                  'Tạo',
-                  style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey),
+                GestureDetector(
+                  onTap: () => controller.createGroup(),
+                  child: Text(
+                    'Tạo',
+                    style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold, color: Colors.blue),
+                  ),
                 ),
               ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
-                obscureText: true,
-                // controller: controller.tenDoanhNghiepEditController,
+                // obscureText: true,
+                controller: controller.nameGroupEditController,
                 style: context.theme.textTheme.bodyMedium?.copyWith(),
                 decoration: InputDecoration(
                     hintText: "Tên Nhóm (Không bắt Buộc)",
@@ -75,41 +78,58 @@ class CreateGroupView extends StatelessWidget {
                             var item = controller.listUserDaChon[index];
                             return Column(
                               children: [
-                                SizedBox(
-                                  width: Get.width * 0.2,
-                                  height: Get.width * 0.2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: ClipOval(
-                                      child: ExtendedImage.network(
-                                        item.pictures ?? '',
-                                        fit: BoxFit.cover,
-                                        borderRadius: const BorderRadius.all(Radius.circular(5)),
-                                        shape: BoxShape.rectangle,
-                                        loadStateChanged: (ExtendedImageState state) {
-                                          switch (state.extendedImageLoadState) {
-                                            case LoadState.loading:
-                                              return const Center(
-                                                child: CircularProgressIndicator(),
-                                              );
-                                            case LoadState.completed:
-                                              return null;
-                                            case LoadState.failed:
-                                              return Image.asset(
-                                                ImageAssets.defaultUser,
-                                              );
-                                          }
-                                        },
+                                Stack(
+                                  children: [
+                                    SizedBox(
+                                      width: Get.width * 0.2,
+                                      height: Get.width * 0.2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: ClipOval(
+                                          child: ExtendedImage.network(
+                                            item.pictures ?? '',
+                                            fit: BoxFit.cover,
+                                            borderRadius: const BorderRadius.all(Radius.circular(5)),
+                                            shape: BoxShape.rectangle,
+                                            loadStateChanged: (ExtendedImageState state) {
+                                              switch (state.extendedImageLoadState) {
+                                                case LoadState.loading:
+                                                  return const Center(
+                                                    child: CircularProgressIndicator(),
+                                                  );
+                                                case LoadState.completed:
+                                                  return null;
+                                                case LoadState.failed:
+                                                  return Image.asset(
+                                                    ImageAssets.defaultUser,
+                                                  );
+                                              }
+                                            },
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                    Positioned(
+                                        top: 8,
+                                        right: 12,
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              controller.deleteMember(item);
+                                            },
+                                            child: Image.asset(
+                                              'assets/images/closeicon.jpg',
+                                              width: 18,
+                                              height: 18,
+                                            ))),
+                                  ],
                                 ),
                                 SizedBox(
-                                    width: 80,
-                                    child: Text(
-                                      item.fullname ?? '',
-                                      style: Get.theme.textTheme.bodyMedium,
-                                    )),
+                                  width: 60,
+                                  child: Text(
+                                    item.fullname ?? '',
+                                    style: Get.theme.textTheme.bodySmall,
+                                  ),
+                                )
                               ],
                             );
                           }),
@@ -147,53 +167,59 @@ class ListUserView extends GetView<GroupChatController> {
                 //     photoURL: item.pictures ??'',
                 //   ),
                 // )
-                return GestureDetector(
-                  onTap: () => controller.selectListUser(item),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: Get.width * 0.2,
-                        height: Get.width * 0.2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: ClipOval(
-                            child: ExtendedImage.network(
-                              item.pictures ?? '',
-                              fit: BoxFit.cover,
-                              borderRadius: const BorderRadius.all(Radius.circular(5)),
-                              shape: BoxShape.rectangle,
-                              loadStateChanged: (ExtendedImageState state) {
-                                switch (state.extendedImageLoadState) {
-                                  case LoadState.loading:
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  case LoadState.completed:
-                                    return null;
-                                  case LoadState.failed:
-                                    return Image.asset(
-                                      ImageAssets.defaultUser,
-                                    );
-                                }
-                              },
+                if (controller.userId != item.idUser) {
+                  return GestureDetector(
+                    onTap: () => controller.selectListUser(item),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: Get.width * 0.2,
+                          height: Get.width * 0.2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: ClipOval(
+                              child: ExtendedImage.network(
+                                item.pictures ?? '',
+                                fit: BoxFit.cover,
+                                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                                shape: BoxShape.rectangle,
+                                loadStateChanged: (ExtendedImageState state) {
+                                  switch (state.extendedImageLoadState) {
+                                    case LoadState.loading:
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    case LoadState.completed:
+                                      return null;
+                                    case LoadState.failed:
+                                      return Image.asset(
+                                        ImageAssets.defaultUser,
+                                      );
+                                  }
+                                },
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Text(
-                        item.fullname ?? '',
-                        style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                );
+                        Text(
+                          item.fullname ?? '',
+                          style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
               },
               separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  color: Colors.grey,
-                  indent: 70,
-                  endIndent: 10,
-                );
+                if (controller.userId != controller.listUser[index].idUser) {
+                  return const Divider(
+                    color: Colors.grey,
+                    indent: 70,
+                    endIndent: 10,
+                  );
+                }
+                return const SizedBox.shrink();
               },
             );
           }

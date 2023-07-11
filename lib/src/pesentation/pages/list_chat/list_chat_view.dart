@@ -44,14 +44,19 @@ class ListChatView extends GetView<ListChatController> {
                     return const LoadingShimmer();
                   } else {
                     return ListView.builder(
-                      itemCount: controller.listGroup.length,
+                      itemCount: controller.listPrivate.length,
                       itemBuilder: (context, index) {
-                        var item = controller.listGroup[index];
+                        var item = controller.listPrivate[index];
                         if (item.groupType == 'private') {
                           return GestureDetector(
-                            onTap: () => Get.toNamed(RoomChatView.routerName, arguments: {
-                              'idGroup': item.idGroup,
-                            }),
+                            onTap: () {
+                              // final memberIdStr = item.idMember?.split(',').where((id) => int.tryParse(id) != controller.userId).first;
+                              // final memberId = int.tryParse(memberIdStr ?? '');
+                              Get.toNamed(RoomChatView.routerName, arguments: {
+                                'idGroup': item.idGroup,
+                                'infoMember': item.idMember,
+                              });
+                            },
                             child: Card(
                               child: Row(
                                 children: [
@@ -88,7 +93,7 @@ class ListChatView extends GetView<ListChatController> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        item.groupName ?? '',
+                                        item.groupName == "" ? "UserName" : item.groupName!,
                                         style: Get.theme.textTheme.titleMedium,
                                       ),
                                       Text(

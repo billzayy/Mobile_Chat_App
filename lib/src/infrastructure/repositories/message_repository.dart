@@ -11,7 +11,7 @@ class MessageRepository implements MessageService {
   Future<ApiResponse<List<MessageModel>>> getMessages(int idGroup) async {
     try {
       final response = await apiClient.dio.get(
-        '/chat/get-all?id=$idGroup',
+        '/chat/get-all?idGroup=$idGroup',
       );
       if (response.statusCode == 200) {
         /// as List<dynamic> easy to understand

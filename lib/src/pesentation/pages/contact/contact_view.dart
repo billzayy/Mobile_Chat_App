@@ -99,62 +99,60 @@ class ContactView extends GetView<ContactController> {
 class CardContact extends StatelessWidget {
   final String person;
   final String status;
+
   const CardContact({super.key, required this.person, required this.status});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Get.toNamed(RoomChatView.routerName),
-      child: Card(
-          margin: const EdgeInsets.only(top: 10, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: Get.width * 0.2,
-                height: Get.width * 0.2,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: ClipOval(
-                    child: ExtendedImage.network(
-                      '',
-                      fit: BoxFit.cover,
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
-                      shape: BoxShape.rectangle,
-                      loadStateChanged: (ExtendedImageState state) {
-                        switch (state.extendedImageLoadState) {
-                          case LoadState.loading:
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          case LoadState.completed:
-                            return null;
-                          case LoadState.failed:
-                            return Image.asset(
-                              ImageAssets.defaultUser,
-                            );
-                        }
-                      },
-                    ),
+    return Card(
+        margin: const EdgeInsets.only(top: 10, bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: Get.width * 0.2,
+              height: Get.width * 0.2,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: ClipOval(
+                  child: ExtendedImage.network(
+                    '',
+                    fit: BoxFit.cover,
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    shape: BoxShape.rectangle,
+                    loadStateChanged: (ExtendedImageState state) {
+                      switch (state.extendedImageLoadState) {
+                        case LoadState.loading:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case LoadState.completed:
+                          return null;
+                        case LoadState.failed:
+                          return Image.asset(
+                            ImageAssets.defaultUser,
+                          );
+                      }
+                    },
                   ),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    person,
-                    style: Get.theme.textTheme.titleMedium,
-                  ),
-                  Text(
-                    status,
-                    style: Get.theme.textTheme.titleSmall,
-                  )
-                ],
-              )
-            ],
-          )),
-    );
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  person,
+                  style: Get.theme.textTheme.titleMedium,
+                ),
+                Text(
+                  status,
+                  style: Get.theme.textTheme.titleSmall,
+                )
+              ],
+            )
+          ],
+        ));
   }
 }
 
@@ -192,13 +190,15 @@ class ContactList extends GetView<ContactController> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('$charInput'.toUpperCase(),
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      Text('$charInput'.toUpperCase(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
       for (int i = 0; i < controller.userContact.length; i++)
         if (controller.userContact[i].fullname![0].toUpperCase() == charInput)
-          CardList(
-              person: "${controller.userContact[i].fullname}",
-              status: "${controller.userContact[i].status}")
+          GestureDetector(
+              onTap: () => Get.toNamed(RoomChatView.routerName, arguments: {
+                    'idGroup': null,
+                    'idMember': controller.userContact[i].idUser,
+                  }),
+              child: CardList(person: "${controller.userContact[i].fullname}", status: "${controller.userContact[i].status}"))
     ]);
   }
 }

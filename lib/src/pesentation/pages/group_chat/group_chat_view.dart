@@ -6,7 +6,6 @@ import 'package:software_project_3/src/pesentation/common_widgets/common_appbar.
 import 'package:software_project_3/src/pesentation/common_widgets/loading_shimmer.dart';
 import 'package:software_project_3/src/pesentation/pages/group_chat/create_group_chat/create_group_view.dart';
 import 'package:software_project_3/src/pesentation/pages/group_chat/group_chat_ctrl.dart';
-import 'package:software_project_3/src/pesentation/pages/list_chat/list_chat_ctrl.dart';
 
 import '../room_chat/room_chat_view.dart';
 
@@ -20,19 +19,22 @@ class GroupChatView extends GetView<GroupChatController> {
       appBar: const CommonAppbar(
         title: 'Group Chat',
       ),
-      body: const Column(
-        children: [GroupList()],
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          children: [GroupList()],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepPurple[500],
-        onPressed: () => Get.bottomSheet(isScrollControlled: true, CreateGroupView()),
+        onPressed: () => Get.bottomSheet(isScrollControlled: true, const CreateGroupView()),
         child: const Icon(Icons.add),
       ),
     );
   }
 }
 
-class GroupList extends GetView<ListChatController> {
+class GroupList extends GetView<GroupChatController> {
   const GroupList({Key? key}) : super(key: key);
 
   @override
@@ -51,6 +53,7 @@ class GroupList extends GetView<ListChatController> {
                   return GestureDetector(
                     onTap: () => Get.toNamed(RoomChatView.routerName, arguments: {
                       'idGroup': item.idGroup,
+                      'idMember': null,
                     }),
                     child: Card(
                       child: Row(
@@ -84,18 +87,23 @@ class GroupList extends GetView<ListChatController> {
                               ),
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.groupName ?? '',
-                                style: Get.theme.textTheme.titleMedium,
-                              ),
-                              Text(
-                                'New Messages',
-                                style: Get.theme.textTheme.titleSmall,
-                              )
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.groupName ?? '',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  textScaleFactor: 1,
+                                  style: Get.theme.textTheme.titleMedium,
+                                ),
+                                const Text(
+                                  'New message',
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),

@@ -12,6 +12,8 @@ import 'package:software_project_3/src/pesentation/pages/profile/profile_ctrl.da
 import 'package:software_project_3/src/pesentation/pages/profile/profile_view.dart';
 
 import 'package:software_project_3/src/pesentation/pages/root_app.dart';
+import 'package:software_project_3/src/pesentation/pages/update_group/update_group_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/update_group/update_group_view.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_view.dart';
 //
@@ -123,6 +125,15 @@ class RouterConfigs {
       binding: BindingsBuilder(
         () {
           Get.lazyPut(() => GroupChatController());
+        },
+      ),
+    ),
+    GetPage(
+      name: UpdateGroupView.routerName,
+      page: () => const UpdateGroupView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => UpdateGroupController());
         },
       ),
     ),

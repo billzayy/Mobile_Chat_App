@@ -26,7 +26,7 @@ dependencies:
   socket_io_client: ^2.0.2
   image_picker: ^0.8.9
   shimmer: ^2.0.0
-
+  event_bus: ^2.0.0
   flutter_localizations:
     sdk: flutter
 

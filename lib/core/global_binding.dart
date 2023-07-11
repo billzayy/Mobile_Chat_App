@@ -1,3 +1,4 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/config/noti_config.dart';
 import 'package:software_project_3/config/tintuc_config_implement.dart';
@@ -18,6 +19,6 @@ class GlobalBinding extends Bindings {
     Get.lazyPut<GroupService>(() => GroupRepository(), fenix: true);
     final client = ApiClient()..init(baseUrl: 'http://34.142.131.182:27680/api');
     Get.put<ApiClient>(client);
-    // Get.put(SocketService()).connect();
+    Get.put(EventBus(), permanent: true);
   }
 }
