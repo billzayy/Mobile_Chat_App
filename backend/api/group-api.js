@@ -11,18 +11,19 @@ function groupAPI(app, io, sql) {
                 }
 
                 sql.conSQL(`Select * from Login`, recordsets => {
-                    var userListId = [];
-                    for (let i = 0; i < recordsets.length; i++){
-                        userListId.push(recordsets[i].Id_User.toString())
-                    }
-
-                    for (let i = 0; i < arr.length; i++){
-                        for (let j = 0; j < arr[i].length; j++){
-                            console.log(i, arr[i][j], userListId[i], userListId[j], j)
+                    for (let i = 0; i < recordsets.length; i++) {
+                        for (let j = 0; j < arr.length; j++) {
+                            for (let k = 0; k < arr[j].length; k++) {
+                                if (recordsets[i].Id_User == arr[j][k]) {
+                                    data[j] = arr[j];
+                                    data[j][k] = recordsets[i]
+                                }
+                            }
                         }
                     }
-                    // console.log(data)
-                    console.log(arr, userListId)
+                    for (let i = 0; i < recordset.length; i++){
+                        recordset[i].Id_Member = data[i]
+                    }
                     res.status(200).send({
                         "message": "Success",
                         "data": recordset
