@@ -2,17 +2,19 @@ import 'package:get/get.dart';
 import 'package:software_project_3/src/pesentation/pages/app_start.dart';
 import 'package:software_project_3/src/pesentation/pages/contact/contact_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/contact/contact_view.dart';
-import 'package:software_project_3/src/pesentation/pages/goup_chat/group_chat_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/group_chat/group_chat_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/group_chat/group_chat_view.dart';
+import 'package:software_project_3/src/pesentation/pages/list_chat/list_chat_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/list_chat/list_chat_view.dart';
 import 'package:software_project_3/src/pesentation/pages/login/login_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 import 'package:software_project_3/src/pesentation/pages/profile/profile_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/profile/profile_view.dart';
-
 import 'package:software_project_3/src/pesentation/pages/root_app.dart';
+import 'package:software_project_3/src/pesentation/pages/update_group/update_group_ctrl.dart';
+import 'package:software_project_3/src/pesentation/pages/update_group/update_group_view.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_view.dart';
-
-
 import '../src/pesentation/pages/help/help_view.dart';
 import '../src/pesentation/pages/notification/notification_view.dart';
 import '../src/pesentation/pages/room_chat/room_chat_ctrl.dart';
@@ -54,8 +56,18 @@ class RouterConfigs {
           Get.lazyPut(() => RoomChatController());
           Get.lazyPut(() => ProFileController());
           Get.lazyPut(() => GroupChatController());
-          // Get.lazyPut(() => LoginController());
+          Get.lazyPut(() => ListChatController());
         })),
+    GetPage(
+      name: ListChatView.routerName,
+      page: () => const ListChatView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => ListChatController());
+          // Get.put(DashBoardController());
+        },
+      ),
+    ),
     GetPage(
       name: RoomChatView.routerName,
       page: () => const RoomChatView(),
@@ -89,11 +101,29 @@ class RouterConfigs {
       name: UpdateUserView.routerName,
       page: () => const UpdateUserView(),
       binding: BindingsBuilder(
-            () {
+        () {
           Get.lazyPut(() => UpdateUserController());
         },
       ),
     ),
+    GetPage(
+      name: GroupChatView.routerName,
+      page: () => const GroupChatView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => GroupChatController());
+        },
+      ),
+    ),
+    GetPage(
+      name: UpdateGroupView.routerName,
+      page: () => const UpdateGroupView(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => UpdateGroupController());
+        },
+      ),
+
     GetPage(
       name: NotificationView.routerName,
       page: () => const NotificationView(),
@@ -107,6 +137,7 @@ class RouterConfigs {
     GetPage(
       name: HelpView.routerName,
       page: () => const HelpView(),
+
     ),
   ];
 }

@@ -10,6 +10,35 @@ class UpdateUserView extends GetView<UpdateUserController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
+        title: const Text('update name'),
+      ),
+      body: Column(
+        children: [
+          const Center(child: Text('update')),
+          Text(
+            'Full Name',
+            style: Get.theme.textTheme.bodyMedium
+                ?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          Obx(
+            () => TextField(
+              // onTap: () => controller.slideController.hide(),
+              controller: controller.fullNameEditController,
+              style: context.theme.textTheme.bodyMedium?.copyWith(
+                  // color: context.theme.hintColor,
+                  ),
+              decoration: InputDecoration(
+                  alignLabelWithHint: true,
+                  hintText: 'Enter your full name',
+                  hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
+                  errorText: controller.fullNameError.value,
+                  border: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black))),
+
         title: Text('Update Account'),
       ),
       body: Padding(

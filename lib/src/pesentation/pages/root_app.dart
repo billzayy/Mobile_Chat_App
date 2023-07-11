@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:software_project_3/src/pesentation/pages/contact/contact_view.dart';
-import 'package:software_project_3/src/pesentation/pages/goup_chat/goup_chat_view.dart';
+import 'package:software_project_3/src/pesentation/pages/group_chat/group_chat_view.dart';
 import 'package:software_project_3/src/pesentation/pages/list_chat/list_chat_view.dart';
 import 'package:software_project_3/src/pesentation/pages/profile/profile_view.dart';
 
@@ -51,8 +51,7 @@ class _RootAppState extends State<RootApp> {
               icon: SvgPicture.asset(
                 rootAppJson[index]['icon'],
                 width: 26,
-                colorFilter: ColorFilter.mode(
-                    rootAppJson[index]['color'], BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(rootAppJson[index]['color'], BlendMode.srcIn),
               ),
               title: Text(rootAppJson[index]['text']));
         }));
@@ -60,24 +59,8 @@ class _RootAppState extends State<RootApp> {
 }
 
 const List rootAppJson = [
-  {
-    "icon": "assets/icons/chats.svg",
-    "text": "chats",
-    "color": Color(0xff734DDE)
-  },
-  {
-    "icon": "assets/icons/group.svg",
-    "text": "Groups chat",
-    "color": Color(0xff734DDE)
-  },
-  {
-    "icon": "assets/icons/contact.svg",
-    "text": "Contacts",
-    "color": Color(0xff734DDE)
-  },
-  {
-    "icon": "assets/icons/avatar.svg",
-    "text": "Profile",
-    "color": Color(0xff734DDE)
-  }
+  {"icon": "assets/icons/chats.svg", "text": "chats", "color": Color(0xff734DDE)},
+  {"icon": "assets/icons/group.svg", "text": "Groups chat", "color": Color(0xff734DDE)},
+  {"icon": "assets/icons/contact.svg", "text": "Contacts", "color": Color(0xff734DDE)},
+  {"icon": "assets/icons/avatar.svg", "text": "Profile", "color": Color(0xff734DDE)}
 ];

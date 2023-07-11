@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:software_project_3/config/localvariable.dart';
 import 'package:software_project_3/src/domain/model/user_model.dart';
 import 'package:software_project_3/src/domain/service/user_service.dart';
 import 'package:software_project_3/src/infrastructure/repositories/dio.dart';
@@ -7,11 +9,17 @@ class ContactController extends GetxController {
   final RxList<UserModel> userContact = <UserModel>[].obs;
   final RxBool isLoading = true.obs;
   final UserService _userService = Get.find();
-
+  int userId = 0;
   @override
   void onInit() {
     fetch();
     super.onInit();
+  }
+
+  Future<void> loadData() async {
+    final prefs = await SharedPreferences.getInstance();
+    userId = prefs.getInt(LocalVariable.userId)!;
+    fetch();
   }
 
   Future fetch() async {
@@ -23,6 +31,7 @@ class ContactController extends GetxController {
     }
     isLoading.call(false);
   }
+
   @override
   void onClose() {
     // TODO: implement onClose

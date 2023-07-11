@@ -40,8 +40,7 @@ class ProFileView extends GetView<ProFileController> {
                         child: ExtendedImage.network(
                           '',
                           fit: BoxFit.cover,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5)),
                           shape: BoxShape.rectangle,
                           loadStateChanged: (ExtendedImageState state) {
                             switch (state.extendedImageLoadState) {
@@ -70,10 +69,10 @@ class ProFileView extends GetView<ProFileController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   width: Get.width,
-                  height: 400,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white54),
+
+                  height: 350,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white54),
+
                   child: Column(
                     children: [
                       CustomButton(
@@ -125,9 +124,7 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
   final Icon icon;
   final String? text;
-  const CustomButton(
-      {Key? key, required this.icon, required this.text, required this.onTap})
-      : super(key: key);
+  const CustomButton({Key? key, required this.icon, required this.text, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
