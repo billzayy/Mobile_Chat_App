@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:software_project_3/config/a.dart';
+import 'package:software_project_3/config/snack_bar_and_loading.dart';
 import 'package:software_project_3/config/noti_config.dart';
 import 'package:software_project_3/src/pesentation/common_widgets/custom_no_data_widget.dart';
 
@@ -12,15 +12,12 @@ class NoTiConfigImplement implements NoTiConfig {
   // void showLoading() => SnackBarAndLoading.showLoading();
 
   @override
-  void showSnackBar(String noiDung,
-      {Color? backgroundColor, String title = 'Thông báo'}) {
-    SnackBarAndLoading.showSnackBar(noiDung,
-        title: title, backgroundColor: backgroundColor ?? Colors.green);
+  void showSnackBar(String noiDung, {Color? backgroundColor, String title = 'Thông báo'}) {
+    SnackBarAndLoading.showSnackBar(noiDung, title: title, backgroundColor: backgroundColor ?? Colors.green);
   }
 
   @override
-  Widget noDataWidget(String noiDung,
-      {required bool isSearch, required RefreshNoDataCallback? refresh}) {
+  Widget noDataWidget(String noiDung, {required bool isSearch, required RefreshNoDataCallback? refresh}) {
     if (refresh != null) {
       return LayoutBuilder(builder: (context, viewportConstraints) {
         return RefreshIndicator(
@@ -60,8 +57,7 @@ class NoTiConfigImplement implements NoTiConfig {
   Widget loadMoreWidget() => SizedBox(
         height: 30,
         child: Center(
-          child: CupertinoActivityIndicator(
-              radius: 10.0, color: Get.theme.colorScheme.primary),
+          child: CupertinoActivityIndicator(radius: 10.0, color: Get.theme.colorScheme.primary),
         ),
       );
 }

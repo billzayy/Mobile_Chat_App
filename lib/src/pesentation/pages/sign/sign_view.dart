@@ -22,9 +22,7 @@ class SignView extends GetView<SignController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Create Account',
-                        style: Get.theme.textTheme.headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold)),
+                    Text('Create Account', style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(
                       height: 8,
                     ),
@@ -37,8 +35,7 @@ class SignView extends GetView<SignController> {
                     ),
                     Text(
                       'Email Address',
-                      style: Get.theme.textTheme.bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 4,
@@ -53,11 +50,9 @@ class SignView extends GetView<SignController> {
                         decoration: InputDecoration(
                             alignLabelWithHint: true,
                             hintText: 'example@example.com',
-                            hintStyle:
-                                context.theme.textTheme.bodyMedium?.copyWith(),
+                            hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
                             errorText: controller.emailChiError.value,
-                            border: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black))),
+                            border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
                       ),
                     ),
                     const SizedBox(
@@ -65,8 +60,7 @@ class SignView extends GetView<SignController> {
                     ),
                     Text(
                       'Full Name',
-                      style: Get.theme.textTheme.bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 4,
@@ -81,11 +75,9 @@ class SignView extends GetView<SignController> {
                         decoration: InputDecoration(
                             alignLabelWithHint: true,
                             hintText: 'Enter your full name',
-                            hintStyle:
-                                context.theme.textTheme.bodyMedium?.copyWith(),
+                            hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
                             errorText: controller.fullNameError.value,
-                            border: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black))),
+                            border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
                       ),
                     ),
                     const SizedBox(
@@ -93,8 +85,7 @@ class SignView extends GetView<SignController> {
                     ),
                     Text(
                       'Mobile Number',
-                      style: Get.theme.textTheme.bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 4,
@@ -110,11 +101,9 @@ class SignView extends GetView<SignController> {
                         decoration: InputDecoration(
                             alignLabelWithHint: true,
                             hintText: 'Enter your mobile number',
-                            hintStyle:
-                                context.theme.textTheme.bodyMedium?.copyWith(),
+                            hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
                             errorText: controller.phoneError.value,
-                            border: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black))),
+                            border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
                       ),
                     ),
                     const SizedBox(
@@ -122,8 +111,7 @@ class SignView extends GetView<SignController> {
                     ),
                     Text(
                       'Password',
-                      style: Get.theme.textTheme.bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 4,
@@ -137,18 +125,14 @@ class SignView extends GetView<SignController> {
                             ),
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
-                              icon: Icon(controller.showPassword.value
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
+                              icon: Icon(controller.showPassword.value ? Icons.visibility : Icons.visibility_off),
                               onPressed: controller.togglePasswordVisibility,
                             ),
                             alignLabelWithHint: true,
                             hintText: 'Enter your password',
-                            hintStyle:
-                                context.theme.textTheme.bodyMedium?.copyWith(),
+                            hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
                             errorText: controller.passwordError.value,
-                            border: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black))),
+                            border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
                       ),
                     ),
                     Row(
@@ -162,8 +146,7 @@ class SignView extends GetView<SignController> {
                         ),
                         Text(
                           'I agree to the terms and conditions ',
-                          style: Get.theme.textTheme.bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.bold),
+                          style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -174,12 +157,20 @@ class SignView extends GetView<SignController> {
                       width: Get.width,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal[800],
+                          backgroundColor: Colors.deepPurple[500],
                         ),
                         onPressed: () => controller.onSend(),
-                        child: Text('Sign Up',
-                            style: Get.theme.textTheme.bodyMedium
-                                ?.copyWith(color: Colors.white)),
+                        child: Text('Sign Up', style: Get.theme.textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                      ),
+                    ),
+                    SizedBox(
+                      width: Get.width,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepPurple[500],
+                        ),
+                        onPressed: () => controller.onSend(),
+                        child: Text('Sign Up', style: Get.theme.textTheme.bodyMedium?.copyWith(color: Colors.white)),
                       ),
                     ),
                     const SizedBox(
@@ -191,15 +182,12 @@ class SignView extends GetView<SignController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already have an account? ",
-                      style: Get.theme.textTheme.bodyLarge),
+                  Text("Already have an account? ", style: Get.theme.textTheme.bodyLarge),
                   InkWell(
                     onTap: () => Get.toNamed(LoginView.routeName),
                     child: Text(
                       "Login",
-                      style: Get.theme.textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green[800]),
+                      style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold, color: Colors.green[800]),
                     ),
                   )
                 ],

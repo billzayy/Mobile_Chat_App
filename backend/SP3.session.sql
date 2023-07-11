@@ -35,4 +35,3 @@ CREATE TABLE GroupMember(
     Id_User               INT              NOT NULL,
     FOREIGN KEY Id_Group REFERENCES GroupChat(Id_Group),
 FOREIGN KEY Id_User REFERENCES Login(Id_User)
-)
