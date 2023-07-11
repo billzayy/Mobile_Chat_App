@@ -55,12 +55,12 @@ class LoginController extends GetxController {
     if (res.status == ApiResponseStatus.completed) {
       userLogin.call(res.data);
       await prefs.setString(LocalVariable.userName, userLogin.value!.fullname!);
-      await prefs.setString(LocalVariable.password, userLogin.value!.email!);
+      await prefs.setString(LocalVariable.email, userLogin.value!.email!);
+      await prefs.setString(LocalVariable.password, userLogin.value!.password!);
       await prefs.setInt(LocalVariable.userId, userLogin.value!.idUser!);
       await prefs.setBool(LocalVariable.isLogin, true);
       _cleanInput();
       Get.offAllNamed(RootApp.routerName);
-      // await _isarDatabase.unSert<UserModel>(res.data!);
     } else {
       tinTucConfig.showSnackBar(title: 'Thông báo', 'Đăng Nhập Thất Bại.Vui Lòng thử Lại !', backgroundColor: Colors.orangeAccent);
     }

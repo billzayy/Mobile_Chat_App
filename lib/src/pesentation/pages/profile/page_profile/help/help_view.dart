@@ -35,9 +35,9 @@ class SupportCenterScreen extends StatelessWidget {
         itemCount: chatList.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: AssetImage('assets/${chatList[index].avatar}'),
-            ),
+            // leading: CircleAvatar(
+            //   backgroundImage: AssetImage('assets/${chatList[index].avatar}'),
+            // ),
             title: Text(chatList[index].name),
             subtitle: Text(chatList[index].lastMessage),
             onTap: () {
@@ -111,8 +111,3 @@ class ChatDetailsScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-

@@ -163,6 +163,16 @@ class SignView extends GetView<SignController> {
                         child: Text('Sign Up', style: Get.theme.textTheme.bodyMedium?.copyWith(color: Colors.white)),
                       ),
                     ),
+                    SizedBox(
+                      width: Get.width,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepPurple[500],
+                        ),
+                        onPressed: () => controller.onSend(),
+                        child: Text('Sign Up', style: Get.theme.textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                      ),
+                    ),
                     const SizedBox(
                       height: 14,
                     ),

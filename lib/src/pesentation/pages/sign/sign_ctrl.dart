@@ -7,17 +7,13 @@ import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 
 class SignController extends GetxController {
   final UserService _userService = Get.find();
-  final TextEditingController emailEditController =
-      TextEditingController(text: 'nguyenxuananh@gmail.com');
+  final TextEditingController emailEditController = TextEditingController();
   final RxnString emailChiError = RxnString(null);
-  final TextEditingController fullNameEditController =
-      TextEditingController(text: 'Xuan Anh Đẹp Trai');
+  final TextEditingController fullNameEditController = TextEditingController();
   final RxnString fullNameError = RxnString(null);
-  final TextEditingController phoneEditController =
-      TextEditingController(text: '248234903');
+  final TextEditingController phoneEditController = TextEditingController();
   final RxnString phoneError = RxnString(null);
-  final TextEditingController passwordEditController =
-      TextEditingController(text: 'abc');
+  final TextEditingController passwordEditController = TextEditingController();
   final RxnString passwordError = RxnString(null);
   final NoTiConfig tinTucConfig = Get.find();
   bool isChecked = false;
@@ -38,26 +34,22 @@ class SignController extends GetxController {
     /// check valid
     if (emailEditController.text.trim().isEmpty) {
       emailChiError.call('email hoặc password không hợp lệ!');
-      tinTucConfig.showSnackBar('Bạn Chưa Nhập email ',
-          backgroundColor: Colors.amber);
+      tinTucConfig.showSnackBar('Bạn Chưa Nhập email ', backgroundColor: Colors.amber);
       return;
     }
     if (fullNameEditController.text.trim().isEmpty) {
       fullNameError.call('email hoặc password không hợp lệ!');
-      tinTucConfig.showSnackBar('Bạn Chưa Nhập email ',
-          backgroundColor: Colors.amber);
+      tinTucConfig.showSnackBar('Bạn Chưa Nhập email ', backgroundColor: Colors.amber);
       return;
     }
     if (phoneEditController.text.trim().isEmpty) {
       phoneError.call('email hoặc password không hợp lệ !');
-      tinTucConfig.showSnackBar('Bạn Chưa Nhập phone number ',
-          backgroundColor: Colors.amber);
+      tinTucConfig.showSnackBar('Bạn Chưa Nhập phone number ', backgroundColor: Colors.amber);
       return;
     }
     if (passwordEditController.text.trim().isEmpty) {
       passwordError.call('email hoặc password không hợp lệ !');
-      tinTucConfig.showSnackBar('Bạn Chưa Nhập password',
-          backgroundColor: Colors.amber);
+      tinTucConfig.showSnackBar('Bạn Chưa Nhập password', backgroundColor: Colors.amber);
       return;
     }
 
@@ -73,18 +65,12 @@ class SignController extends GetxController {
     };
     final ApiResponse<String> res = await _userService.signUser(param);
     if (res.status == ApiResponseStatus.completed) {
-      tinTucConfig.showSnackBar(
-          title: 'Thông báo',
-          'Đăng Kí Tài Khoản Thành Công <3',
-          backgroundColor: Get.theme.colorScheme.primary);
+      tinTucConfig.showSnackBar(title: 'Thông báo', 'Đăng Kí Tài Khoản Thành Công <3', backgroundColor: Get.theme.colorScheme.primary);
       _cleanInput();
       Get.offAllNamed(LoginView.routeName);
     } else {
       // Get.log(res.message.toString());
-      tinTucConfig.showSnackBar(
-          title: 'Thông báo',
-          'Tài Khoản đã tồn tại vui lòng thử email khác !',
-          backgroundColor: Colors.orangeAccent);
+      tinTucConfig.showSnackBar(title: 'Thông báo', 'Tài Khoản đã tồn tại vui lòng thử email khác !', backgroundColor: Colors.orangeAccent);
     }
     isLoading.call(false);
   }

@@ -72,7 +72,6 @@ class RoomChatView extends GetView<RoomChatController> {
             actions: [
               IconButton(
                 onPressed: () => Get.toNamed(UpdateGroupView.routerName),
-
                 icon: Icon(
                   Icons.more_vert,
                   size: 26,
@@ -87,7 +86,6 @@ class RoomChatView extends GetView<RoomChatController> {
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
         child: Column(
           children: [
-
             Expanded(child: Obx(
               () {
                 if (controller.idGroup != null) {
@@ -175,45 +173,6 @@ class RoomChatView extends GetView<RoomChatController> {
                 );
               },
             )),
-            Expanded(
-              child: Obx(
-                () {
-                  return ListView.builder(
-                    reverse: true,
-                    itemCount: controller.messages.length,
-                    itemBuilder: (context, index) {
-                      final reversedList =
-                          List.from(controller.messages.reversed);
-                      final message = reversedList[index];
-                      MessageModel? lastItem;
-                      if (index > 0) {
-                        lastItem = controller.messages[index - 1];
-                      }
-                      MessageModel? currentItem = message;
-
-                      MessageModel? nextItem;
-                      if ((controller.messages.length - 1) > index) {
-                        nextItem = controller.messages[index + 1];
-                      }
-
-                      if (currentItem?.sendby != controller.userId) {
-                        return LeftContent(
-                          current: currentItem!,
-                          last: lastItem,
-                          next: nextItem,
-                        );
-                      }
-                      return RightContent(
-                        current: currentItem!,
-                        last: lastItem,
-                        next: nextItem,
-                        currentIndex: index,
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
             const GetBottomBar()
           ],
         ),
@@ -232,17 +191,13 @@ class GetBottomBar extends GetView<RoomChatController> {
         Expanded(
             child: Card(
           color: Get.theme.colorScheme.surfaceVariant,
-
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 GestureDetector(onTap: () => controller.getCameraImages(), child: Image.asset(IconAssets.iconCamera)),
-
                 const SizedBox(
                   width: 8,
                 ),
@@ -250,21 +205,17 @@ class GetBottomBar extends GetView<RoomChatController> {
                   child: TextField(
                     textInputAction: TextInputAction.done,
                     controller: controller.messageEditController,
-
                     decoration: const InputDecoration(hintText: 'Message', border: InputBorder.none),
-
                   ),
                 ),
                 IconButton(
                   onPressed: () => controller.sendMessage(),
-
                   icon: const Icon(
                     Icons.send,
                     color: Colors.deepPurple,
                   ),
                 ),
                 GestureDetector(onTap: () => controller.getGallery(), child: Image.asset(IconAssets.iconGallery)),
-
               ],
             ),
           ),
