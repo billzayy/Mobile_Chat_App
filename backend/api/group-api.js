@@ -1,11 +1,11 @@
 function groupAPI(app, io, sql) {
     app.get('/api/group/get-all', (req, res) => {
         var idMember = req.query.idMember;
-        sql.conSQL(`Select * from GroupChat Where (Select LOCATE('${idMember}',GroupChat.Id_Member) AS LOCATED)`,(recordset) => {
+        sql.conSQL(`Select * from GroupChat Where (Select LOCATE('${idMember}',GroupChat.Id_Member) AS LOCATED)`, (recordset) => {
             try {
                 var arr = [];
                 var data = [[]];
-                for (let i = 0; i < recordset.length; i++){
+                for (let i = 0; i < recordset.length; i++) {
                     let memberList = recordset[i].Id_Member.split(",");
                     arr.push(memberList)
                 }
@@ -21,7 +21,7 @@ function groupAPI(app, io, sql) {
                             }
                         }
                     }
-                    for (let i = 0; i < recordset.length; i++){
+                    for (let i = 0; i < recordset.length; i++) {
                         recordset[i].Id_Member = data[i]
                     }
                     res.status(200).send({
@@ -38,7 +38,7 @@ function groupAPI(app, io, sql) {
         })
     })
 
-    app.post('/api/group/create', (req, res) => { 
+    app.post('/api/group/create', (req, res) => {
         var memberList = req.body.memberList;
         var idMember = req.body.idMember;
         var groupType = req.body.groupType;
@@ -48,9 +48,31 @@ function groupAPI(app, io, sql) {
             try {
                 sql.conSQL(`Select * from GroupChat Where (Select LOCATE('${idMember}',GroupChat.Id_Member) AS LOCATED)`, recordset => {
                     try {
-                        res.status(200).send({
-                            "message": "Success",
-                            "data": recordset[recordset.length - 1]
+                        var arr = [];
+                        var data = [[]];
+                        for (let i = 0; i < recordset.length; i++) {
+                            let memberList = recordset[i].Id_Member.split("/");
+                            arr.push(memberList)
+                        }
+                        console.log(recordset)
+                        sql.conSQL(`Select * from Login`, recordsets => {
+                            for (let i = 0; i < recordsets.length; i++) {
+                                for (let j = 0; j < arr.length; j++) {
+                                    for (let k = 0; k < arr[j].length; k++) {
+                                        if (recordsets[i].Id_User == arr[j][k]) {
+                                            data[j] = arr[j];
+                                            data[j][k] = recordsets[i]
+                                        }
+                                    }
+                                }
+                            }
+                            for (let i = 0; i < recordset.length; i++) {
+                                recordset[i].Id_Member = data[i]
+                            }
+                            res.status(200).send({
+                                "message": "Success",
+                                "data": recordset[recordset.length - 1]
+                            })
                         })
                     } catch (error) {
                         res.send({
@@ -62,7 +84,7 @@ function groupAPI(app, io, sql) {
             } catch (error) {
                 res.send({
                     "message": "Fail",
-                    "data":"Fail to create group"
+                    "data": "Fail to create group"
                 })
             }
         })
@@ -75,12 +97,12 @@ function groupAPI(app, io, sql) {
             try {
                 res.status(200).send({
                     "message": "Success",
-                    "data":"Delete Group Successful"
+                    "data": "Delete Group Successful"
                 });
             } catch (error) {
                 res.send({
                     "message": "Fail",
-                    "data":"Fail to delete group"
+                    "data": "Fail to delete group"
                 })
             }
         })
