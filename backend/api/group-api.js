@@ -1,11 +1,32 @@
 function groupAPI(app, io, sql) {
     app.get('/api/group/get-all', (req, res) => {
         var idMember = req.query.idMember;
-        sql.conSQL(`Select * from GroupChat Where (Select LOCATE('${idMember}',GroupChat.Id_Member) AS LOCATED)`, recordset => {
+        sql.conSQL(`Select * from GroupChat Where (Select LOCATE('${idMember}',GroupChat.Id_Member) AS LOCATED)`,(recordset) => {
             try {
-                res.status(200).send({
-                    "message": "Success",
-                    "data": recordset
+                var arr = [];
+                var data = [[]];
+                for (let i = 0; i < recordset.length; i++){
+                    let memberList = recordset[i].Id_Member.split(",");
+                    arr.push(memberList)
+                }
+
+                sql.conSQL(`Select * from Login`, recordsets => {
+                    var userListId = [];
+                    for (let i = 0; i < recordsets.length; i++){
+                        userListId.push(recordsets[i].Id_User.toString())
+                    }
+
+                    for (let i = 0; i < arr.length; i++){
+                        for (let j = 0; j < arr[i].length; j++){
+                            console.log(i, arr[i][j], userListId[i], userListId[j], j)
+                        }
+                    }
+                    // console.log(data)
+                    console.log(arr, userListId)
+                    res.status(200).send({
+                        "message": "Success",
+                        "data": recordset
+                    })
                 })
             } catch (error) {
                 res.send({
@@ -45,6 +66,7 @@ function groupAPI(app, io, sql) {
             }
         })
     })
+
 
     app.delete('/api/group/delete', (req, res) => {
         var idGroup = req.body.idGroup;
