@@ -7,7 +7,8 @@ function chatAPI(app, io, sql) {
     })
 
     app.get('/api/chat/get-all', (req, res) => {
-        sql.conSQL('SELECT * FROM Message', (recordset) => {
+        var idGroup = req.query.idGroup;
+        sql.conSQL(`SELECT * FROM Message Where Id_Group = ${idGroup}`, (recordset) => {
             try {
                 res.status(200).send({
                     "message": "Success",
@@ -22,8 +23,8 @@ function chatAPI(app, io, sql) {
         })
     })
 
-    app.get('/api/chat/delete-chat', (req, res) => {
-        const idMessage = req.body.id;
+    app.delete('/api/chat/delete', (req, res) => {
+        var idMessage = req.body.idMessage;
         sql.conSQL(`DELETE FROM Message where Id_Message = ${idMessage}`, recordset => {
             try {
                 res.status(200).send({

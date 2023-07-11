@@ -1,11 +1,33 @@
 function groupAPI(app, io, sql) {
     app.get('/api/group/get-all', (req, res) => {
-        var idMember = req.query.id;
-        sql.conSQL(`Select * from GroupChat Where (Select LOCATE('${idMember}',GroupChat.Id_Member) AS LOCATED)`, recordset => {
+        var idMember = req.query.idMember;
+        sql.conSQL(`Select * from GroupChat Where (Select LOCATE('${idMember}',GroupChat.Id_Member) AS LOCATED)`,(recordset) => {
             try {
-                res.status(200).send({
-                    "message": "Success",
-                    "data": recordset
+                var arr = [];
+                var data = [[]];
+                for (let i = 0; i < recordset.length; i++){
+                    let memberList = recordset[i].Id_Member.split(",");
+                    arr.push(memberList)
+                }
+
+                sql.conSQL(`Select * from Login`, recordsets => {
+                    for (let i = 0; i < recordsets.length; i++) {
+                        for (let j = 0; j < arr.length; j++) {
+                            for (let k = 0; k < arr[j].length; k++) {
+                                if (recordsets[i].Id_User == arr[j][k]) {
+                                    data[j] = arr[j];
+                                    data[j][k] = recordsets[i]
+                                }
+                            }
+                        }
+                    }
+                    for (let i = 0; i < recordset.length; i++){
+                        recordset[i].Id_Member = data[i]
+                    }
+                    res.status(200).send({
+                        "message": "Success",
+                        "data": recordset
+                    })
                 })
             } catch (error) {
                 res.send({
@@ -16,16 +38,26 @@ function groupAPI(app, io, sql) {
         })
     })
 
-    app.post('/api/group/create-group', (req, res) => { 
+    app.post('/api/group/create', (req, res) => { 
         var memberList = req.body.memberList;
+        var idMember = req.body.idMember;
         var groupType = req.body.groupType;
         var groupName = req.body.groupName;
         var pictures = req.body.pictures;
         sql.conSQL(`Insert into GroupChat(Id_Member, GroupType, GroupName, Pictures) Values ('${memberList}','${groupType}','${groupName}','${pictures}')`, recordset => {
             try {
-                res.status(200).send({
-                    "message": "Success",
-                    "data": "Create Group Successful"
+                sql.conSQL(`Select * from GroupChat Where (Select LOCATE('${idMember}',GroupChat.Id_Member) AS LOCATED)`, recordset => {
+                    try {
+                        res.status(200).send({
+                            "message": "Success",
+                            "data": recordset[recordset.length - 1]
+                        })
+                    } catch (error) {
+                        res.send({
+                            "message": "Fail",
+                            "data": "Fail to create group"
+                        })
+                    }
                 })
             } catch (error) {
                 res.send({
@@ -36,8 +68,9 @@ function groupAPI(app, io, sql) {
         })
     })
 
-    app.delete('/api/group/delete-group', (req, res) => {
-        var idGroup = req.body.id;
+
+    app.delete('/api/group/delete', (req, res) => {
+        var idGroup = req.body.idGroup;
         sql.conSQL(`DELETE FROM GroupChat WHERE Id_Group = ${idGroup}`, (recordset) => {
             try {
                 res.status(200).send({
@@ -53,18 +86,22 @@ function groupAPI(app, io, sql) {
         })
     })
 
-    app.get('/api/group/last-message', (req, res) => {
-        var idUser = req.query.id;
-        sql.conSQL(`Select Message.Messages from Message, GroupChat where Message.Id_Message = GroupChat.Last_Message AND Message.Sendby = ${idUser}`, (recordset) => {
+    app.put('/api/group/update', (req, res) => {
+        var idGroup = req.body.idGroup;
+        var memberList = req.body.memberList;
+        var groupType = req.body.groupType;
+        var groupName = req.body.groupName;
+        var picture = req.body.picture;
+        sql.conSQL(`UPDATE GroupChat SET Id_Member = '${memberList}', GroupType = '${groupType}', GroupName = '${groupName}', Pictures = '${picture}' WHERE Id_Group = ${idGroup}`, (recordset) => {
             try {
                 res.status(200).send({
                     "message": "Success",
-                    "data": recordset
+                    "data": "Update successful !"
                 })
             } catch (error) {
                 res.send({
                     "message": "Failure",
-                    "data":"Fail to get last message"
+                    "data": "Fail to update"
                 })
             }
         })
