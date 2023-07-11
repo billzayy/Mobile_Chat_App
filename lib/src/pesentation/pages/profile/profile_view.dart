@@ -9,6 +9,11 @@ import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 import 'package:software_project_3/src/pesentation/pages/profile/profile_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_view.dart';
 
+
+import '../help/help_view.dart';
+import '../notification/notification_view.dart';
+import '../storage/storage_view.dart';
+
 class ProFileView extends GetView<ProFileController> {
   static const String routerName = '/ProFileView';
   const ProFileView({Key? key}) : super(key: key);
@@ -64,8 +69,10 @@ class ProFileView extends GetView<ProFileController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   width: Get.width,
+
                   height: 350,
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white54),
+
                   child: Column(
                     children: [
                       CustomButton(
@@ -76,32 +83,23 @@ class ProFileView extends GetView<ProFileController> {
                       CustomButton(
                         icon: Icon(Icons.notifications),
                         text: 'Notifications',
-                        onTap: () {},
+                        onTap: () => Get.toNamed(NotificationView.routerName),
                       ),
-                      CustomButton(
-                        icon: Icon(Icons.lock),
-                        text: 'Security and Privacy',
-                        onTap: () {},
-                      ),
+                      // CustomButton(
+                      //   icon: Icon(Icons.lock),
+                      //   text: 'Security and Privacy',
+                      //   onTap: () => Get.toNamed(SecurityandPrivacyView.routerName),
+                      // ),
                       CustomButton(
                         icon: Icon(Icons.storage),
                         text: 'Storage',
-                        onTap: () {},
+                        onTap: () => Get.toNamed(StorageView.routerName),
                       ),
-                      CustomButton(
-                        icon: Icon(Icons.chat),
-                        text: 'Chats',
-                        onTap: () {},
-                      ),
-                      CustomButton(
-                        icon: Icon(Icons.monitor),
-                        text: 'Devices',
-                        onTap: () {},
-                      ),
+
                       CustomButton(
                         icon: Icon(Icons.help),
                         text: 'Help',
-                        onTap: () {},
+                        onTap: () => Get.toNamed(HelpView.routerName),
                       ),
                     ],
                   ),
@@ -113,7 +111,7 @@ class ProFileView extends GetView<ProFileController> {
                     await prefs.setBool(LocalVariable.isLogin, false);
                     Get.offAllNamed(LoginView.routeName);
                   },
-                  child: Text('thoát'))
+                  child: Text('Exit'))
             ],
           ),
         ),

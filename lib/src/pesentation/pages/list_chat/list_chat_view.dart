@@ -23,7 +23,9 @@ class ListChatView extends GetView<ListChatController> {
           children: [
             Container(
               height: Get.height * 0.06,
+
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: const Color(0xfff3f3f4)),
+
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: TextFormField(

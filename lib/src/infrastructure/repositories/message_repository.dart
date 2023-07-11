@@ -8,10 +8,12 @@ class MessageRepository implements MessageService {
   final ApiClient apiClient = Get.find();
 
   @override
+
   Future<ApiResponse<List<MessageModel>>> getMessages(int idGroup) async {
     try {
       final response = await apiClient.dio.get(
         '/chat/get-all?idGroup=$idGroup',
+
       );
       if (response.statusCode == 200) {
         /// as List<dynamic> easy to understand
@@ -20,7 +22,9 @@ class MessageRepository implements MessageService {
         return ApiResponse<List<MessageModel>>.completed(listmessage);
         // (response.data[0]),
       } else {
+
         return ApiResponse<List<MessageModel>>.error(response.statusCode.toString());
+
       }
     } on DioException catch (d) {
       return ApiResponse<List<MessageModel>>.error(d.message);

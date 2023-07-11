@@ -10,6 +10,7 @@ class UpdateUserView extends GetView<UpdateUserController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: const Text('update name'),
       ),
       body: Column(
@@ -37,60 +38,94 @@ class UpdateUserView extends GetView<UpdateUserController> {
                   errorText: controller.fullNameError.value,
                   border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black))),
+
+        title: Text('Update Account'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Center(
+                child: Text('')),
+            Text(
+              'Full Name',
+              style: Get.theme.textTheme.bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
-          ),
-          Text(
-            'phone',
-            style: Get.theme.textTheme.bodyMedium
-                ?.copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          Obx(
-            () => TextField(
-              keyboardType: TextInputType.number,
-              // onTap: () => controller.slideController.hide(),
-              controller: controller.phoneEditController,
-              style: context.theme.textTheme.bodyMedium?.copyWith(
-                  // color: context.theme.hintColor,
-                  ),
-              decoration: InputDecoration(
-                  alignLabelWithHint: true,
-                  hintText: 'Enter your phone number',
-                  hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
-                  errorText: controller.fullNameError.value,
-                  border: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black))),
+            const SizedBox(
+              height: 10,
             ),
-          ),
-          Text(
-            'city',
-            style: Get.theme.textTheme.bodyMedium
-                ?.copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          Obx(
-            () => TextField(
-              // onTap: () => controller.slideController.hide(),
-              controller: controller.cityEditController,
-              style: context.theme.textTheme.bodyMedium?.copyWith(
-                  // color: context.theme.hintColor,
-                  ),
-              decoration: InputDecoration(
-                  alignLabelWithHint: true,
-                  hintText: 'Enter your city',
-                  hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
-                  errorText: controller.fullNameError.value,
-                  border: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black))),
+            Obx(
+              () => TextField(
+                // onTap: () => controller.slideController.hide(),
+                controller: controller.fullNameEditController,
+                style: context.theme.textTheme.bodyMedium?.copyWith(
+                    // color: context.theme.hintColor,
+                    ),
+                decoration: InputDecoration(
+                    alignLabelWithHint: true,
+                    hintText: 'Enter your full name',
+                    hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
+                    errorText: controller.fullNameError.value,
+                    border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black))),
+              ),
             ),
-          ),
-          ElevatedButton(
-              onPressed: () => controller.onSend(), child: Text('update'))
-        ],
+            Text(
+              'Phone Number',
+              style: Get.theme.textTheme.bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Obx(
+              () => TextField(
+                keyboardType: TextInputType.number,
+                // onTap: () => controller.slideController.hide(),
+                controller: controller.phoneEditController,
+                style: context.theme.textTheme.bodyMedium?.copyWith(
+                    // color: context.theme.hintColor,
+                    ),
+                decoration: InputDecoration(
+                    alignLabelWithHint: true,
+                    hintText: 'Enter your phone number',
+                    hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
+                    errorText: controller.fullNameError.value,
+                    border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black))),
+              ),
+            ),
+            Text(
+              'City',
+              style: Get.theme.textTheme.bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Obx(
+              () => TextField(
+                // onTap: () => controller.slideController.hide(),
+                controller: controller.cityEditController,
+                style: context.theme.textTheme.bodyMedium?.copyWith(
+                    // color: context.theme.hintColor,
+                    ),
+                decoration: InputDecoration(
+                    alignLabelWithHint: true,
+                    hintText: 'Enter your city',
+                    hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
+                    errorText: controller.fullNameError.value,
+                    border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black))),
+              ),
+            ),
+            ElevatedButton(
+                onPressed: () => controller.onSend(), child: Text('Update'))
+          ],
+        ),
       ),
     );
   }

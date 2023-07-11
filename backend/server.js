@@ -1,6 +1,7 @@
 // Import file
 const loginAPI = require('./api/login-api');
 const chatAPI = require('./api/chat-api');
+const groupAPI = require('./api/group-api');
 
 // Library
 const express = require('express');
@@ -19,6 +20,8 @@ app.get('/', (req, res) => {
 loginAPI(app, sql);
 
 chatAPI(app, io, sql);
+
+groupAPI(app, io, sql);
 
 app.listen(27680, () => {
     // console.log(`Running in port ${process.env.PORT}`);

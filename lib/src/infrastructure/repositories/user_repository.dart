@@ -106,6 +106,7 @@ class UserRepository implements UserService {
     }
   }
 
+
   @override
   Future<ApiResponse<UserModel>> getUserId(int userId) async {
     try {
@@ -125,4 +126,5 @@ class UserRepository implements UserService {
       return ApiResponse<UserModel>.error(ex.toString());
     }
   }
+
 }

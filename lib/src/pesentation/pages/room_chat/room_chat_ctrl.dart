@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:software_project_3/config/localvariable.dart';
 import 'package:software_project_3/config/noti_config.dart';
-
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:software_project_3/config/refech_api.dart';
 import 'package:software_project_3/src/domain/model/group_model.dart';
@@ -42,14 +41,14 @@ class RoomChatController extends GetxController {
     loadData();
     connectSocket();
     fetch();
-
-    // TODO: implement onInit
-    super.onInit();
+   super.onInit();
+ 
   }
 
   Future<void> loadData() async {
     final prefs = await SharedPreferences.getInstance();
     userId = prefs.getInt(LocalVariable.userId)!;
+
     fetchUser();
   }
 
@@ -65,7 +64,9 @@ class RoomChatController extends GetxController {
     } else {
       messages.call(null);
     }
+
   }
+
 
   void connectSocket() {
     socket
@@ -79,6 +80,7 @@ class RoomChatController extends GetxController {
         messages.add(newMessage);
       });
   }
+
 
   void sendMessage() async {
     try {
@@ -143,6 +145,7 @@ class RoomChatController extends GetxController {
     });
   }
 
+
   Future fetchUser() async {
     if (idMember != null) {
       final ApiResponse<UserModel> res = await _userService.getUserId(idMember!);
@@ -154,6 +157,8 @@ class RoomChatController extends GetxController {
       isLoading.call(false);
     }
   }
+
+
 
   @override
   void onClose() {

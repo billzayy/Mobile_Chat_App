@@ -10,19 +10,18 @@ import 'package:software_project_3/src/pesentation/pages/login/login_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 import 'package:software_project_3/src/pesentation/pages/profile/profile_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/profile/profile_view.dart';
-
 import 'package:software_project_3/src/pesentation/pages/root_app.dart';
 import 'package:software_project_3/src/pesentation/pages/update_group/update_group_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/update_group/update_group_view.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/update_user/update_user_view.dart';
-//
-// import '../src/pesentation/pages/help/help_view.dart';
-// import '../src/pesentation/pages/notification/notification_view.dart';
+import '../src/pesentation/pages/help/help_view.dart';
+import '../src/pesentation/pages/notification/notification_view.dart';
 import '../src/pesentation/pages/room_chat/room_chat_ctrl.dart';
 import '../src/pesentation/pages/room_chat/room_chat_view.dart';
 import '../src/pesentation/pages/sign/sign_ctrl.dart';
 import '../src/pesentation/pages/sign/sign_view.dart';
+import '../src/pesentation/pages/storage/storage_view.dart';
 
 class RouterConfigs {
   static final List<GetPage> routes = [
@@ -107,18 +106,6 @@ class RouterConfigs {
         },
       ),
     ),
-    // GetPage(
-    //   name: NotificationView.routerName,
-    //   page: () => const NotificationView(),
-    // ),
-    // GetPage(
-    //   name: StorageView.routerName,
-    //   page: () => const StorageView(),
-    // ),
-    // GetPage(
-    //   name: HelpView.routerName,
-    //   page: () => const HelpView(),
-    // ),
     GetPage(
       name: GroupChatView.routerName,
       page: () => const GroupChatView(),
@@ -136,6 +123,21 @@ class RouterConfigs {
           Get.lazyPut(() => UpdateGroupController());
         },
       ),
+
+    GetPage(
+      name: NotificationView.routerName,
+      page: () => const NotificationView(),
+    ),
+
+    GetPage(
+      name: StorageView.routerName,
+      page: () => const StorageView(),
+    ),
+
+    GetPage(
+      name: HelpView.routerName,
+      page: () => const HelpView(),
+
     ),
   ];
 }
