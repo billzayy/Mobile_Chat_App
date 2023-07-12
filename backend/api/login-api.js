@@ -18,6 +18,31 @@ function loginAPI(app, sql) {
         })
     })
 
+    app.get('/api/get-specific-user', (req, res) => {
+        var idUser = req.query.idUser;
+        sql.conSQL(`Select * from Login Where Id_User = ${idUser}`, recordset => {
+            try {
+                if (recordset[0] === undefined) {
+                    res.status(200).send({
+                        "message": "Success",
+                        "data": `Can't find user ${idUser} in db`
+                    })
+                }
+                else {
+                    res.status(200).send({
+                        "message": "Success",
+                        "data": recordset[0]
+                    })
+                }
+            } catch (error) {
+                res.status(400).send({
+                    "message": "Failure",
+                    "data": err
+                })
+            }
+        })
+    })
+
     app.get('/api/login/', (req, res) => {
         var email = req.query.email;
         var password = md5(req.query.password);
@@ -72,7 +97,7 @@ function loginAPI(app, sql) {
         })
     })
 
-    app.put('/api/update-user', (req, res) => {
+    app.put('/api/modify-user', (req, res) => {
         var idUser = req.body.id_user;
         var password = md5(req.body.password);
         var email = req.body.email;
