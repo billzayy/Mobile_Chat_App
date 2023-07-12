@@ -54,6 +54,7 @@ class GroupList extends GetView<GroupChatController> {
                     onTap: () => Get.toNamed(RoomChatView.routerName, arguments: {
                       'idGroup': item.idGroup,
                       'idMember': null,
+                      'groupName': item.groupName,
                     }),
                     child: Card(
                       child: Row(

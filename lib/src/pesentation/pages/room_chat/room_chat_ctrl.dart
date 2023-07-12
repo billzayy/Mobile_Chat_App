@@ -20,10 +20,12 @@ class RoomChatController extends GetxController {
   final RxList<MessageModel> messages = <MessageModel>[].obs;
   final NoTiConfig tinTucConfig = Get.find();
   final TextEditingController messageEditController = TextEditingController();
-  final IO.Socket socket = IO.io('http://34.142.131.182:46762', IO.OptionBuilder().setTransports(['websocket']).build());
+  final IO.Socket socket = IO.io('http://34.142.131.182:46762',
+      IO.OptionBuilder().setTransports(['websocket']).build());
   int userId = 0;
   int? idGroup;
   int? idMember;
+  String? groupName;
   File? imageFile;
   File? file;
   final Rxn<GroupModel> newGroup = Rxn<GroupModel>();
@@ -38,11 +40,11 @@ class RoomChatController extends GetxController {
   void onInit() {
     idGroup = Get.arguments['idGroup'];
     idMember = Get.arguments['idMember'];
+    groupName = Get.arguments['groupName'];
     loadData();
     connectSocket();
     fetch();
-   super.onInit();
- 
+    super.onInit();
   }
 
   Future<void> loadData() async {
@@ -54,7 +56,8 @@ class RoomChatController extends GetxController {
 
   Future fetch() async {
     if (idGroup != null) {
-      final ApiResponse<List<MessageModel>> res = await _messageService.getMessages(idGroup!);
+      final ApiResponse<List<MessageModel>> res =
+          await _messageService.getMessages(idGroup!);
       if (res.status == ApiResponseStatus.completed) {
         messages.call(res.data);
       } else {
@@ -64,9 +67,7 @@ class RoomChatController extends GetxController {
     } else {
       messages.call(null);
     }
-
   }
-
 
   void connectSocket() {
     socket
@@ -77,10 +78,12 @@ class RoomChatController extends GetxController {
       ..on('chat-message', (data) {
         print(data);
         final newMessage = MessageModel.fromJson(data);
+
         messages.add(newMessage);
+
+        eventBus.fire(RefechEvent());
       });
   }
-
 
   void sendMessage() async {
     try {
@@ -95,7 +98,8 @@ class RoomChatController extends GetxController {
           "groupName": "",
           "pictures": ""
         };
-        final ApiResponse<GroupModel> res = await _groupService.createGroup(param);
+        final ApiResponse<GroupModel> res =
+            await _groupService.createGroup(param);
         if (res.status == ApiResponseStatus.completed) {
           newGroup.call(res.data);
           listGroup.add(GroupModel.fromJson(param));
@@ -145,10 +149,10 @@ class RoomChatController extends GetxController {
     });
   }
 
-
   Future fetchUser() async {
     if (idMember != null) {
-      final ApiResponse<UserModel> res = await _userService.getUserId(idMember!);
+      final ApiResponse<UserModel> res =
+          await _userService.getUserId(idMember!);
       if (res.status == ApiResponseStatus.completed) {
         member.call(res.data);
       } else {
@@ -157,8 +161,6 @@ class RoomChatController extends GetxController {
       isLoading.call(false);
     }
   }
-
-
 
   @override
   void onClose() {

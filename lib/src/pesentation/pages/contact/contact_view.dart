@@ -197,6 +197,7 @@ class ContactList extends GetView<ContactController> {
               onTap: () => Get.toNamed(RoomChatView.routerName, arguments: {
                     'idGroup': null,
                     'idMember': controller.userContact[i].idUser,
+                    'groupName': null,
                   }),
               child: CardList(person: "${controller.userContact[i].fullname}", status: "${controller.userContact[i].status}"))
     ]);
