@@ -30,9 +30,91 @@ class RoomChatView extends GetView<RoomChatController> {
             ),
             backgroundColor: Get.theme.colorScheme.background,
             leadingWidth: 20,
-            title: controller.groupName == null
-                ? Obx(() {
-                    return Row(
+            title: controller.idGroup != null
+                ? Obx(() => controller.groupName == ''
+                    ? Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width * 0.15,
+                            height: Get.width * 0.15,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClipOval(
+                                child: ExtendedImage.network(
+                                  controller.member.value?.pictures ?? '',
+                                  fit: BoxFit.cover,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
+                                  shape: BoxShape.rectangle,
+                                  loadStateChanged: (ExtendedImageState state) {
+                                    switch (state.extendedImageLoadState) {
+                                      case LoadState.loading:
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      case LoadState.completed:
+                                        return null;
+                                      case LoadState.failed:
+                                        return Image.asset(
+                                          ImageAssets.defaultUser,
+                                        );
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            controller.member.value?.fullname ?? '',
+                            style: Get.theme.textTheme.titleMedium,
+                          ),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width * 0.15,
+                            height: Get.width * 0.15,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClipOval(
+                                child: ExtendedImage.network(
+                                  controller.member.value?.pictures ?? '',
+                                  fit: BoxFit.cover,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
+                                  shape: BoxShape.rectangle,
+                                  loadStateChanged: (ExtendedImageState state) {
+                                    switch (state.extendedImageLoadState) {
+                                      case LoadState.loading:
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      case LoadState.completed:
+                                        return null;
+                                      case LoadState.failed:
+                                        return Image.asset(
+                                          ImageAssets.defaultUser,
+                                        );
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              controller.groupName!,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              softWrap: false,
+                              textScaleFactor: 1,
+                              style: Get.theme.textTheme.titleMedium,
+                            ),
+                          ),
+                        ],
+                      ))
+                : Obx(() => Row(
                       children: [
                         SizedBox(
                           width: Get.width * 0.15,
@@ -69,55 +151,13 @@ class RoomChatView extends GetView<RoomChatController> {
                           style: Get.theme.textTheme.titleMedium,
                         ),
                       ],
-                    );
-                  })
-                : Row(
-                    children: [
-                      SizedBox(
-                        width: Get.width * 0.15,
-                        height: Get.width * 0.15,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ClipOval(
-                            child: ExtendedImage.network(
-                              controller.member.value?.pictures ?? '',
-                              fit: BoxFit.cover,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5)),
-                              shape: BoxShape.rectangle,
-                              loadStateChanged: (ExtendedImageState state) {
-                                switch (state.extendedImageLoadState) {
-                                  case LoadState.loading:
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  case LoadState.completed:
-                                    return null;
-                                  case LoadState.failed:
-                                    return Image.asset(
-                                      ImageAssets.defaultUser,
-                                    );
-                                }
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          controller.groupName ?? '',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          softWrap: false,
-                          textScaleFactor: 1,
-                          style: Get.theme.textTheme.titleMedium,
-                        ),
-                      ),
-                    ],
-                  ),
+                    )),
             actions: [
               IconButton(
-                onPressed: () => Get.toNamed(UpdateGroupView.routerName),
+                onPressed: () => Get.toNamed(
+                  UpdateGroupView.routerName,
+                  arguments: {'model': controller.groupModel},
+                ),
                 icon: Icon(
                   Icons.more_vert,
                   size: 26,

@@ -28,6 +28,7 @@ class RoomChatController extends GetxController {
   String? groupName;
   File? imageFile;
   File? file;
+  late GroupModel groupModel;
   final Rxn<GroupModel> newGroup = Rxn<GroupModel>();
   final RxList<GroupModel> listGroup = <GroupModel>[].obs;
   final RxBool isLoading = true.obs;
@@ -38,6 +39,7 @@ class RoomChatController extends GetxController {
   final EventBus eventBus = Get.find();
   @override
   void onInit() {
+    groupModel = Get.arguments['model'];
     idGroup = Get.arguments['idGroup'];
     idMember = Get.arguments['idMember'];
     groupName = Get.arguments['groupName'];
@@ -50,7 +52,6 @@ class RoomChatController extends GetxController {
   Future<void> loadData() async {
     final prefs = await SharedPreferences.getInstance();
     userId = prefs.getInt(LocalVariable.userId)!;
-
     fetchUser();
   }
 

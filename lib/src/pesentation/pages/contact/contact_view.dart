@@ -190,7 +190,8 @@ class ContactList extends GetView<ContactController> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('$charInput'.toUpperCase(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      Text('$charInput'.toUpperCase(),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
       for (int i = 0; i < controller.userContact.length; i++)
         if (controller.userContact[i].fullname![0].toUpperCase() == charInput)
           GestureDetector(
@@ -198,8 +199,11 @@ class ContactList extends GetView<ContactController> {
                     'idGroup': null,
                     'idMember': controller.userContact[i].idUser,
                     'groupName': null,
+                    'model': null,
                   }),
-              child: CardList(person: "${controller.userContact[i].fullname}", status: "${controller.userContact[i].status}"))
+              child: CardList(
+                  person: "${controller.userContact[i].fullname}",
+                  status: "${controller.userContact[i].status}"))
     ]);
   }
 }

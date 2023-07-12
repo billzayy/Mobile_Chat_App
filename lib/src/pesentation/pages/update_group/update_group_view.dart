@@ -17,42 +17,109 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(onTap: () => Get.back(), child: const Icon(Icons.arrow_back_ios)),
+              GestureDetector(
+                  onTap: () => Get.back(),
+                  child: const Icon(Icons.arrow_back_ios)),
               Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 120.0),
-                    child: SizedBox(
-                      width: Get.width * 0.25,
-                      height: Get.width * 0.25,
-                      child: ClipOval(
-                        child: ExtendedImage.network(
-                          'https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
-                          fit: BoxFit.cover,
-                          borderRadius: const BorderRadius.all(Radius.circular(5)),
-                          shape: BoxShape.rectangle,
-                          loadStateChanged: (ExtendedImageState state) {
-                            switch (state.extendedImageLoadState) {
-                              case LoadState.loading:
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              case LoadState.completed:
-                                return null;
-                              case LoadState.failed:
-                                return Image.asset(
-                                  ImageAssets.defaultUser,
-                                );
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    'Group Name',
-                    style: Get.theme.textTheme.titleMedium,
-                  ),
+                  SizedBox(
+                      height: 100,
+                      child: controller.groupModel.groupType == 'private'
+                          ? ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: controller.groupModel.idMember!.length,
+                              itemBuilder: (context, index) {
+                                var itemUser =
+                                    controller.groupModel.idMember![index];
+                                if (itemUser.idUser != controller.userId) {
+                                  return Column(
+                                    children: [
+                                      SizedBox(
+                                        width: Get.width * 0.2,
+                                        height: Get.width * 0.2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: ClipOval(
+                                            child: ExtendedImage.network(
+                                              itemUser.pictures ?? '',
+                                              fit: BoxFit.cover,
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(5)),
+                                              shape: BoxShape.rectangle,
+                                              loadStateChanged:
+                                                  (ExtendedImageState state) {
+                                                switch (state
+                                                    .extendedImageLoadState) {
+                                                  case LoadState.loading:
+                                                    return const Center(
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    );
+                                                  case LoadState.completed:
+                                                    return null;
+                                                  case LoadState.failed:
+                                                    return Image.asset(
+                                                      ImageAssets.defaultUser,
+                                                    );
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        itemUser.fullname == ""
+                                            ? "UserName"
+                                            : itemUser.fullname!,
+                                        style: Get.theme.textTheme.titleMedium,
+                                      ),
+                                    ],
+                                  );
+                                }
+                                return const SizedBox.shrink();
+                              })
+                          : Column(
+                              children: [
+                                SizedBox(
+                                  width: Get.width * 0.2,
+                                  height: Get.width * 0.2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: ClipOval(
+                                      child: ExtendedImage.network(
+                                        controller.groupModel.pictures ?? '',
+                                        fit: BoxFit.cover,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(5)),
+                                        shape: BoxShape.rectangle,
+                                        loadStateChanged:
+                                            (ExtendedImageState state) {
+                                          switch (
+                                              state.extendedImageLoadState) {
+                                            case LoadState.loading:
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            case LoadState.completed:
+                                              return null;
+                                            case LoadState.failed:
+                                              return Image.asset(
+                                                ImageAssets.defaultUser,
+                                              );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  controller.groupModel.groupName ?? '',
+                                  style: Get.theme.textTheme.titleMedium,
+                                ),
+                              ],
+                            ))
                 ],
               ),
               Padding(
@@ -84,7 +151,8 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                             ),
                             Text(
                               'thêm người vào để tạo nhóm ',
-                              style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                              style: Get.theme.textTheme.bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -102,7 +170,8 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                             ),
                             Text(
                               'Tìm kiếm trong cuộc trò chuyện ',
-                              style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                              style: Get.theme.textTheme.bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -120,7 +189,8 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                             ),
                             Text(
                               'tắt thông báo & âm thanh ',
-                              style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                              style: Get.theme.textTheme.bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -158,7 +228,8 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                             ),
                             Text(
                               'Hạn chế',
-                              style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                              style: Get.theme.textTheme.bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -176,7 +247,8 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                             ),
                             Text(
                               'chặn',
-                              style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                              style: Get.theme.textTheme.bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -194,7 +266,8 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                             ),
                             Text(
                               'Báo cáo',
-                              style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                              style: Get.theme.textTheme.bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -208,7 +281,9 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                 child: Container(
                   width: 200,
                   height: 40,
-                  decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(12)),
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(12)),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(

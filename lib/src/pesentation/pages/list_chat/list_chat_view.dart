@@ -23,7 +23,9 @@ class ListChatView extends GetView<ListChatController> {
           children: [
             Container(
               height: Get.height * 0.06,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: const Color(0xfff3f3f4)),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: const Color(0xfff3f3f4)),
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: TextFormField(
@@ -51,16 +53,20 @@ class ListChatView extends GetView<ListChatController> {
                           return SizedBox(
                             height: Get.height * 0.1,
                             child: ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
                                 itemCount: item.idMember!.length,
                                 itemBuilder: (context, index) {
                                   var itemUser = item.idMember![index];
                                   if (itemUser.idUser != controller.userId) {
                                     return GestureDetector(
-                                      onTap: () => Get.toNamed(RoomChatView.routerName, arguments: {
-                                        'idGroup': item.idGroup,
-                                        'idMember': itemUser.idUser,
-                                        'groupName': item.groupName,
-                                      }),
+                                      onTap: () => Get.toNamed(
+                                          RoomChatView.routerName,
+                                          arguments: {
+                                            'idGroup': item.idGroup,
+                                            'idMember': itemUser.idUser,
+                                            'groupName': item.groupName,
+                                            'model': item,
+                                          }),
                                       child: Card(
                                         child: Row(
                                           children: [
@@ -68,24 +74,33 @@ class ListChatView extends GetView<ListChatController> {
                                               width: Get.width * 0.2,
                                               height: Get.width * 0.2,
                                               child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
+                                                padding:
+                                                    const EdgeInsets.all(12.0),
                                                 child: ClipOval(
                                                   child: ExtendedImage.network(
                                                     itemUser.pictures ?? '',
                                                     fit: BoxFit.cover,
-                                                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(5)),
                                                     shape: BoxShape.rectangle,
-                                                    loadStateChanged: (ExtendedImageState state) {
-                                                      switch (state.extendedImageLoadState) {
+                                                    loadStateChanged:
+                                                        (ExtendedImageState
+                                                            state) {
+                                                      switch (state
+                                                          .extendedImageLoadState) {
                                                         case LoadState.loading:
                                                           return const Center(
-                                                            child: CircularProgressIndicator(),
+                                                            child:
+                                                                CircularProgressIndicator(),
                                                           );
-                                                        case LoadState.completed:
+                                                        case LoadState
+                                                              .completed:
                                                           return null;
                                                         case LoadState.failed:
                                                           return Image.asset(
-                                                            ImageAssets.defaultUser,
+                                                            ImageAssets
+                                                                .defaultUser,
                                                           );
                                                       }
                                                     },
@@ -94,15 +109,20 @@ class ListChatView extends GetView<ListChatController> {
                                               ),
                                             ),
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  itemUser.fullname == "" ? "UserName" : itemUser.fullname!,
-                                                  style: Get.theme.textTheme.titleMedium,
+                                                  itemUser.fullname == ""
+                                                      ? "UserName"
+                                                      : itemUser.fullname!,
+                                                  style: Get.theme.textTheme
+                                                      .titleMedium,
                                                 ),
                                                 Text(
                                                   'New Messages',
-                                                  style: Get.theme.textTheme.titleSmall,
+                                                  style: Get.theme.textTheme
+                                                      .titleSmall,
                                                 )
                                               ],
                                             )
