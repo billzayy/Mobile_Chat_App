@@ -65,7 +65,7 @@ function groupAPI(app, io, sql) {
                     }
                     res.status(200).send({
                         "message": "Success",
-                        "data": recordset
+                        "data": recordset[recordset.length - 1]
                     })
                 })
             } catch (error) {
