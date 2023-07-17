@@ -38,6 +38,45 @@ function groupAPI(app, io, sql) {
         })
     })
 
+    app.get('/api/group/get-specific-group', (req, res) => {
+        var idGroup = req.query.idGroup;
+        sql.conSQL(`Select * from GroupChat Where Id_Group = ${idGroup}`, (recordset) => {
+            try {
+                var arr = [];
+                var data = [[]];
+                for (let i = 0; i < recordset.length; i++) {
+                    let memberList = recordset[i].Id_Member.split(",");
+                    arr.push(memberList)
+                }
+
+                sql.conSQL(`Select * from Login`, recordsets => {
+                    for (let i = 0; i < recordsets.length; i++) {
+                        for (let j = 0; j < arr.length; j++) {
+                            for (let k = 0; k < arr[j].length; k++) {
+                                if (recordsets[i].Id_User == arr[j][k]) {
+                                    data[j] = arr[j];
+                                    data[j][k] = recordsets[i]
+                                }
+                            }
+                        }
+                    }
+                    for (let i = 0; i < recordset.length; i++) {
+                        recordset[i].Id_Member = data[i]
+                    }
+                    res.status(200).send({
+                        "message": "Success",
+                        "data": recordset
+                    })
+                })
+            } catch (error) {
+                res.send({
+                    "message": "Fail",
+                    "data": "Fail to get all group"
+                })
+            }
+        })
+    })
+
     app.post('/api/group/create', (req, res) => {
         var memberList = req.body.memberList;
         var idMember = req.body.idMember;
