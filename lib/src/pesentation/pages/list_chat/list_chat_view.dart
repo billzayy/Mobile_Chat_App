@@ -65,7 +65,6 @@ class ListChatView extends GetView<ListChatController> {
                                             'idGroup': item.idGroup,
                                             'idMember': itemUser.idUser,
                                             'groupName': item.groupName,
-                                            'model': item,
                                           }),
                                       child: Card(
                                         child: Row(

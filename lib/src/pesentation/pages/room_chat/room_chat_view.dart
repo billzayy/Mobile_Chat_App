@@ -156,7 +156,10 @@ class RoomChatView extends GetView<RoomChatController> {
               IconButton(
                 onPressed: () => Get.toNamed(
                   UpdateGroupView.routerName,
-                  arguments: {'model': controller.groupModel},
+                  arguments: {
+                    'idGroup': controller.idGroup,
+                    'idMember': controller.idMember
+                  },
                 ),
                 icon: Icon(
                   Icons.more_vert,

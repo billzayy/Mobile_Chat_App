@@ -39,7 +39,6 @@ class RoomChatController extends GetxController {
   final EventBus eventBus = Get.find();
   @override
   void onInit() {
-    groupModel = Get.arguments['model'];
     idGroup = Get.arguments['idGroup'];
     idMember = Get.arguments['idMember'];
     groupName = Get.arguments['groupName'];
@@ -79,9 +78,7 @@ class RoomChatController extends GetxController {
       ..on('chat-message', (data) {
         print(data);
         final newMessage = MessageModel.fromJson(data);
-
         messages.add(newMessage);
-
         eventBus.fire(RefechEvent());
       });
   }

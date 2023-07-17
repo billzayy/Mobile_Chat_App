@@ -34,7 +34,8 @@ class ListChatController extends GetxController {
   }
 
   Future fetch() async {
-    final ApiResponse<List<GroupModel>> res = await _groupService.getGroup(userId);
+    final ApiResponse<List<GroupModel>> res =
+        await _groupService.getAllGroup(userId);
     if (res.status == ApiResponseStatus.completed) {
       listPrivate.call(res.data);
     } else {

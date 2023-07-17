@@ -199,7 +199,6 @@ class ContactList extends GetView<ContactController> {
                     'idGroup': null,
                     'idMember': controller.userContact[i].idUser,
                     'groupName': null,
-                    'model': null,
                   }),
               child: CardList(
                   person: "${controller.userContact[i].fullname}",

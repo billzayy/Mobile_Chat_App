@@ -21,7 +21,8 @@ class UserRepository implements UserService {
         return ApiResponse<List<UserModel>>.completed(users);
         // (response.data[0]),
       } else {
-        return ApiResponse<List<UserModel>>.error(response.statusCode.toString());
+        return ApiResponse<List<UserModel>>.error(
+            response.statusCode.toString());
       }
     } on DioException catch (d) {
       return ApiResponse<List<UserModel>>.error(d.message);
@@ -31,7 +32,8 @@ class UserRepository implements UserService {
   }
 
   @override
-  Future<ApiResponse<UserModel>> loginUser(String email, String password) async {
+  Future<ApiResponse<UserModel>> loginUser(
+      String email, String password) async {
     try {
       final response = await apiClient.dio.get(
         '/login?email=$email&password=$password',
@@ -106,7 +108,6 @@ class UserRepository implements UserService {
     }
   }
 
-
   @override
   Future<ApiResponse<UserModel>> getUserId(int userId) async {
     try {
@@ -126,5 +127,4 @@ class UserRepository implements UserService {
       return ApiResponse<UserModel>.error(ex.toString());
     }
   }
-
 }
