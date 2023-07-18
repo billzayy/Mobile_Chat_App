@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:software_project_3/config/noti_config.dart';
-import 'package:software_project_3/config/refech.dart';
+import 'package:software_project_3/config/refech_group.dart';
 import 'package:software_project_3/src/domain/model/group_model.dart';
 import 'package:software_project_3/src/domain/model/user_model.dart';
 import 'package:software_project_3/src/domain/service/group_service.dart';
@@ -33,7 +33,7 @@ class GroupChatController extends GetxController {
   void onInit() {
     loadData();
     fetch();
-    listenEventReLoad();
+    listenEventReLoadGroup();
     super.onInit();
   }
 
@@ -114,9 +114,10 @@ class GroupChatController extends GetxController {
     isLoading.call(false);
   }
 
-  void listenEventReLoad() {
+  void listenEventReLoadGroup() {
     streamSubscription = eventBus.on<RefechGroup>().listen((event) {
       // fetch();
+      print('asdasdasdasdasdasd');
       fetchGroup();
     });
   }

@@ -1,3 +1,3 @@
-class RefechGroup {
-  RefechGroup();
+class RefechUser {
+  RefechUser();
 }

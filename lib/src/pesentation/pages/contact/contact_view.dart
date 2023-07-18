@@ -4,6 +4,7 @@ import 'package:software_project_3/src/pesentation/common_widgets/common_appbar.
 import 'package:software_project_3/src/pesentation/pages/contact/contact_ctrl.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:software_project_3/config/assets.dart';
+import 'package:software_project_3/src/pesentation/pages/contact/search.dart';
 import 'package:software_project_3/src/pesentation/pages/room_chat/room_chat_view.dart';
 
 class ContactView extends GetView<ContactController> {
@@ -58,6 +59,25 @@ class ContactView extends GetView<ContactController> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () => Get.toNamed(SearchUser.routeName),
+              child: Container(
+                height: Get.height * 0.06,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: const Color(0xfff3f3f4)),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Text('Search'), Icon(Icons.search)],
+                  ),
+                ),
+              ),
+            ),
+          ),
           Container(
             padding: const EdgeInsets.all(10),
             child: const Text(

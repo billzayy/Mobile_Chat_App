@@ -2,12 +2,13 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/config/noti_config.dart';
-import 'package:software_project_3/config/refech.dart';
+import 'package:software_project_3/config/refech_group.dart';
 import 'package:software_project_3/src/domain/model/group_model.dart';
 import 'package:software_project_3/src/domain/model/user_model.dart';
 import 'package:software_project_3/src/domain/service/group_service.dart';
 import 'package:software_project_3/src/domain/service/user_service.dart';
 import 'package:software_project_3/src/infrastructure/repositories/dio.dart';
+import 'package:software_project_3/src/pesentation/pages/root_app.dart';
 
 class UpdateGroupController extends GetxController {
   final TextEditingController nameGroupEditController = TextEditingController();
@@ -22,8 +23,6 @@ class UpdateGroupController extends GetxController {
   final GroupService _groupService = Get.find();
   final NoTiConfig tinTucConfig = Get.find();
   final EventBus eventBus = Get.find();
-  // final RxList<GroupModel> listPrivate = <GroupModel>[].obs;
-  // final RxList<UserModel> user = <UserModel>[].obs;
 
   @override
   void onInit() {
@@ -80,7 +79,8 @@ class UpdateGroupController extends GetxController {
           backgroundColor: Get.theme.colorScheme.primary);
       fetch();
       fetchUser();
-      eventBus.fire(RefechGroup);
+      eventBus.fire(RefechGroup());
+      Get.offNamed(RootApp.routerName);
     } else {
       // Get.log(res.message.toString());
       tinTucConfig.showSnackBar(

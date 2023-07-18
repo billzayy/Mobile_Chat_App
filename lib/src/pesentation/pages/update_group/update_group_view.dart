@@ -2,6 +2,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/config/assets.dart';
+import 'package:software_project_3/src/pesentation/pages/root_app.dart';
 import 'package:software_project_3/src/pesentation/pages/update_group/update_group_ctrl.dart';
 
 class UpdateGroupView extends GetView<UpdateGroupController> {
@@ -23,9 +24,9 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                     child: const Icon(Icons.arrow_back_ios)),
                 Column(
                   children: [
-                    SizedBox(
+                    Obx(() => SizedBox(
                         height: 100,
-                        child: controller.group.value?.groupName == ''
+                        child: controller.group.value?.groupType == 'private'
                             ? Obx(() => Column(
                                   children: [
                                     SizedBox(
@@ -151,7 +152,7 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                                                   child: const Text('Lưu'),
                                                   onPressed: () {
                                                     controller.updateUser();
-                                                    Navigator.of(context).pop();
+                                                    // Navigator.of(context).pop();
                                                   }),
                                             ],
                                           )),
@@ -296,7 +297,8 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                                                   child: const Text('Lưu'),
                                                   onPressed: () {
                                                     controller.updateUser();
-                                                    Navigator.of(context).pop();
+                                                    // Get.offNamed(
+                                                    //     RootApp.routerName);
                                                   }),
                                             ],
                                           )),
@@ -308,7 +310,7 @@ class UpdateGroupView extends GetView<UpdateGroupController> {
                                       ],
                                     ),
                                   ],
-                                )))
+                                ))))
                   ],
                 ),
                 const SizedBox(

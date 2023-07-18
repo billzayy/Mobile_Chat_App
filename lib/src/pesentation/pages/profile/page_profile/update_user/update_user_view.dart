@@ -155,7 +155,10 @@ class UpdateUserView extends GetView<UpdateUserController> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple[500],
                   ),
-                  onPressed: () => controller.onSend(),
+                  onPressed: () {
+                    controller.onSend();
+                    Get.back();
+                  },
                   child: Text('Update',
                       style: Get.theme.textTheme.bodyMedium
                           ?.copyWith(color: Colors.white)),

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:software_project_3/src/pesentation/pages/app_start.dart';
 import 'package:software_project_3/src/pesentation/pages/contact/contact_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/contact/contact_view.dart';
+import 'package:software_project_3/src/pesentation/pages/contact/search.dart';
 import 'package:software_project_3/src/pesentation/pages/group_chat/group_chat_ctrl.dart';
 import 'package:software_project_3/src/pesentation/pages/group_chat/group_chat_view.dart';
 import 'package:software_project_3/src/pesentation/pages/list_chat/list_chat_ctrl.dart';
@@ -135,6 +136,15 @@ class RouterConfigs {
     GetPage(
       name: HelpView.routerName,
       page: () => const HelpView(),
+    ),
+    GetPage(
+      name: SearchUser.routeName,
+      page: () => const SearchUser(),
+      binding: BindingsBuilder(
+        () {
+          Get.lazyPut(() => ContactController());
+        },
+      ),
     ),
   ];
 }
