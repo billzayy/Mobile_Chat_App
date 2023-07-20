@@ -98,13 +98,13 @@ function loginAPI(app, sql) {
     })
 
     app.put('/api/modify-user', (req, res) => {
-        var idUser = req.body.id_user;
-        var password = md5(req.body.password);
-        var email = req.body.email;
-        var fullName = req.body.fullName;
-        var phone = req.body.phone;
-        var picture = req.body.picture;
-        var city = req.body.city;
+        var idUser = req.body.Id_User;
+        var password = md5(req.body.Password);
+        var email = req.body.Email;
+        var fullName = req.body.FullName;
+        var phone = req.body.Phone;
+        var picture = req.body.Pictures;
+        var city = req.body.City;
         var status = "online";
         sql.conSQL(`UPDATE Login Set 
                         Password = '${password}', Email = '${email}', 
