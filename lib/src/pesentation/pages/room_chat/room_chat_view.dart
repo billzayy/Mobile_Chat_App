@@ -30,48 +30,137 @@ class RoomChatView extends GetView<RoomChatController> {
             ),
             backgroundColor: Get.theme.colorScheme.background,
             leadingWidth: 20,
-            title: Obx(() {
-              return Row(
-                children: [
-                  SizedBox(
-                    width: Get.width * 0.15,
-                    height: Get.width * 0.15,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipOval(
-                        child: ExtendedImage.network(
-                          controller.member.value?.pictures ?? '',
-                          fit: BoxFit.cover,
-                          borderRadius: const BorderRadius.all(Radius.circular(5)),
-                          shape: BoxShape.rectangle,
-                          loadStateChanged: (ExtendedImageState state) {
-                            switch (state.extendedImageLoadState) {
-                              case LoadState.loading:
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              case LoadState.completed:
-                                return null;
-                              case LoadState.failed:
-                                return Image.asset(
-                                  ImageAssets.defaultUser,
-                                );
-                            }
-                          },
+            title: controller.idGroup != null
+                ? Obx(() => controller.groupName == ''
+                    ? Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width * 0.15,
+                            height: Get.width * 0.15,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClipOval(
+                                child: ExtendedImage.network(
+                                  controller.member.value?.pictures ?? '',
+                                  fit: BoxFit.cover,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
+                                  shape: BoxShape.rectangle,
+                                  loadStateChanged: (ExtendedImageState state) {
+                                    switch (state.extendedImageLoadState) {
+                                      case LoadState.loading:
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      case LoadState.completed:
+                                        return null;
+                                      case LoadState.failed:
+                                        return Image.asset(
+                                          ImageAssets.defaultUser,
+                                        );
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            controller.member.value?.fullname ?? '',
+                            style: Get.theme.textTheme.titleMedium,
+                          ),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          SizedBox(
+                            width: Get.width * 0.15,
+                            height: Get.width * 0.15,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClipOval(
+                                child: ExtendedImage.network(
+                                  controller.member.value?.pictures ?? '',
+                                  fit: BoxFit.cover,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
+                                  shape: BoxShape.rectangle,
+                                  loadStateChanged: (ExtendedImageState state) {
+                                    switch (state.extendedImageLoadState) {
+                                      case LoadState.loading:
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      case LoadState.completed:
+                                        return null;
+                                      case LoadState.failed:
+                                        return Image.asset(
+                                          ImageAssets.defaultUser,
+                                        );
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              controller.groupName!,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              softWrap: false,
+                              textScaleFactor: 1,
+                              style: Get.theme.textTheme.titleMedium,
+                            ),
+                          ),
+                        ],
+                      ))
+                : Obx(() => Row(
+                      children: [
+                        SizedBox(
+                          width: Get.width * 0.15,
+                          height: Get.width * 0.15,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ClipOval(
+                              child: ExtendedImage.network(
+                                controller.member.value?.pictures ?? '',
+                                fit: BoxFit.cover,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                shape: BoxShape.rectangle,
+                                loadStateChanged: (ExtendedImageState state) {
+                                  switch (state.extendedImageLoadState) {
+                                    case LoadState.loading:
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    case LoadState.completed:
+                                      return null;
+                                    case LoadState.failed:
+                                      return Image.asset(
+                                        ImageAssets.defaultUser,
+                                      );
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    controller.member.value?.fullname ?? '',
-                    style: Get.theme.textTheme.titleMedium,
-                  ),
-                ],
-              );
-            }),
+                        Text(
+                          controller.member.value?.fullname ?? '',
+                          style: Get.theme.textTheme.titleMedium,
+                        ),
+                      ],
+                    )),
             actions: [
               IconButton(
-                onPressed: () => Get.toNamed(UpdateGroupView.routerName),
+                onPressed: () => Get.toNamed(
+                  UpdateGroupView.routerName,
+                  arguments: {
+                    'idGroup': controller.idGroup,
+                    'idMember': controller.idMember
+                  },
+                ),
                 icon: Icon(
                   Icons.more_vert,
                   size: 26,
@@ -86,93 +175,90 @@ class RoomChatView extends GetView<RoomChatController> {
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
         child: Column(
           children: [
-            Expanded(child: Obx(
-              () {
-                if (controller.idGroup != null) {
-                  if (controller.isLoading.isTrue) {
-                    return const CircularProgressIndicator();
-                  } else {
-                    return ListView.builder(
-                      reverse: true,
-                      itemCount: controller.messages.length,
-                      itemBuilder: (context, index) {
-                        final reversedList = List.from(controller.messages.reversed);
-                        final message = reversedList[index];
-                        MessageModel? lastItem;
-                        if (index > 0) {
-                          lastItem = controller.messages[index - 1];
-                        }
-                        MessageModel? currentItem = message;
+            Expanded(
+                child: Obx(() => controller.messages.isNotEmpty
+                    ? ListView.builder(
+                        reverse: true,
+                        itemCount: controller.messages.length,
+                        itemBuilder: (context, index) {
+                          final reversedList =
+                              List.from(controller.messages.reversed);
+                          final message = reversedList[index];
+                          MessageModel? lastItem;
+                          if (index > 0) {
+                            lastItem = controller.messages[index - 1];
+                          }
+                          MessageModel? currentItem = message;
 
-                        MessageModel? nextItem;
-                        if ((controller.messages.length - 1) > index) {
-                          nextItem = controller.messages[index + 1];
-                        }
+                          MessageModel? nextItem;
+                          if ((controller.messages.length - 1) > index) {
+                            nextItem = controller.messages[index + 1];
+                          }
 
-                        if (currentItem?.sendby != controller.userId) {
-                          return LeftContent(
+                          if (currentItem?.sendby != controller.userId) {
+                            return LeftContent(
+                              current: currentItem!,
+                              last: lastItem,
+                              next: nextItem,
+                            );
+                          }
+                          return RightContent(
                             current: currentItem!,
                             last: lastItem,
                             next: nextItem,
+                            currentIndex: index,
                           );
-                        }
-                        return RightContent(
-                          current: currentItem!,
-                          last: lastItem,
-                          next: nextItem,
-                          currentIndex: index,
-                        );
-                      },
-                    );
-                  }
-                }
-                return Center(
-                  child: Container(
-                    width: 300,
-                    height: 240,
-                    decoration: BoxDecoration(color: Colors.deepPurple.withOpacity(0.3), borderRadius: BorderRadius.circular(14)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Chúng ta chưa có tin nhắn nào ở đây...",
-                            style: Get.theme.textTheme.bodyMedium,
-                          ),
-                          Text(
-                            "bắt đầu gửi tin nhắn ngay nào!",
-                            style: Get.theme.textTheme.titleMedium,
-                          ),
-                          SizedBox(
-                            width: 200,
-                            child: ExtendedImage.network(
-                              'https://cdn.dribbble.com/userupload/3271927/file/original-223856aa8fef836d7bc818da6154f3ab.gif',
-                              fit: BoxFit.cover,
-                              borderRadius: const BorderRadius.all(Radius.circular(5)),
-                              shape: BoxShape.rectangle,
-                              loadStateChanged: (ExtendedImageState state) {
-                                switch (state.extendedImageLoadState) {
-                                  case LoadState.loading:
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  case LoadState.completed:
-                                    return null;
-                                  case LoadState.failed:
-                                    return Image.asset(
-                                      ImageAssets.defaultUser,
-                                    );
-                                }
-                              },
+                        },
+                      )
+                    : Center(
+                        child: Container(
+                          width: 300,
+                          height: 240,
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurple.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(14)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Chúng ta chưa có tin nhắn nào ở đây...",
+                                  style: Get.theme.textTheme.bodyMedium,
+                                ),
+                                Text(
+                                  "bắt đầu gửi tin nhắn ngay nào!",
+                                  style: Get.theme.textTheme.titleMedium,
+                                ),
+                                SizedBox(
+                                  width: 200,
+                                  child: ExtendedImage.network(
+                                    'https://cdn.dribbble.com/userupload/3271927/file/original-223856aa8fef836d7bc818da6154f3ab.gif',
+                                    fit: BoxFit.cover,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5)),
+                                    shape: BoxShape.rectangle,
+                                    loadStateChanged:
+                                        (ExtendedImageState state) {
+                                      switch (state.extendedImageLoadState) {
+                                        case LoadState.loading:
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        case LoadState.completed:
+                                          return null;
+                                        case LoadState.failed:
+                                          return Image.asset(
+                                            ImageAssets.defaultUser,
+                                          );
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            )),
+                        ),
+                      ))),
             const GetBottomBar()
           ],
         ),
@@ -191,13 +277,16 @@ class GetBottomBar extends GetView<RoomChatController> {
         Expanded(
             child: Card(
           color: Get.theme.colorScheme.surfaceVariant,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(onTap: () => controller.getCameraImages(), child: Image.asset(IconAssets.iconCamera)),
+                GestureDetector(
+                    onTap: () => controller.getCameraImages(),
+                    child: Image.asset(IconAssets.iconCamera)),
                 const SizedBox(
                   width: 8,
                 ),
@@ -205,7 +294,8 @@ class GetBottomBar extends GetView<RoomChatController> {
                   child: TextField(
                     textInputAction: TextInputAction.done,
                     controller: controller.messageEditController,
-                    decoration: const InputDecoration(hintText: 'Message', border: InputBorder.none),
+                    decoration: const InputDecoration(
+                        hintText: 'Message', border: InputBorder.none),
                   ),
                 ),
                 IconButton(
@@ -215,7 +305,9 @@ class GetBottomBar extends GetView<RoomChatController> {
                     color: Colors.deepPurple,
                   ),
                 ),
-                GestureDetector(onTap: () => controller.getGallery(), child: Image.asset(IconAssets.iconGallery)),
+                GestureDetector(
+                    onTap: () => controller.getGallery(),
+                    child: Image.asset(IconAssets.iconGallery)),
               ],
             ),
           ),

@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:software_project_3/config/noti_config.dart';
+import 'package:software_project_3/config/refech_group.dart';
 import 'package:software_project_3/src/domain/model/group_model.dart';
 import 'package:software_project_3/src/domain/model/user_model.dart';
 import 'package:software_project_3/src/domain/service/group_service.dart';
@@ -12,6 +16,7 @@ import 'package:software_project_3/src/pesentation/pages/room_chat/room_chat_vie
 import '../../../../config/localvariable.dart';
 
 class GroupChatController extends GetxController {
+  EventBus eventBus = Get.find();
   final RxList<UserModel> listUser = <UserModel>[].obs;
   final Rxn<GroupModel> newGroup = Rxn<GroupModel>();
   final RxList<GroupModel> listGroup = <GroupModel>[].obs;
@@ -23,11 +28,12 @@ class GroupChatController extends GetxController {
   final TextEditingController nameGroupEditController = TextEditingController();
   int userId = 0;
   String fullName = '';
+  StreamSubscription? streamSubscription;
   @override
   void onInit() {
     loadData();
     fetch();
-
+    listenEventReLoadGroup();
     super.onInit();
   }
 
@@ -61,8 +67,8 @@ class GroupChatController extends GetxController {
   }
 
   Future fetchGroup() async {
-
-    final ApiResponse<List<GroupModel>> res = await _groupService.getGroup(userId);
+    final ApiResponse<List<GroupModel>> res =
+        await _groupService.getAllGroup(userId);
     if (res.status == ApiResponseStatus.completed) {
       listGroup.call(res.data);
     } else {
@@ -74,10 +80,18 @@ class GroupChatController extends GetxController {
   Future createGroup() async {
     Map<String, dynamic> param = {
       "idMember": userId,
-      "memberList": [...List.generate(listUserDaChon.length, (int index) => listUserDaChon[index].idUser), userId],
+      "memberList": [
+        ...List.generate(
+            listUserDaChon.length, (int index) => listUserDaChon[index].idUser),
+        userId
+      ],
       "groupType": 'group',
       "groupName": nameGroupEditController.text.isEmpty
-          ? [...List.generate(listUserDaChon.length, (int index) => listUserDaChon[index].fullname), fullName].join(',')
+          ? [
+              ...List.generate(listUserDaChon.length,
+                  (int index) => listUserDaChon[index].fullname),
+              fullName
+            ].join(',')
           : nameGroupEditController.text.trim(),
       "pictures": ''
     };
@@ -87,12 +101,25 @@ class GroupChatController extends GetxController {
       fetchGroup();
       Get.toNamed(RoomChatView.routerName, arguments: {
         'idGroup': newGroup.value?.idGroup,
+        'idMember': null,
+        'groupName': newGroup.value?.groupName,
       });
     } else {
       // Get.log(res.message.toString());
-      tinTucConfig.showSnackBar(title: 'Thông báo', 'Tạo nhóm thất bại vui lòng thử lại sau!', backgroundColor: Colors.orangeAccent);
+      tinTucConfig.showSnackBar(
+          title: 'Thông báo',
+          'Tạo nhóm thất bại vui lòng thử lại sau!',
+          backgroundColor: Colors.orangeAccent);
     }
     isLoading.call(false);
+  }
+
+  void listenEventReLoadGroup() {
+    streamSubscription = eventBus.on<RefechGroup>().listen((event) {
+      // fetch();
+      print('asdasdasdasdasdasd');
+      fetchGroup();
+    });
   }
 
   @override

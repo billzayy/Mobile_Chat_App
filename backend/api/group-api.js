@@ -37,7 +37,7 @@ function groupAPI(app, io, sql) {
             }
         })
     })
-
+  
     app.get('/api/group/get-specific-group', (req, res) => {
         var idGroup = req.query.idGroup;
         sql.conSQL(`Select * from GroupChat Where Id_Group = ${idGroup}`, (recordset) => {
@@ -76,7 +76,6 @@ function groupAPI(app, io, sql) {
             }
         })
     })
-
     app.post('/api/group/create', (req, res) => {
         var memberList = req.body.memberList;
         var idMember = req.body.idMember;

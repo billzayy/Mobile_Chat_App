@@ -27,7 +27,8 @@ class GroupChatView extends GetView<GroupChatController> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepPurple[500],
-        onPressed: () => Get.bottomSheet(isScrollControlled: true, const CreateGroupView()),
+        onPressed: () =>
+            Get.bottomSheet(isScrollControlled: true, const CreateGroupView()),
         child: const Icon(Icons.add),
       ),
     );
@@ -51,9 +52,12 @@ class GroupList extends GetView<GroupChatController> {
                 var item = controller.listGroup[index];
                 if (item.groupType == 'group') {
                   return GestureDetector(
-                    onTap: () => Get.toNamed(RoomChatView.routerName, arguments: {
+                    onTap: () =>
+                        Get.toNamed(RoomChatView.routerName, arguments: {
                       'idGroup': item.idGroup,
                       'idMember': null,
+                      'groupName': item.groupName,
+                      'model': item,
                     }),
                     child: Card(
                       child: Row(
@@ -67,7 +71,8 @@ class GroupList extends GetView<GroupChatController> {
                                 child: ExtendedImage.network(
                                   item.pictures ?? '',
                                   fit: BoxFit.cover,
-                                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
                                   shape: BoxShape.rectangle,
                                   loadStateChanged: (ExtendedImageState state) {
                                     switch (state.extendedImageLoadState) {

@@ -21,7 +21,8 @@ class UserRepository implements UserService {
         return ApiResponse<List<UserModel>>.completed(users);
         // (response.data[0]),
       } else {
-        return ApiResponse<List<UserModel>>.error(response.statusCode.toString());
+        return ApiResponse<List<UserModel>>.error(
+            response.statusCode.toString());
       }
     } on DioException catch (d) {
       return ApiResponse<List<UserModel>>.error(d.message);
@@ -31,7 +32,8 @@ class UserRepository implements UserService {
   }
 
   @override
-  Future<ApiResponse<UserModel>> loginUser(String email, String password) async {
+  Future<ApiResponse<UserModel>> loginUser(
+      String email, String password) async {
     try {
       final response = await apiClient.dio.get(
         '/login?email=$email&password=$password',
@@ -71,7 +73,7 @@ class UserRepository implements UserService {
   @override
   Future<ApiResponse<String>> updateUser(Map<String, dynamic> param) async {
     try {
-      final response = await apiClient.dio.put('/update-user/', data: param);
+      final response = await apiClient.dio.put('/modify-user', data: param);
       if (response.statusCode == 201) {
         final data = response.data['data'];
         return ApiResponse<String>.completed(data);
@@ -87,25 +89,26 @@ class UserRepository implements UserService {
   }
 
   @override
-  Future<ApiResponse<UserModel>> search(String name) async {
+  Future<ApiResponse<List<UserModel>>> search(String name) async {
     try {
       final response = await apiClient.dio.get(
         '/search?name=$name',
       );
       if (response.statusCode == 200) {
-        final data = response.data['data'];
-        return ApiResponse<UserModel>.completed(UserModel.fromJson(data));
+        final data = response.data['data'] as List;
+        final users = data.map((e) => UserModel.fromJson(e)).toList();
+        return ApiResponse<List<UserModel>>.completed(users);
         // (response.data[0]),
       } else {
-        return ApiResponse<UserModel>.error(response.statusCode.toString());
+        return ApiResponse<List<UserModel>>.error(
+            response.statusCode.toString());
       }
     } on DioException catch (d) {
-      return ApiResponse<UserModel>.error(d.message);
+      return ApiResponse<List<UserModel>>.error(d.message);
     } catch (ex) {
-      return ApiResponse<UserModel>.error(ex.toString());
+      return ApiResponse<List<UserModel>>.error(ex.toString());
     }
   }
-
 
   @override
   Future<ApiResponse<UserModel>> getUserId(int userId) async {
@@ -126,5 +129,4 @@ class UserRepository implements UserService {
       return ApiResponse<UserModel>.error(ex.toString());
     }
   }
-
 }

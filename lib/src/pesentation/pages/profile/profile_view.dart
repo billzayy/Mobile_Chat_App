@@ -35,24 +35,28 @@ class ProFileView extends GetView<ProFileController> {
                     Container(
                       width: Get.width,
                       height: 120,
-                      decoration: BoxDecoration(color: Colors.deepPurple, borderRadius: BorderRadius.circular(14)),
+                      decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                          borderRadius: BorderRadius.circular(14)),
                     ),
                     Positioned(
                       bottom: 0,
-                      right: 60,
-                      left: 60,
+                      right: 50,
+                      left: 50,
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             child: SizedBox(
                               width: Get.width * 0.25,
                               height: Get.width * 0.25,
                               child: ClipOval(
                                 child: ExtendedImage.network(
-                                  '',
+                                  controller.member.value?.pictures ?? '',
                                   fit: BoxFit.cover,
-                                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
                                   shape: BoxShape.rectangle,
                                   loadStateChanged: (ExtendedImageState state) {
                                     switch (state.extendedImageLoadState) {
@@ -73,7 +77,11 @@ class ProFileView extends GetView<ProFileController> {
                             ),
                           ),
                           Obx(
-                            () => Text(controller.fullName.value),
+                            () => Text(
+                              controller.member.value?.fullname ?? '',
+                              style: Get.theme.textTheme.titleLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ],
                       ),
@@ -88,16 +96,136 @@ class ProFileView extends GetView<ProFileController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   width: Get.width,
-                  height: Get.height * 0.3,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.grey[200]),
+                  height: Get.height * 0.55,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.grey[200]),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(
+                                'Infomation',
+                                style: Get.theme.textTheme.titleLarge,
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.email_outlined,
+                                        color: Colors.deepPurple,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'Email',
+                                        style: Get.theme.textTheme.bodyLarge
+                                            ?.copyWith(),
+                                      ),
+                                    ],
+                                  ),
+                                  Obx(
+                                    () => Text(
+                                      controller.member.value?.email ?? '',
+                                      style: Get.theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.phone,
+                                      color: Colors.deepPurple,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'Phone',
+                                      style: Get.theme.textTheme.bodyLarge
+                                          ?.copyWith(),
+                                    ),
+                                  ],
+                                ),
+                                Obx(
+                                  () => Text(
+                                    controller.member.value?.phones ?? '',
+                                    style: Get.theme.textTheme.bodyMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.location_on,
+                                        color: Colors.deepPurple,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'City',
+                                        style: Get.theme.textTheme.bodyLarge
+                                            ?.copyWith(),
+                                      ),
+                                    ],
+                                  ),
+                                  Obx(
+                                    () => Text(
+                                      controller.member.value?.city ?? '',
+                                      style: Get.theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const Divider(
+                          height: 20,
+                          color: Colors.grey,
+                          endIndent: 30,
+                          indent: 30),
                       CustomButton(
                         icon: const Icon(
                           Icons.account_circle,
                           color: Colors.deepPurple,
                         ),
-                        text: 'Account',
+                        text: 'Update Account',
                         onTap: () => Get.toNamed(UpdateUserView.routerName),
                       ),
                       CustomButton(
@@ -108,11 +236,6 @@ class ProFileView extends GetView<ProFileController> {
                         text: 'Notifications',
                         onTap: () => Get.toNamed(NotificationView.routerName),
                       ),
-                      // CustomButton(
-                      //   icon: Icon(Icons.lock),
-                      //   text: 'Security and Privacy',
-                      //   onTap: () => Get.toNamed(SecurityandPrivacyView.routerName),
-                      // ),
                       CustomButton(
                         icon: const Icon(
                           Icons.storage,
@@ -121,7 +244,6 @@ class ProFileView extends GetView<ProFileController> {
                         text: 'Storage',
                         onTap: () => Get.toNamed(StorageView.routerName),
                       ),
-
                       CustomButton(
                         icon: const Icon(
                           Icons.help,
@@ -144,13 +266,16 @@ class ProFileView extends GetView<ProFileController> {
                     Get.offAllNamed(LoginView.routeName);
                   },
                   child: Container(
-                    decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(12)),
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(12)),
                     height: 50,
                     width: 100,
                     child: Center(
                         child: Text(
                       'Log Out',
-                      style: Get.theme.textTheme.titleMedium?.copyWith(color: Colors.white),
+                      style: Get.theme.textTheme.titleMedium
+                          ?.copyWith(color: Colors.white),
                     )),
                   ))
             ],
@@ -165,7 +290,9 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
   final Icon icon;
   final String? text;
-  const CustomButton({Key? key, required this.icon, required this.text, required this.onTap}) : super(key: key);
+  const CustomButton(
+      {Key? key, required this.icon, required this.text, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
