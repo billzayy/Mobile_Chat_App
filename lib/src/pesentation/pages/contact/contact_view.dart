@@ -60,7 +60,7 @@ class ContactView extends GetView<ContactController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: InkWell(
               onTap: () => Get.toNamed(SearchUser.routeName),
               child: Container(
@@ -125,7 +125,7 @@ class CardContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: const EdgeInsets.only(top: 10, bottom: 10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

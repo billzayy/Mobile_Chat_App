@@ -54,6 +54,12 @@ class SearchUser extends GetView<ContactController> {
             );
           }
           return AppBar(
+            title: const Text(
+              'Tìm Kiếm',
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.start,
+              maxLines: 1,
+            ),
             centerTitle: true,
             actions: [
               IconButton(

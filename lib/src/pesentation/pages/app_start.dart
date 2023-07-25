@@ -1,6 +1,8 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:software_project_3/config/assets.dart';
 import 'package:software_project_3/config/localvariable.dart';
 import 'package:software_project_3/src/pesentation/pages/login/login_view.dart';
 import 'package:software_project_3/src/pesentation/pages/root_app.dart';
@@ -36,8 +38,25 @@ class _AppStartViewState extends State<AppStartView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.lightBlueAccent,
+      body: ExtendedImage.network(
+        'https://cdn.dribbble.com/users/1338391/screenshots/15457107/media/b17248e7459b760da025bd8f7efbfe51.jpg?resize=1000x750&vertical=center',
+        fit: BoxFit.cover,
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
+        shape: BoxShape.rectangle,
+        loadStateChanged: (ExtendedImageState state) {
+          switch (state.extendedImageLoadState) {
+            case LoadState.loading:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case LoadState.completed:
+              return null;
+            case LoadState.failed:
+              return Image.asset(
+                ImageAssets.defaultUser,
+              );
+          }
+        },
       ),
     );
   }

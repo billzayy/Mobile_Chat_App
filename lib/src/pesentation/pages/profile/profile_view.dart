@@ -36,8 +36,30 @@ class ProFileView extends GetView<ProFileController> {
                       width: Get.width,
                       height: 120,
                       decoration: BoxDecoration(
-                          color: Colors.deepPurple,
-                          borderRadius: BorderRadius.circular(14)),
+                        color: Colors.deepPurple,
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: ExtendedImage.network(
+                        'https://cdn.dribbble.com/users/1338391/screenshots/15663110/media/775b1e57702f82e557992e0a13894bd2.jpg?resize=1000x750&vertical=center',
+                        fit: BoxFit.cover,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                        shape: BoxShape.rectangle,
+                        loadStateChanged: (ExtendedImageState state) {
+                          switch (state.extendedImageLoadState) {
+                            case LoadState.loading:
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            case LoadState.completed:
+                              return null;
+                            case LoadState.failed:
+                              return Image.asset(
+                                ImageAssets.defaultUser,
+                              );
+                          }
+                        },
+                      ),
                     ),
                     Positioned(
                       bottom: 0,
@@ -96,7 +118,7 @@ class ProFileView extends GetView<ProFileController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   width: Get.width,
-                  height: Get.height * 0.55,
+                  height: Get.height * 0.50,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: Colors.grey[200]),

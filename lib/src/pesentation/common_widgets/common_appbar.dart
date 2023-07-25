@@ -8,11 +8,11 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Get.theme.colorScheme.onPrimary,
+      backgroundColor: Colors.deepPurple[500],
       title: Text(
         title,
         style: Get.theme.textTheme.titleLarge?.copyWith(
-            color: Get.theme.colorScheme.onBackground,
+            color: Get.theme.colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.italic),
       ),
