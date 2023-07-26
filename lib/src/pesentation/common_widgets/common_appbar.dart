@@ -11,7 +11,7 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.deepPurple[500],
       title: Text(
         title,
-        style: Get.theme.textTheme.titleLarge?.copyWith(
+        style: Get.theme.textTheme.headlineSmall?.copyWith(
             color: Get.theme.colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.italic),

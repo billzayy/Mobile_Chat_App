@@ -44,6 +44,7 @@ class GroupChatController extends GetxController {
     fetchGroup();
   }
 
+  ///  get data user
   Future fetch() async {
     final ApiResponse<List<UserModel>> res = await _userService.getUser();
     if (res.status == ApiResponseStatus.completed) {
@@ -114,10 +115,9 @@ class GroupChatController extends GetxController {
     isLoading.call(false);
   }
 
+  /// listen refech group
   void listenEventReLoadGroup() {
     streamSubscription = eventBus.on<RefechGroup>().listen((event) {
-      // fetch();
-      print('asdasdasdasdasdasd');
       fetchGroup();
     });
   }

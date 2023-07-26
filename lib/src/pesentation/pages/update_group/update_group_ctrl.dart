@@ -80,7 +80,7 @@ class UpdateGroupController extends GetxController {
       fetch();
       fetchUser();
       eventBus.fire(RefechGroup());
-      Get.offNamed(RootApp.routerName);
+      Get.offAllNamed(RootApp.routerName);
     } else {
       // Get.log(res.message.toString());
       tinTucConfig.showSnackBar(
