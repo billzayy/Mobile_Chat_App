@@ -61,8 +61,6 @@ class LoginController extends GetxController {
       userLogin.call(res.data);
       await prefs.setString(LocalVariable.userName, userLogin.value!.fullname!);
       await prefs.setString(LocalVariable.email, userLogin.value!.email!);
-      await prefs.setString(LocalVariable.phone, userLogin.value!.phones!);
-      await prefs.setString(LocalVariable.city, userLogin.value!.city!);
       await prefs.setString(LocalVariable.password, userLogin.value!.password!);
       await prefs.setInt(LocalVariable.userId, userLogin.value!.idUser!);
       await prefs.setBool(LocalVariable.isLogin, true);
