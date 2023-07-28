@@ -116,7 +116,40 @@ class ContactView extends GetView<ContactController> {
                           );
                         });
                   } else {
-                    return CardStack();
+                    return Obx(
+                      () {
+                        if (controller.isLoading.isTrue) {
+                          return const CircularProgressIndicator();
+                        } else {
+                          if (controller.userContact.isEmpty) {
+                            return const CustomNoDataWidget(
+                              noiDung: 'Không có dữ liệu',
+                              isSearch: false,
+                            );
+                          }
+                          return ListView.builder(
+                              padding:
+                                  const EdgeInsets.only(left: 12, right: 12),
+                              itemCount: 1,
+                              itemBuilder: (context, index) {
+                                // final item = controller.userContact[index];
+                                return Column(
+                                  children: <Widget>[
+                                    if (controller.searchTinTucController !=
+                                        null)
+                                      for (int i = 0; i < alphabet.length; i++)
+                                        if (checkLetter(
+                                                alphabet[i]['letter']) !=
+                                            0)
+                                          ContactList(
+                                            charInput: alphabet[i]["letter"],
+                                          ),
+                                  ],
+                                );
+                              });
+                        }
+                      },
+                    );
                   }
                 }
               },
@@ -128,94 +161,52 @@ class ContactView extends GetView<ContactController> {
   }
 }
 
-class CardStack extends GetView<ContactController> {
-  const CardStack({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        RefreshIndicator(
-          onRefresh: () async {
-            await controller.search(keySearch: '', refresh: true);
-          },
-          child: Obx(
-            () {
-              if (controller.isLoading.isTrue) {
-                return const CircularProgressIndicator();
-              } else {
-                if (controller.userSearch.isEmpty) {
-                  return const CustomNoDataWidget(
-                    noiDung: 'Không có dữ liệu',
-                    isSearch: false,
-                  );
-                }
-                return ListView.builder(
-                    padding: const EdgeInsets.only(left: 12, right: 12),
-                    itemCount: controller.userSearch.length,
-                    itemBuilder: (context, index) {
-                      final item = controller.userSearch[index];
-                      return Card(
-                          margin: const EdgeInsets.only(top: 10, bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: Get.width * 0.2,
-                                height: Get.width * 0.2,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: ClipOval(
-                                    child: ExtendedImage.network(
-                                      item.pictures ?? '',
-                                      fit: BoxFit.cover,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5)),
-                                      shape: BoxShape.rectangle,
-                                      loadStateChanged:
-                                          (ExtendedImageState state) {
-                                        switch (state.extendedImageLoadState) {
-                                          case LoadState.loading:
-                                            return const Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            );
-                                          case LoadState.completed:
-                                            return null;
-                                          case LoadState.failed:
-                                            return Image.asset(
-                                              ImageAssets.defaultUser,
-                                            );
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    item.fullname ?? '',
-                                    style: Get.theme.textTheme.titleMedium,
-                                  ),
-                                  Text(
-                                    item.status ?? '',
-                                    style: Get.theme.textTheme.titleSmall,
-                                  )
-                                ],
-                              )
-                            ],
-                          ));
-                    });
-              }
-            },
-          ),
-        )
-      ],
-    );
-  }
-}
+// class CardStack extends GetView<ContactController> {
+//   const CardStack({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: [
+//         RefreshIndicator(
+//           onRefresh: () async {
+//             await controller.search(keySearch: '', refresh: true);
+//           },
+//           child: Obx(
+//             () {
+//               if (controller.isLoading.isTrue) {
+//                 return const CircularProgressIndicator();
+//               } else {
+//                 if (controller.userSearch.isEmpty) {
+//                   return const CustomNoDataWidget(
+//                     noiDung: 'Không có dữ liệu',
+//                     isSearch: false,
+//                   );
+//                 }
+//                 return ListView.builder(
+//                     padding: const EdgeInsets.only(left: 12, right: 12),
+//                     itemCount: 1,
+//                     itemBuilder: (context, index) {
+//                       // final item = controller.userContact[index];
+//                       return Column(
+//                         children: <Widget>[
+//                           if (controller.searchTinTucController != null)
+//                             for (int i = 0; i < alphabet.length; i++)
+//                               if (checkLetter(alphabet[i]['letter']) != 0)
+//                                 ContactList(
+//                                   charInput: alphabet[i]["letter"],
+//                                 ),
+//                         ],
+//                       );
+//                     });
+//               }
+//             },
+//           ),
+//         )
+//       ],
+//     );
+//   }
+// }
 
 class CardContact extends StatelessWidget {
   final String person;

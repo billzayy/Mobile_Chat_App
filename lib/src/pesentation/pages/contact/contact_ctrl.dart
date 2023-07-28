@@ -40,7 +40,7 @@ class ContactController extends GetxController {
     final ApiResponse<List<UserModel>> res =
         await _userService.search(keySearch);
     if (res.status == ApiResponseStatus.completed) {
-      userSearch.call(res.data);
+      userContact.call(res.data);
     } else {
       Get.log(res.message.toString());
     }

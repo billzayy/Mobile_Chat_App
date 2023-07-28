@@ -137,14 +137,14 @@ class RouterConfigs {
       name: HelpView.routerName,
       page: () => const HelpView(),
     ),
-    GetPage(
-      name: SearchUser.routeName,
-      page: () => const SearchUser(),
-      binding: BindingsBuilder(
-        () {
-          Get.lazyPut(() => ContactController());
-        },
-      ),
-    ),
+    // GetPage(
+    //   name: SearchUser.routeName,
+    //   page: () => const SearchUser(),
+    //   binding: BindingsBuilder(
+    //     () {
+    //       Get.lazyPut(() => ContactController());
+    //     },
+    //   ),
+    // ),
   ];
 }
