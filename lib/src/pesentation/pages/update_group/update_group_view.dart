@@ -2,7 +2,6 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:software_project_3/config/assets.dart';
-import 'package:software_project_3/src/pesentation/pages/root_app.dart';
 import 'package:software_project_3/src/pesentation/pages/update_group/update_group_ctrl.dart';
 
 class UpdateGroupView extends GetView<UpdateGroupController> {

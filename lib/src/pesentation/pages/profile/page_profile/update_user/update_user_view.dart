@@ -116,36 +116,6 @@ class UpdateUserView extends GetView<UpdateUserController> {
               const SizedBox(
                 height: 20,
               ),
-              Text(
-                'Password',
-                style: Get.theme.textTheme.bodyMedium
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Obx(
-                () => TextField(
-                  controller: controller.passwordEditController,
-                  obscureText: !controller.showPassword.value,
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
-                      // color: context.theme.hintColor,
-                      ),
-                  decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        icon: Icon(controller.showPassword.value
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: controller.togglePasswordVisibility,
-                      ),
-                      alignLabelWithHint: true,
-                      hintText: 'Enter your password',
-                      hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
-                      errorText: controller.passwordError.value,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black))),
-                ),
-              ),
               const SizedBox(
                 height: 30,
               ),
