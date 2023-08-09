@@ -25,7 +25,9 @@ class LoginView extends GetView<LoginController> {
                     children: [
                       Row(
                         children: [
-                          Text('Hi, Welcome Back!', style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+                          Text('Hi, Welcome Back!',
+                              style: Get.theme.textTheme.headlineSmall
+                                  ?.copyWith(fontWeight: FontWeight.bold)),
                           const Icon(Icons.messenger_outline_sharp)
                         ],
                       ),
@@ -41,7 +43,8 @@ class LoginView extends GetView<LoginController> {
                       ),
                       Text(
                         'Email Address',
-                        style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                        style: Get.theme.textTheme.bodyMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 4,
@@ -56,9 +59,11 @@ class LoginView extends GetView<LoginController> {
                           decoration: InputDecoration(
                               alignLabelWithHint: true,
                               hintText: 'example@example.com',
-                              hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
+                              hintStyle: context.theme.textTheme.bodyMedium
+                                  ?.copyWith(),
                               errorText: controller.emailChiError.value,
-                              border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black))),
                         ),
                       ),
                       const SizedBox(
@@ -66,7 +71,8 @@ class LoginView extends GetView<LoginController> {
                       ),
                       Text(
                         'Password',
-                        style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                        style: Get.theme.textTheme.bodyMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 4,
@@ -80,39 +86,19 @@ class LoginView extends GetView<LoginController> {
                               ),
                           decoration: InputDecoration(
                               suffixIcon: IconButton(
-                                icon: Icon(controller.showPassword.value ? Icons.visibility : Icons.visibility_off),
+                                icon: Icon(controller.showPassword.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
                                 onPressed: controller.togglePasswordVisibility,
                               ),
                               alignLabelWithHint: true,
                               hintText: 'Enter your password',
-                              hintStyle: context.theme.textTheme.bodyMedium?.copyWith(),
+                              hintStyle: context.theme.textTheme.bodyMedium
+                                  ?.copyWith(),
                               errorText: controller.passwordError.value,
-                              border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black))),
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            // crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Checkbox(
-                                checkColor: Colors.white,
-                                // fillColor: MaterialStateProperty.resolveWith(getColor),
-                                value: controller.isChecked,
-                                onChanged: (bool? value) {},
-                              ),
-                              Text(
-                                'Remember Me',
-                                style: Get.theme.textTheme.bodyMedium,
-                              )
-                            ],
-                          ),
-                          Text(
-                            'Forgot Password',
-                            style: Get.theme.textTheme.bodyMedium?.copyWith(color: Colors.red),
-                          ),
-                        ],
                       ),
                       const SizedBox(
                         height: 20,
@@ -126,7 +112,8 @@ class LoginView extends GetView<LoginController> {
                           onPressed: () => controller.onSend(),
                           child: Text(
                             'Login',
-                            style: Get.theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
+                            style: Get.theme.textTheme.bodyMedium
+                                ?.copyWith(color: Colors.white),
                           ),
                         ),
                       ),
@@ -229,12 +216,15 @@ class LoginView extends GetView<LoginController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have ann account? ", style: Get.theme.textTheme.bodyLarge),
+                    Text("Don't have ann account? ",
+                        style: Get.theme.textTheme.bodyLarge),
                     InkWell(
                       onTap: () => Get.toNamed(SignView.routeName),
                       child: Text(
                         "Sign Up ",
-                        style: Get.theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold, color: Colors.deepPurple[500]),
+                        style: Get.theme.textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple[500]),
                       ),
                     )
                   ],

@@ -37,17 +37,17 @@ class LoginController extends GetxController {
     passwordError.value = null;
 
     /// check valid
-    if (emailEditController.text.trim().isEmpty) {
-      emailChiError.call('email hoặc password không đúng !');
-      tinTucConfig.showSnackBar('Bạn Chưa Nhập email ',
-          backgroundColor: Colors.amber);
+    if (emailEditController.text.trim().isEmpty ||
+        !emailEditController.text.contains('@')) {
+      emailChiError.call('email không đúng định dạng !');
+      // tinTucConfig.showSnackBar('Bạn Chưa Nhập email ',
+      //     backgroundColor: Colors.amber);
       return;
     }
-    if (passwordEditController.text.trim().isEmpty) {
-      passwordError.call('email hoặc password không đúng !');
-      tinTucConfig.showSnackBar('Bạn Chưa Nhập password',
-          backgroundColor: Colors.amber);
-      return;
+    if (passwordEditController.text.trim().isEmpty ||
+        passwordEditController.text.contains(' ')) {
+      passwordError.call('Password không được chứa khoảng trống!');
+      return false;
     }
 
     _loginApp();
@@ -69,7 +69,7 @@ class LoginController extends GetxController {
     } else {
       tinTucConfig.showSnackBar(
           title: 'Thông báo',
-          'Đăng Nhập Thất Bại.Vui Lòng thử Lại !',
+          'Email hoặc Password không đúng.Vui Lòng thử Lại !',
           backgroundColor: Colors.orangeAccent);
     }
     isLoading.call(false);

@@ -62,26 +62,38 @@ class ContactView extends GetView<ContactController> {
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              controller: controller.searchTinTucController,
-              cursorColor: Colors.black,
-              autofocus: true,
-              style: context.theme.textTheme.titleMedium?.copyWith(
-                color: Colors.black,
-              ),
-              onSubmitted: (v) async {
-                await controller.search(keySearch: v, refresh: true);
-              },
-              decoration: InputDecoration(
-                hintText: "Tìm kiếm",
-                hintStyle: context.theme.textTheme.titleMedium?.copyWith(
-                    // color: context.theme.colorScheme.onPrimary,
-                    ),
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
+            child: SizedBox(
+              height: Get.height * 0.04,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: TextField(
+                  controller: controller.searchTinTucController,
+                  cursorColor: Colors.black,
+                  style: context.theme.textTheme.titleMedium?.copyWith(
+                    color: Colors.black,
+                  ),
+                  onSubmitted: (v) async {
+                    await controller.search(keySearch: v, refresh: true);
+                  },
+                  decoration: InputDecoration(
+                    icon: const Icon(Icons.search),
+                    hintText: "Tìm kiếm",
+                    hintStyle: context.theme.textTheme.titleMedium?.copyWith(
+                        // color: context.theme.colorScheme.onPrimary,
+                        ),
+                    alignLabelWithHint: true,
+                    contentPadding: EdgeInsets.zero,
+                    isCollapsed: true,
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                  ),
+                ),
               ),
             ),
           ),

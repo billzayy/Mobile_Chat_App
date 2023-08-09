@@ -154,11 +154,15 @@ class SignView extends GetView<SignController> {
                     Row(
                       // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Checkbox(
-                          checkColor: Colors.white,
-                          // fillColor: MaterialStateProperty.resolveWith(getColor),
-                          value: controller.isChecked,
-                          onChanged: (bool? value) {},
+                        Obx(
+                          () => Checkbox(
+                            checkColor: Colors.white,
+                            // fillColor: MaterialStateProperty.resolveWith(getColor),
+                            value: controller.isCheck.value,
+                            onChanged: (value) {
+                              controller.toggleCheckbox();
+                            },
+                          ),
                         ),
                         Text(
                           'I agree to the terms and conditions ',
